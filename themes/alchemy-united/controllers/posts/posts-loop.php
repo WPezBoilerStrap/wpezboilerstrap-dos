@@ -17,22 +17,27 @@ if ( ! class_exists('Posts_Loop')) {
 		 */
 		public function get_view(){
 
-			global $wp_query;
-			var_dump($wp_query->posts);
+			$str_ret = '';
 
-			$str_ret = 'TODO: Posts_Loop';
+			$gv = new \stdClass();
 
-		//	$this->model();
+			$gv->active = true;
+			$gv->class = '\\WPezBoilerStrap\Views\Posts\Post_List_Layout_V1';
+			$gv->args = $this->get_view_args();
+			// $gv->args->use = "defaults";
+			$gv->method = false;  // false means we get an instance of the class back
 
-			/*
-			$obj = new \stdClass();
+			$obj_view = $this->ez_loader($gv);
 
-			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Wrappers\Wrapper_Two_V1';
-			$obj->args = $this->get_view_args();
+			$str_ret = '';
+			$arr_posts = $gv->args->mod->posts;
 
-			$str_ret = $this->view_render($obj);
-			*/
+			foreach ($arr_posts as $key => $obj){
+
+				$obj_view->set_mod($obj);
+				$str_ret .= $obj_view->render();
+
+			}
 
 			return $str_ret;
 		}
@@ -52,12 +57,9 @@ if ( ! class_exists('Posts_Loop')) {
 		 */
 		protected function model() {
 
+			$mod = new \stdClass();
 
 			global $wp_query;
-
-			$obj_loop_v1 = new \WPezBoilerStrap\Models\Posts\Loop_V1();
-			// copy/clone the wp array.
-			$arr_posts = $obj_loop_v1->deep_copy($wp_query->posts);
 
 			$obj_users_v1 = new \WPezBoilerStrap\Models\Users\User_V1();
 			$obj_single_v1 = new \WPezBoilerStrap\Models\Posts\Single_V1();
@@ -76,36 +78,26 @@ if ( ! class_exists('Posts_Loop')) {
 			 * in theory, there's also the potential to cache details at the post ID level. so
 			 * it makes sense to key this array with the post ID.
 			 */
-			$arr_posts_details = array();
-			foreach ( $arr_posts as $key => $obj){
-				$obj_det = new \stdClass();
+			$arr_posts = array();
+			// TODO - check to make sure we have posts?
+			foreach ( $wp_query->posts as $key => $obj_post){
 
-				$obj_det->url = get_permalink( $obj->ID );
+				$obj_new = new \stdClass;
 
-				$obj_det->author = $obj_users_v1->user_min($obj->post_author);
+				$obj_new = $this->ez_clone($obj_post);
 
-				/*$arr = array();
-				foreach ( $arr_taxs as $key => $bool ) {
-					if ( $bool !== false) {
-						$str_prop = 'term_' . strtolower(trim($key));
-						$obj_det->$str_prop = $obj_single_v1->get_terms( $obj->ID, $key );
-					}
-				}
-				*/
-				$obj_det->terms = $obj_single_v1->get_terms_multi( $obj->ID, $arr_taxs);;
+				// add the terms
+				$obj_new->ezx->terms = $obj_single_v1->get_terms_multi( $obj_new->ID, $arr_taxs);
+				// add the featured image
+				$obj_new->ezx->img = $obj_single_v1->featured_image_min($obj_new->ID, $str_img_size);
+				// add the user  author
+				$obj_new->ezx->user = $obj_users_v1->user_min($obj_new->post_author);
 
-				$obj_det->img = $obj_single_v1->featured_image_min($obj->ID, $str_img_size);
-
-				$arr_posts_details[$obj->ID] = $obj_det;
+				$arr_posts[$obj_new->ID] = $obj_new;
 
 			}
 
-
-			$mod = new \stdClass();
 			$mod->posts = $arr_posts;
-			$mod->details = $arr_posts_details;
-
-			var_dump($mod);
 
 			return $mod;
 		}
@@ -115,9 +107,9 @@ if ( ! class_exists('Posts_Loop')) {
 		 */
 		protected function partials() {
 
-			$obj = new \stdClass();
+			$parts = new \stdClass();
 
-			return $obj;
+			return $parts;
 		}
 
 
@@ -137,9 +129,11 @@ if ( ! class_exists('Posts_Loop')) {
 		 */
 		protected function viewargs() {
 
-			$obj = new \stdClass();
+			$vargs = new \stdClass();
 
-			return $obj;
+			$vargs->date_format = 'Y';
+
+			return $vargs;
 		}
 
 

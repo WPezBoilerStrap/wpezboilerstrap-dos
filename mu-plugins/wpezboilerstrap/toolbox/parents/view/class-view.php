@@ -38,7 +38,11 @@ if ( ! class_exists( 'View' ) ) {
 
 			$this->_arr_enclose = array( 'semantic', 'wrapper' );
 
-			if ( $obj_args->use == 'defaults' ) {
+			if ( ! isset($obj_args->use) ){
+
+				$this->set_args( $obj_args );
+
+			} elseif ( $obj_args->use == 'defaults' ) {
 
 				$this->_lang  = $this->lang_defaults();
 				$this->_mod   = $this->mod_defaults();
@@ -174,18 +178,18 @@ if ( ! class_exists( 'View' ) ) {
 		/**
 		 * @param string $str_ele
 		 * @param string $arr_gats
-		 * @param bool $mix_validation
+		 * @param bool $mix_validation << TODO
 		 *
 		 * @return string
 		 */
 		protected function element_open( $str_ele = '', $arr_gats = '', $mix_validation = false ) {
 
 			$str_ele_esc = esc_attr( $str_ele );
-			$str_gats    = $this->global_attrs( $arr_gats );
 
 			$str_ret = '';
 			// TODO - element tag validation?
 			if ( ! empty( $str_ele_esc ) ) {
+				$str_gats    = $this->global_attrs( $arr_gats );
 				$str_ret .= '<' . $str_ele_esc . $str_gats . '>';
 			}
 
@@ -222,7 +226,7 @@ if ( ! class_exists( 'View' ) ) {
 		 *
 		 * @return bool
 		 */
-		protected function enclose( $obj_vargs = '' ) {
+		protected function enclose_setup( $obj_vargs = '' ) {
 
 			/*
 			 * every view can have an enclose (i.e., semantic wrapper* and a wrapper nested within that).
@@ -230,7 +234,7 @@ if ( ! class_exists( 'View' ) ) {
 			 *     able to customize an enclose for any given a view
 			 * (2) it's one less thing for the view dev to worry about.
 			 * (3) that is, it "forces" the view to be as minimal as possible. beyond that,
-			 *     the enclose() takes care of what is (almost) always there.
+			 *     the enclose_setup() takes care of what is (almost) always there.
 			 */
 
 			$this->_semantic_open  = '';
@@ -274,9 +278,20 @@ if ( ! class_exists( 'View' ) ) {
 		 */
 		public function render() {
 
-			$this->enclose( $this->_vargs );
+			$this->enclose_setup( $this->_vargs );
 
 			$str_ret = $this->view( $this->_lang, $this->_mod, $this->_parts, $this->_vargs );
+
+			return $this->enclose($str_ret);
+
+		}
+
+		/**
+		 * @param string $str_ret
+		 *
+		 * @return string
+		 */
+		public function enclose($str_ret = ''){
 
 			return $this->_semantic_open . $this->_wrapper_open . $str_ret . $this->_wrapper_close . $this->_semantic_close;
 

@@ -1,15 +1,24 @@
 <?php
 
-namespace WPezTheme;
+namespace WPezBoilerStrap\Views\Posts;
 
 if ( ! class_exists('Post_List_Layout_V1')) {
 	class Post_List_Layout_V1 extends \WPezBoilerStrap\Toolbox\Parents\View {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
 
-			$str_ret = '';
+			$obj_wp_post = $mod->wp_post;
+			$obj_ezx = $mod->ezx;
 
-			$str_ret .= $mod->post_title;
+
+			$str_ret = '<row>TODO - Post List Layout V1<br>';
+
+			$str_ret .= '<br>-- ' . $obj_wp_post->post_title . ' - ' . $obj_ezx->permalink . '<br>';
+
+			$str_ret .= esc_attr(date($vargs->date_format, strtotime($obj_wp_post->post_date)));
+
+			$str_ret .= '</row>';
+
 
 			return $str_ret;
 		}
@@ -40,6 +49,8 @@ if ( ! class_exists('Post_List_Layout_V1')) {
 		protected function vargs_defaults() {
 
 			$vargs = new \stdClass();
+
+			$vargs->date_format = 'Y';
 
 			return $vargs;
 		}

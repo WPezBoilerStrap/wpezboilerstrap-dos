@@ -7,14 +7,14 @@ if ( ! class_exists('Post_Header_V1')) {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
 
-			$obj_post = $mod->post;
-			$obj_post_x = $mod->ezx;
+			$obj_wp_post = $mod->wp_post;
+			$obj_ezx = $mod->ezx;
 			$obj_user = $mod->ezx->user;
 
 			$str_ret = '';
 
 			$str_ret .=  $this->element_open('h1', '');
-			$str_ret .= esc_attr( $obj_post->post_title );
+			$str_ret .= esc_attr( $obj_wp_post->post_title );
 			$str_ret .= $this->element_close('h1');
 
 			$str_ret .= $parts->one;
@@ -36,7 +36,7 @@ if ( ! class_exists('Post_Header_V1')) {
 			$str_ret .= $this->element_open('span', array('class' => 'fa fa-tags fa-fw'));
 			$str_ret .= $this->element_close('span');
 			$str_ret .= $this->element_open('span', '');
-			$str_ret .= esc_attr(date($vargs->date_format, strtotime($obj_post->post_date)));
+			$str_ret .= esc_attr(date($vargs->date_format, strtotime($obj_wp_post->post_date)));
 			$str_ret .= $this->element_close('span');
 			$str_ret .= $this->element_close('p');
 

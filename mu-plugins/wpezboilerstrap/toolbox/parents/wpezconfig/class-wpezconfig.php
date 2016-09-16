@@ -30,6 +30,21 @@ if ( ! class_exists('WPezConfig') ) {
 			return new \stdClass();
 		}
 
+		/**
+		 * @param string $str_meth - the method within config
+		 * @param string $str_meth_meth - the method within the method
+		 *
+		 * @return \stdClass
+		 */
+		public function ez_get($str_meth = '', $str_meth_meth = ''){
+
+			if ( method_exists($this, $str_meth) && method_exists($this->$str_meth(), 'get') && method_exists($this->$str_meth(), $str_meth_meth) ){
+				$obj = $this->$str_meth();
+				return $obj->get($str_meth_meth);
+			}
+			return new \stdClass();
+		}
+
 		protected function all(){
 
 			$obj = new \stdClass();

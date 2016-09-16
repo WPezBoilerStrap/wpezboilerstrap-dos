@@ -8,77 +8,138 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
 
-			/*
-			 * button_wrap_class
-			 * button_class
-			 * button_href *  = content_id (below)
-			 * button_icon_class * ?? ELSE button_anchor
-			 *
-			 */
-
-			$str_tab_buttons = '';
-			$str_tab_content = '';
+			$str_nav_tabs = '';
+			$str_tab_panes = '';
 			if ( is_array($vargs->tabs)) {
 				foreach ( $vargs->tabs as $key => $obj ) {
 
-					$str_tab_buttons .= $this->element_open( 'div', array( 'class' => "col-xs-3 TODO" ) );
-					$str_tab_buttons .= '<a class="btn btn-link" data-toggle="collapse" href="#' . sanitize_html_class( $obj->button_href ) . '" aria-expanded="false" aria-controls="collapseExample">';
-					$str_tab_buttons .= '<span class="' . esc_attr( $obj->button_icon_class ) . '"></span>';
-					$str_tab_buttons .= '<span class="' . esc_attr( $obj->button_icon_class ) . '">' . esc_attr( $obj->name ) . '</span>';
-					$str_tab_buttons .= '</a>';
-					$str_tab_buttons .= $this->element_close( 'div' );
+					// -- TABS --
 
-					$str_tab_content .= '<div class="collapse col-lg-12 TODO" id="' . sanitize_html_class( $obj->button_href ) . '">';
-					$str_tab_content .= $this->element_open( 'div', array( 'class' => "well" ) );
-					$str_tab_content .= '<span class="' . esc_attr( $obj->button_icon_class ) . '"></span>';
-					$str_tab_content .= $this->element_open( 'span' );
-					$str_tab_content .= esc_attr( $obj->name );
-					$$str_tab_content .= $this->element_close( 'span' );
+					// a tab can be active (or not). therefore, the tab_global_attrs can be set at the vargs or row obj level
+					$arr_tab_global_attrs = $vargs->tab_global_attrs;
+					if ( isset($obj->tab_global_attrs) && ! empty($obj->tab_global_attrs) && is_array($obj->tab_global_attrs)){
+						$arr_tab_global_attrs = $obj->tab_global_attrs;
+					}
+
+					// tab_tag
+					// tab_global_attrs - class = active?
+					$str_nav_tabs .= $this->element_open($vargs->tab_tag, $arr_tab_global_attrs);
+						// $str_nav_tabs .= $this->element_open( 'div', array( 'class' => " TODO" ) );
+
+					// tab_link_global_attrs
+					// Note: This href MUST match the id= of the content_wrap_global_attrs (below)
+					$str_nav_tabs .= '<a href="#' . sanitize_html_class( $obj->tab_link_href ).'" ' . $this->global_attrs($vargs->tab_link_global_attrs) .  '>';
+
+					// tab_icon_tag
+					// tab_icon_global_attrs
+					$str_nav_tabs .= $this->element_open($vargs->tab_icon_tag, $obj->tab_icon_global_attrs);
+						//$str_nav_tabs .= '<i class="' . esc_attr( $obj->button_icon_class ) . '"></i>';
+					$str_nav_tabs .= $this->element_close($vargs->tab_icon_tag);
+
+					// tab_name_tag
+					// tab_name_global_attrs
+					$str_nav_tabs .= $this->element_open($vargs->tab_name_tag, $obj->tab_name_global_attrs);
+						// $str_nav_tabs .= '<span class="' . esc_attr( $obj->button_Xicon_class ) . '">' . esc_attr( $obj->name ) . '</span>';
+					// tab_name
+					$str_nav_tabs .= esc_attr( $obj->tab_name );
+					$str_nav_tabs .= $this->element_close($vargs->tab_name_tag);
+
+					$str_nav_tabs .= '</a>';
+					$str_nav_tabs .= $this->element_close( $vargs->tab_tag );
+
+					// -- PANES --
+
+					// pane_wrap_tag = TODO?
+					// pane_wrap_global_attrs
+					$str_tab_panes .= '<span id="' . sanitize_html_class( $obj->tab_link_href ) . '"' . $this->global_attrs($vargs->pane_wrap_global_attrs). '>';
+
+					// pane_inner_tag
+					// pane_inner_global_attrs
+					$str_tab_panes .= $this->element_open($vargs->pane_inner_tag , $vargs->pane_inner_global_attrs);
+						// $str_tab_panes .= $this->element_open( 'div', array( 'class' => "well" ) );
+
+					// pane_icon_tag
+					// pane_icon_global_attrs
+					$str_tab_panes .= $this->element_open($vargs->pane_icon_tag, $obj->pane_icon_global_attrs);
+					$str_tab_panes .= $this->element_close($vargs->pane_icon_tag);
+						// $str_tab_panes .= '<i class="' . esc_attr( $obj->button_icon_class ) . '"></i>';
+
+					// pane_name_tag
+					if ( $obj->pane_name_active !== false ) {
+						$str_tab_panes .= $this->element_open( $vargs->pane_name_tag, $vargs->pane_name_global_attrs );
+						// pane_name
+						$str_tab_panes .= esc_attr( $obj->pane_name );
+						$str_tab_panes .= $this->element_close( $vargs->pane_name_tag );
+					}
+
+					// pane_name_tag
+					if ( $obj->pane_desc_active !== false) {
+						$str_tab_panes .= $this->element_open( $vargs->pane_desc_tag, $vargs->pane_desc_global_attrs );
+						// pane_name
+						$str_tab_panes .= esc_attr( $obj->pane_desc );
+						$str_tab_panes .= $this->element_close( $vargs->pane_desc_tag );
+					}
 
 					// if mod then mod->$property else if parts then $parts->$property
 					$str_content = '';
-					$str_prop = $obj->property;
-					if ( $obj->source == 'mod' || $obj->source == 'parts' ) {
-						$str_content = $mod->$str_prop;
+					if ( isset($obj->pane_source) && ( $obj->pane_source == 'mod' || $obj->pane_source == 'parts') ) {
+						$str_prop = $obj->source_property;
+						$str_content .= $mod->$str_prop;
 						$str_content .= $parts->$str_prop;
 					}
 					//$prop = $obj->vws;
-					$str_tab_content .= $str_content;
-					$str_tab_content .= $this->element_close( 'div' );
-					$str_tab_content .= '</div>';
+					$str_tab_panes .= $str_content;
+					// content_wrap_tag
+					$str_tab_panes .= $this->element_close( $vargs->pane_inner_tag );
+					// tab_wrap_element
+					$str_tab_panes .= '</span>';
 
 				}
 			}
 
 			$str_ret = '';
 
-			$str_ret .= 'Tabs Collapse BS3 1 - TODO<br>';
+			if ( ! empty($str_nav_tabs) && ! empty($str_tab_panes) ) {
 
-			/*
-			 * wrapper_class
-			 * ??
-			 * row_class
-			 */
+				$str_ret .= 'Tabs Collapse BS3 1 - TODO + CLEANUP<br>';
 
-			$str_ret .= '<div class="blog-controls clearfix TODO ">';
-			$str_ret .= '<div class="col-sm-5 col-sm-offset-7 TODO">';
-			$str_ret .= '<div class="row TODO">';
+				/*
+				 * wrapper_class
+				 * ??
+				 * row_class
+				 */
 
-			$str_ret .= $str_tab_buttons;
+				// tabs_wrap_outer_tag
+				// + global_attrs
+				$str_ret .= $this->element_open($vargs->tabs_wrap_outer_tag, $vargs->tabs_wrap_outer_global_attrs);
+					//$str_ret .= '<div class="row blog-controls TODO">';
 
-			$str_ret .= '</div>';
-			$str_ret .= '</div>';
-			$str_ret .= '</div>';
+				// tabs_wrap_inner_tag
+				// + global_attrs
+				$str_ret .= $this->element_open($vargs->tabs_wrap_inner_tag,$vargs->tabs_wrap_inner_global_attrs);
+					// $str_ret .= '<div class="col-sm-5 col-sm-offset-7 TODO">';
+
+				$str_ret .= $str_nav_tabs;
+
+				$str_ret .= $this->element_close($vargs->tabs_wrap_inner_tag);
+					// $str_ret .= '</div>';
+				$str_ret .= $this->element_close($vargs->tabs_wrap_outer_tag);
+					// $str_ret .= '</div>';
 
 
-			/*
-			 * wrapper
-			 */
-			$str_ret .= '<div id="my-collapse-TODO" class="row blog-controls-open">';
+				// tabs_content_wrap_tag
+				// tabs_content_wrap_global_attrs
+				$str_ret .= $this->element_open($vargs->tabs_content_wrap_tag, $vargs->tabs_content_wrap_global_attrs);
+					// $str_ret .= '<div id="my-collapse-TODO" class="row blog-controls-open">';
 
-			$str_ret .= $str_tab_content;
+				$str_ret .= $str_tab_panes;
 
-			$str_ret .= '</div>';
+				$str_ret .= $this->element_close($vargs->tabs_content_wrap_tag);
+					// $str_ret .= '</div>';
+			} else {
+
+				$str_ret .= 'TODO - is empty';
+			}
 
 			return $str_ret;
 		}
@@ -95,6 +156,9 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 			$mod = new \stdClass();
 
+			$mod->share = "Share pane - TODO";
+			$mod->cats = "Categories pane - TODO";
+			$mod->tags = "Tags pane - TODO";
 			return $mod;
 		}
 
@@ -103,10 +167,22 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 			$parts = new \stdClass();
 
+			$parts->search = "Search pane - TODO";
+
 			return $parts;
 		}
 
 		protected function vargs_defaults() {
+
+			//$obj = new \stdClass();
+
+			// $str_method = 'index-body';
+
+			// $obj_vargs = $this->_wpezconfig->get('viewargs');
+
+			// return $obj_vargs->get($str_method);
+
+			//return $obj;
 
 			/*
 			$obj_enc = new \stdClass();
@@ -124,11 +200,150 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 			$obj_enc->wrapper_global_attrs = array(
 				'class' => 'my wrapper class test'
 			);
-			*/
 
+			*/
 			$vargs = new \stdClass();
 
-			// $vargs->enclosure = $obj_enc;
+			// $vargs->enclose = $obj_enc;
+
+			// the wrappers for the tabs and the content / panes
+			$vargs->tabs_wrap_outer_tag = 'div';
+			$vargs->tabs_wrap_outer_global_attrs = array(
+				"class" => "row blog-controls"
+			);
+			$vargs->tabs_wrap_inner_tag = 'div';
+			$vargs->tabs_wrap_inner_global_attrs = array(
+				"class" => "col-sm-5 col-sm-offset-7"
+			);
+
+			$vargs->tabs_content_wrap_tag = 'div';
+			$vargs->tabs_content_wrap_global_attrs = array(
+				"id" => "my-collapse-TODO",
+				"class" => "row blog-controls-open"
+			);
+
+			// the "globals" for the tabs and panes
+			$vargs->tab_tag = 'div';
+			// tab_global_attrs - can be set global but override at each individual row
+			$vargs->tab_global_attrs = array(
+				'class' => " TODO-VARGS"
+			);
+			$vargs->tab_link_global_attrs = array(
+				"class" => "btn btn-link col-xs-3",
+				"data-toggle" => "collapse",
+				"aria-expanded" => "false",
+				"aria-controls" => "collapseExample"
+			);
+			$vargs->tab_icon_tag = 'i';
+			$vargs->tab_name_global_attrs = array(
+
+			);
+
+			// $vargs->pane_wrap_tag = 'div';
+			$vargs->pane_wrap_global_attrs = array(
+				"class" => "col-lg-12 TODO collapse"
+			);
+			$vargs->pane_inner_tag = 'div';
+			$vargs->pane_inner_global_attrs = array(
+				'class' => "well"
+			);
+			$vargs->pane_icon_tag = 'i';
+
+			$vargs->pane_name_tag = 'span';
+			$vargs->pane_name_global_attrs = array();
+
+			$vargs->pane_desc_tag = 'span';
+			$vargs->pane_desc_global_attrs = array();
+
+
+			// the individual tabs / panes
+
+			$arr = array();
+
+			// SHARE
+			$tab = new \stdClass();
+
+			// tab_global_attrs - can be set global but override at each individual row
+			$tab->tab_global_attrs = array(
+				'class' => " TODO-OBJ"
+			);
+			$tab->tab_name = 'Share';   // TODO language?
+			$tab->tab_link_href = 'au-share';
+			$tab->tab_icon_global_attrs = array(
+				"class" => 'fa fa-share-alt fa-fw'
+			);
+			// these are different so you have control
+			$tab->pane_icon_global_attrs = array(
+				"class" => 'fa fa-share-alt fa-fw'
+			);
+			// on off swtich for the name
+			$tab->pane_name_active = true;
+			// duplicated / different so you have control
+			$tab->pane_name = 'Share';
+			// on off switch for the descrption
+			$tab->pane_desc_active = true;
+			$tab->pane_desc = " - Ex his ferri tation dolore, nam no invidunt reprimique.";
+			// this pane's content come from mod() or parts()
+			$tab->pane_source = 'mod'; // or parts
+			// what property of mod() or parts()?
+			$tab->source_property = 'share';
+			$arr[] = $tab;
+
+			// CATEGORIES
+			$tab = new \stdClass();
+			$tab->tab_name = 'Categories';
+			$tab->tab_link_href = 'au-categories';
+			$tab->tab_icon_global_attrs = array(
+				"class" => 'fa fa-flag fa-fw'
+			);
+			$tab->pane_icon_global_attrs = array(
+				"class" => 'fa fa-flag fa-fw'
+			);
+			$tab->pane_name_active = true;
+			$tab->pane_name = 'Categories';
+			$tab->pane_desc_active = false;
+			$tab->pane_desc = " - Lorem ipsum dolor sit amet, dictas principes intellegebat ne ius.";
+			$tab->pane_source = 'mod';
+			$tab->source_property = 'cats';
+			$arr[] = $tab;
+
+			// TAGS
+			$tab = new \stdClass();
+			$tab->tab_name = "Tags";
+			$tab->tab_link_href = 'au-tags';
+			$tab->tab_icon_global_attrs = array(
+				"class" => 'fa fa-tags fa-fw'
+			);
+			$tab->pane_icon_global_attrs = array(
+				"class" => 'fa fa-tags fa-fw'
+			);
+			$tab->pane_name_active = true;
+			$tab->pane_name = 'Tags';
+			$tab->pane_desc_active = false;
+			$tab->pane_desc = " - In sea meis soleat periculis. Ad mei accommodare comprehensam.";
+			$tab->pane_source = 'mod';
+			$tab->source_property = 'tags';
+			$arr[] = $tab;
+
+			// SEARCH
+			$tab = new \stdClass();
+			$tab->tab_name = "Search";
+			$tab->tab_link_href = 'au-search';
+			$tab->tab_icon_global_attrs = array(
+				"class" => 'fa fa-search fa-fw'
+			);
+			$tab->pane_icon_global_attrs = array(
+				"class" => 'fa fa-search fa-fw'
+			);
+			$tab->pane_name_active = true;
+			$tab->pane_name = 'Search';
+			$tab->pane_desc_active = false;
+			$tab->pane_desc = " - Ut sale etiam urbanitas mel. No repudiare patrioque scripserit mea.";
+			$tab->pane_source = 'parts';
+			$tab->source_property = 'search';
+			$arr[] = $tab;
+
+			$vargs->tabs = $arr;
 
 			return $vargs;
 		}

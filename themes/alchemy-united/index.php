@@ -8,6 +8,8 @@ if ( ! defined('ABSPATH') ) {
 	die();
 }
 
+// TODO - alter the template hierarchy so it goes straight to index
+
 get_template_part('controllers\index');
 $au = new Index();
 echo $au->get_view();

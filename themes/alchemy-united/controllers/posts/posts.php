@@ -2,8 +2,8 @@
 
 namespace WPezTheme;
 
-if ( ! class_exists('Single')) {
-	class Single extends \WPezBoilerStrap\Toolbox\Parents\Controller
+if ( ! class_exists('Posts')) {
+	class Posts extends \WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -17,19 +17,21 @@ if ( ! class_exists('Single')) {
 		 */
 		public function get_view(){
 
-			$obj = new \stdClass();
+			$str_ret = '';
 
-			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Groups\Group_Three_V1';
-			$obj->args = $this->get_view_args();
-			$obj->method = 'render';
+			$obj_gv = new \stdClass();
 
-			$str_ret = $this->ez_loader($obj);
+			$obj_gv->active = true;
+			$obj_gv->class = '\\WPezBoilerStrap\Views\Groups\Group_Three_V1';
+			$obj_gv->args = $this->get_view_args();
+			$obj_gv->method = 'render';
+
+			$str_ret = $this->ez_loader($obj_gv);
 
 			return $str_ret;
 		}
 
-		/*
+		/**
 		 * return obj
 		 */
 		protected function language() {
@@ -39,7 +41,7 @@ if ( ! class_exists('Single')) {
 			return $obj;
 		}
 
-		/*
+		/**
 		 * return obj
 		 */
 		protected function model() {
@@ -49,17 +51,18 @@ if ( ! class_exists('Single')) {
 			return $obj;
 		}
 
-		/*
+		/**
 		 * return obj
 		 */
 		protected function partials() {
 
-			$obj = new \stdClass();
+			$parts = new \stdClass();
 
 			$part        = new \stdClass();
 
 			$part->active = true;
-			$part->slug  = 'controllers\components\tabs-collapse';
+			$part->slug_path = 'controllers\components';
+			$part->slug  = 'tabs-collapse';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Tabs_Collapse';
 			$part->args  = '';
@@ -67,42 +70,44 @@ if ( ! class_exists('Single')) {
 
 			$str_accord = $this->ez_loader($part);
 
-			$obj->one = $str_accord;
+			$parts->one = $str_accord;
 
 			// -
 			$part        = new \stdClass();
 
 			$part->active = true;
-			$part->slug  = 'controllers\single-wrapper';
+			$part->slug_path = $this->gtp_path(__DIR__);
+			$part->slug  = 'posts-loop';
 			$part->name  = '';
-			$part->class = '\\WPezTheme\Single_Wrapper';
+			$part->class = '\\WPezTheme\Posts_Loop';
 			$part->args  = '';
 			$part->method = 'get_view';
 
 			$str_sing_wrap = $this->ez_loader($part);
 
-			$obj->two = $str_sing_wrap;
+			$parts->two = $str_sing_wrap;
 
 
 			// -
 			$part        = new \stdClass();
 
 			$part->active = true;
-			$part->slug  = 'controllers\single-prev-next';
+			$part->slug_path = 'controllers\components';
+			$part->slug  = 'posts-pagination';
 			$part->name  = '';
-			$part->class = '\\WPezTheme\Single_Prev_Next';
+			$part->class = '\\WPezTheme\Posts_Pagination';
 			$part->args  = '';
 			$part->method = 'get_view';
 
-			$str_sing_np = $this->ez_loader($part);
+			$str_posts_pg = $this->ez_loader($part);
 
-			$obj->three = $str_sing_np;
+			$parts->three = $str_posts_pg;
 
-			return $obj;
+			return $parts;
 		}
 
 
-		/*
+		/**
 		 * return obj
 		 */
 		protected function router() {
@@ -113,7 +118,7 @@ if ( ! class_exists('Single')) {
 		}
 
 
-		/*
+		/**
 		 * return obj
 		 */
 		protected function viewargs() {
@@ -122,6 +127,8 @@ if ( ! class_exists('Single')) {
 
 			return $obj;
 		}
+
+
 
 	}
 }

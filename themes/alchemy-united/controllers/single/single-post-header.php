@@ -46,7 +46,7 @@ if ( ! class_exists('Single_Post_Header')) {
 
 			global $post;
 
-			$obj_post = $this->post_clone($post);
+			$obj_post = $this->ez_clone($post);
 
 			$obj_user = new \WPezBoilerStrap\Models\Users\User_V1();
 			$obj_post->ezx->user = $obj_user->user_min($obj_post->post_author);
@@ -60,12 +60,15 @@ if ( ! class_exists('Single_Post_Header')) {
 		 */
 		protected function partials() {
 
+			$gtp_path = $this->gtp_path(__DIR__) . '/';
+
 			$obj = new \stdClass();
 
 			$part        = new \stdClass();
 
 			$part->active = true;
-			$part->slug  = 'controllers\single-term-category';
+			$part->slug_path = $gtp_path;
+			$part->slug  = 'single-term-category';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Single_Term_Category';
 			$part->args  = '';
@@ -78,7 +81,8 @@ if ( ! class_exists('Single_Post_Header')) {
 			$part        = new \stdClass();
 
 			$part->active = true;
-			$part->slug  = 'controllers\single-term-post-tag';
+			$part->slug_path = $gtp_path;
+			$part->slug  = 'single-term-post-tag';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Single_Term_Post_tag';
 			$part->method = 'get_view';

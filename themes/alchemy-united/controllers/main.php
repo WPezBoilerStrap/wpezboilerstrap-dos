@@ -61,7 +61,8 @@ if ( ! class_exists('Main')) {
 				$part        = new \stdClass();
 
 				$part->active = true;
-				$part->slug  = 'controllers\page';
+				$part->slug_path = 'controllers/pages';
+				$part->slug  = 'page';
 				$part->name  = '';
 				$part->class = '\\WPezTheme\Page';
 				$part->args  = '';
@@ -74,7 +75,8 @@ if ( ! class_exists('Main')) {
 				$part        = new \stdClass();
 
 				$part->active = true;
-				$part->slug  = 'controllers\single';
+				$part->slug_path  = 'controllers/single';
+				$part->slug  = 'single';
 				$part->name  = '';
 				$part->class = '\\WPezTheme\Single';
 				$part->args  = '';
@@ -87,7 +89,8 @@ if ( ! class_exists('Main')) {
 				$part        = new \stdClass();
 
 				$part->active = true;
-				$part->slug  = 'controllers\is-404';
+				$part->slug_path  = 'controllers';
+				$part->slug  = 'is-404';
 				$part->name  = '';
 				$part->class = '\\WPezTheme\Is_404';
 				$part->args  = '';
@@ -100,7 +103,8 @@ if ( ! class_exists('Main')) {
 				$part        = new \stdClass();
 
 				$part->active = true;
-				$part->slug  = 'controllers\posts';
+				$part->slug_path  = 'controllers/posts';
+				$part->slug  = 'posts';
 				$part->name  = '';
 				$part->class = '\\WPezTheme\Posts';
 				$part->args  = '';

@@ -2,8 +2,8 @@
 
 namespace WPezTheme;
 
-if ( ! class_exists('Posts')) {
-	class Posts extends \WPezBoilerStrap\Toolbox\Parents\Controller
+if ( ! class_exists('Single_Wrapper')) {
+	class Single_Wrapper extends \WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -17,16 +17,14 @@ if ( ! class_exists('Posts')) {
 		 */
 		public function get_view(){
 
-			$str_ret = '';
+			$obj = new \stdClass();
 
-			$obj_gv = new \stdClass();
+			$obj->active = true;
+			$obj->class = '\\WPezBoilerStrap\Views\Groups\Group_Two_V1';
+			$obj->args = $this->get_view_args();
+			$obj->method = 'render';
 
-			$obj_gv->active = true;
-			$obj_gv->class = '\\WPezBoilerStrap\Views\Wrappers\Wrapper_Three_V1';
-			$obj_gv->args = $this->get_view_args();
-			$obj_gv->method = 'render';
-
-			$str_ret = $this->ez_loader($obj_gv);
+			$str_ret = $this->ez_loader($obj);
 
 			return $str_ret;
 		}
@@ -49,6 +47,7 @@ if ( ! class_exists('Posts')) {
 			$obj = new \stdClass();
 
 			return $obj;
+
 		}
 
 		/**
@@ -56,6 +55,7 @@ if ( ! class_exists('Posts')) {
 		 */
 		protected function partials() {
 
+			$gtp_path = $this->gtp_path(__DIR__) . '////';
 
 
 			$obj = new \stdClass();
@@ -63,44 +63,31 @@ if ( ! class_exists('Posts')) {
 			$part        = new \stdClass();
 
 			$part->active = true;
-			$part->slug  = 'controllers\sidebar-accordion';
+			$part->slug_path = $gtp_path;
+			$part->slug  = 'single-post-header';
 			$part->name  = '';
-			$part->class = '\\WPezTheme\Sidebar_Accordion';
-			$part->args  = '';
+			$part->class = '\\WPezTheme\Single_Post_Header';
+			$part->args  = $this->model();
 			$part->method = 'get_view';
 
-			$str_accord = $this->ez_loader($part);
+			$str_sing_ph = $this->ez_loader($part);
 
-			$obj->one = $str_accord;
+			$obj->one = $str_sing_ph;
 
 			// -
 			$part        = new \stdClass();
 
 			$part->active = true;
-			$part->slug  = 'controllers\posts-loop';
+			$part->slug_path = $gtp_path;
+			$part->slug  = 'single-content';
 			$part->name  = '';
-			$part->class = '\\WPezTheme\Posts_Loop';
+			$part->class = '\\WPezTheme\Single_Content';
 			$part->args  = '';
 			$part->method = 'get_view';
 
-			$str_sing_wrap = $this->ez_loader($part);
+			$str_sing_con = $this->ez_loader($part);
 
-			$obj->two = $str_sing_wrap;
-
-
-			// -
-			$part        = new \stdClass();
-
-			$part->active = true;
-			$part->slug  = 'controllers\posts-pagination';
-			$part->name  = '';
-			$part->class = '\\WPezTheme\Posts-Pagination';
-			$part->args  = '';
-			$part->method = 'get_view';
-
-			$str_posts_pg = $this->ez_loader($part);
-
-			$obj->three = $str_posts_pg;
+			$obj->two = $str_sing_con;
 
 			return $obj;
 		}
@@ -122,7 +109,13 @@ if ( ! class_exists('Posts')) {
 		 */
 		protected function viewargs() {
 
+			// ->enclose
+			$enc = new \stdClass();
+			$enc->semantic_tag = 'article';
+
+
 			$obj = new \stdClass();
+			$obj->enclose = $enc;
 
 			return $obj;
 		}

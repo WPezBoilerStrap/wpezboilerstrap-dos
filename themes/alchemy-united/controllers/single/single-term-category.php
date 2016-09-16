@@ -2,9 +2,9 @@
 
 namespace WPezTheme;
 
-if ( ! class_exists('Single_Prev_Next')) {
-	class Single_Prev_Next extends \WPezBoilerStrap\Toolbox\Parents\Controller
-	{
+if ( ! class_exists( 'Single_Term_Category' ) ) {
+	class Single_Term_Category extends \WPezBoilerStrap\Toolbox\Parents\Controller {
+
 		protected $_wpezconfig;
 
 		public function __construct() {
@@ -15,14 +15,16 @@ if ( ! class_exists('Single_Prev_Next')) {
 		/**
 		 * return string
 		 */
-		public function get_view(){
+		public function get_view() {
+
+			$str_ret = '';
 
 			$obj = new \stdClass();
 
 			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Components\Prev_Next_Min_V1';
+			$obj->class = '\\WPezBoilerStrap\Views\Components\Icon_Label_Links_V1';
 			$obj->args = $this->get_view_args();
-			//$obj->args->use = 'defaults';
+			// $obj->args->use = 'defaults';
 			$obj->method = 'render';
 
 			$str_ret = $this->ez_loader($obj);
@@ -37,7 +39,7 @@ if ( ! class_exists('Single_Prev_Next')) {
 
 			$lang = new \stdClass();
 
-			$lang->aria_label = 'Single blog article previous next paging';
+			$lang->label = ' Categories: '; // e.g. Tags, Catgories, etc.
 
 			return $lang;
 		}
@@ -47,11 +49,12 @@ if ( ! class_exists('Single_Prev_Next')) {
 		 */
 		protected function model() {
 
-			$obj_single_v1 = new \WPezBoilerStrap\Models\Posts\Single_V1();
-			//	$ga = $single->get_adjacent();
-			$obj = $obj_single_v1->get_adjacent_links_min();
+			global $post;
 
-		//	var_dump($obj);
+			$obj = new \stdClass();
+
+			$single = new \WPezBoilerStrap\Models\Posts\Single_V1();
+			$obj->array_links = $single->get_terms($post->ID, 'category');
 
 			return $obj;
 		}
@@ -83,16 +86,16 @@ if ( ! class_exists('Single_Prev_Next')) {
 		 */
 		protected function viewargs() {
 
-			$obj = new \stdClass();
+			$str_method = 'single_term_category';
 
-			$str_method = 'single_prev_next';
+			// $obj_vargs = $this->_wpezconfig->get('viewargs');
 
-			$vargs = $this->_wpezconfig->get('viewargs');
+			// $x = $obj_vargs->get($str_method);
 
-			return $vargs->get($str_method);
+			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
 
+			return $vargs;
 		}
-
 
 
 	}

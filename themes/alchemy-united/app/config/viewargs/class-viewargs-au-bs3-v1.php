@@ -108,20 +108,35 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 
 	        $vargs = new \stdClass();
 
-	        $vargs->ul_class = 'pager';
+	        $vargs->wrapper_tag = 'ul';
+	        $vargs->wrapper_global_attrs = array(
+		        'class' => 'pager'
+	        );
 
-	        $vargs->prev_li_class = 'previous';
-	        $vargs->prev_span_class = 'none'; // e.g., some font awesome class
-			$vargs->prev_icon = '&larr;';
+	        $vargs->page_tag = 'li';
+	        $vargs->page_prev_global_attrs = array(
+		        'class' => 'previous'
+	        );
 
-			$vargs->next_li_class = 'next';
-			$vargs->next_span_class = 'none'; // e.g., some font awesome class
-			$vargs->next_icon = '&rarr;';
+	        $vargs->page_next_global_attrs = array(
+		        'class' => 'next'
+	        );
 
-			return $vargs;
+	        //if you don't want to use the font based icons make icon_tag = false
+	        $vargs->icon_tag = 'i';
+	        $vargs->icon_prev_global_attrs = array(
+		        'class' => 'glyphicon glyphicon-chevron-left',
+		        'aria-hidden' => "true"
+	        );
+	        $vargs->prev_icon = ''; // '&larr;';
 
+	        $vargs->icon_next_global_attrs = array(
+		        'class' => 'glyphicon glyphicon-chevron-right',
+		        'aria-hidden' => "true"
+	        );
+	        $vargs->next_icon       = ''; // '&rarr;';
 
-
+	        return $vargs;
         }
 
     }

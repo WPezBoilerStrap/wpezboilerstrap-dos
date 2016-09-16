@@ -7,30 +7,70 @@ if ( ! class_exists('Pagination_V1')) {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
 
-			$str_ret = '';
+			$str_ret = '<row>';
 
-			$str_ret .= '<div>';
+			$str_ret .= $this->element_open($vargs->wrapper_tag, $vargs->wrapper_global_attrs );
 
-			$str_ret .= ' - WPezBoilerStrap \ Views \ Components - TODO posts pagination - ';
+			$str_temp = '';
 
-			$temp = '<br>';
-			foreach ( $mod->pages as $key => $obj ) {
-				$temp .= $obj->url . ' - ' . $obj->type . ' - ' . $obj->anchor . '<br>';
+			foreach ( $mod->pages as $key => $obj_page ) {
+
+				// TODO - move this to vargs
+				$arr_page_global_attrs = array();
+				if ( $obj_page->type == 'current' && ! empty($vargs->page_class_current) && $vargs->page_class_current !== false  ){
+
+					$arr_page_global_attrs = array(
+						"class" => esc_attr($vargs->page_class_current)
+					);
+				}
+
+				$str_temp .= $this->element_open($vargs->page_tag, $arr_page_global_attrs);
+
+				$str_url = esc_url($obj_page->url);
+				if ( empty( $str_url )){
+					$str_url = '#';
+				}
+				$str_temp .= '<a href="' . $str_url . '"' . '>';
+
+				$str_anchor = esc_attr($obj_page->anchor);
+				if ( $obj_page->type == 'prev' ){
+
+					$str_anchor = $this->element_open($vargs->icon_tag, $vargs->icon_prev_global_attrs);
+					$str_anchor .= $this->element_close($vargs->icon_tag);
+					$str_anchor .= esc_attr($lang->prev);
+
+				} elseif ( $obj_page->type == 'next' ){
+
+					$str_anchor = esc_attr($lang->next);
+					$str_anchor .= $this->element_open($vargs->icon_tag, $vargs->icon_next_global_attrs);
+					$str_anchor .= $this->element_close($vargs->icon_tag);
+
+				}
+
+				$str_temp .= $str_anchor;
+
+				$str_temp .= '</a>';
+
+				$str_temp .= $this->element_close($vargs->page_tag);
+
 			}
 
-			$str_ret .= $temp;
+			$str_ret .= $str_temp;
 
-			$str_ret .= '</div>';
+			$str_ret .= $this->element_close($vargs->wrapper_tag);
 
-			return $str_ret;
+			return $str_ret . '</row>';
 		}
 
 
 		protected function lang_defaults() {
 
-			$obj = new \stdClass();
+			$lang = new \stdClass();
 
-			return $obj;
+			$lang->prev = 'Prev';
+			$lang->next = 'Next ';
+
+			return $lang;
 		}
 
 		protected function mod_defaults() {
@@ -53,6 +93,8 @@ if ( ! class_exists('Pagination_V1')) {
 
 			$arr_pages[] = $obj_page;
 
+			$mod->pages = $arr_pages;
+
 			return $mod;
 		}
 
@@ -66,9 +108,26 @@ if ( ! class_exists('Pagination_V1')) {
 
 		protected function vargs_defaults() {
 
-			$obj = new \stdClass();
+			$vargs = new \stdClass();
 
-			return $obj;
+			$vargs->wrapper_tag = 'ul';
+			$vargs->wrapper_global_attrs = array(
+				'class' => 'pagination  pagination-lg'
+			);
+			$vargs->page_tag = 'li';
+			$vargs->page_class_current = 'active';
+
+			$vargs->icon_tag = 'i';
+			$vargs->icon_prev_global_attrs = array(
+				'class' => 'glyphicon glyphicon-chevron-left',
+				'aria-hidden' => "true"
+			);
+			$vargs->icon_next_global_attrs = array(
+				'class' => 'glyphicon glyphicon-chevron-right',
+				'aria-hidden' => "true"
+			);
+
+			return $vargs;
 		}
 	}
 }

@@ -35,62 +35,40 @@ if ( ! class_exists('Controller') ) {
 			return $gva;
 		}
 
-		protected function TODOX_gtp_loader($obj_args = ''){
-
-			if ( ! isset($obj_args->active) || $obj_args->active !== false ) {
-
-				// TODO - additional validation?
-				If ( is_object( $obj_args ) && isset( $obj_args->class ) && ! class_exists( $obj_args->class, false ) ) {
-
-					get_template_part( $obj_args->slug, $obj_args->name );
-
-				}
-				if ( class_exists( $obj_args->class, false ) ) {
-
-					$obj_class = new $obj_args->class( $obj_args->args );
-					if ( ! isset( $obj_args->method ) || empty($obj_args->method) || $obj_args->method === false ){
-						return $obj_class;
-					}
-					if ( method_exists($obj_class, $obj_args->method) ){
-						return $obj_class->$obj_args->method();
-					}
-					return new \stdClass();
-				}
-			}
-			return new \stdClass();
-		}
-
 		/**
-		 * @param string $obj_args
-		 * @param string $str_meth
+		 * If a template part is calling other template parts this return the gtp friend path. When called $str_magic_dir is __DIR__
+		 *
+		 * @param $str_magic_dir
 		 *
 		 * @return mixed
 		 */
-		protected function TODOX_view_render($obj_args = '', $str_meth = 'render'){
+		protected function gtp_path($str_magic_dir){
 
-			// TODO: additional validation?
+			$str_themes = WP_CONTENT_DIR . "/" . "themes" . "/";
+			$str_themes = str_replace("\\", "/", $str_themes);
 
-			if ( is_object($obj_args) ){
+			$str_current = $str_magic_dir;
+			$str_current = str_replace("\\", "/", $str_current);
 
-				if ( ! isset($obj_args->active) || $obj_args->active !== false ){
+			$gtp_path = str_replace($str_themes, '', $str_current);
 
-					if ( class_exists($obj_args->class)){
+			$gtp_path = preg_replace('/^(.*?)\//', '', $gtp_path);
 
-						$obj = new $obj_args->class($obj_args->args);
-						if ( method_exists($obj, $str_meth)){
+			// return the WP get_template_part() path to the current (child) class
+			return $gtp_path;
 
-							return $obj->$str_meth();
-						}
-					}
-					// if for any reason we don't render a view, we return false
-					return false;
-				}
-			}
 		}
 
+
+		/**
+		 * @param string $obj_args
+		 *
+		 * @return bool|string
+		 */
 		protected function ez_loader($obj_args = ''){
 
 			// active
+			// slug_path
 			// slug
 			// name
 			// class
@@ -106,7 +84,11 @@ if ( ! class_exists('Controller') ) {
 					if ( isset( $obj_args->slug ) && ! empty($obj_args->slug) && is_string($obj_args->slug) && isset( $obj_args->class ) && ! class_exists( $obj_args->class, false ) ) {
 
 						$bool_autoload = false;
-						get_template_part( $obj_args->slug, $obj_args->name );
+						$str_slug = $obj_args->slug;
+						if ( isset($obj_args->slug_path) && ! empty($obj_args->slug_path) ) {
+							$str_slug = $obj_args->slug_path . '/' . $obj_args->slug;
+						}
+						get_template_part( $str_slug, $obj_args->name );
 					}
 
 					// TODO: Finish - On "fail" target what's returned based on what's requested \ expected.
@@ -115,7 +97,7 @@ if ( ! class_exists('Controller') ) {
 						$mix_else_return = '';
 					}
 
-					// condition varys depending on type
+					// condition varies depending on type
 					if ( class_exists( $obj_args->class, $bool_autoload) ) {
 
 						$obj_class = new $obj_args->class( $obj_args->args );
@@ -136,37 +118,48 @@ if ( ! class_exists('Controller') ) {
 		}
 
 
-		/**
-		 * We don't wanna mess with the $post. We also don't want to risk - however low - adding
-		 * properties to a post - original or clone - that might be added by WP later.
-		 *
-		 * @param $obj_post
-		 *
-		 * @return \stdClass
-		 */
-		protected function post_clone($obj_post, $bool_add_basics = true){
 
-			if ( $obj_post instanceof \WP_Post){
+		protected function ez_clone($obj, $bool_add_basics = true){
 
-				$obj = new \stdClass();
-
-				// for simple convenience we'll put the ID and author off the "root" of the new obj
-				$obj->ID = $obj_post->ID;
-				$obj->post_author = $obj_post->post_author;
-
-				$obj->post = clone $obj_post;
-				// regardless of bool_add_basics we add an ezx (ez extra) property + obj
-				$obj->ezx = new \stdClass();
-				if ($bool_add_basics !== false){
-					$obj->ezx->permalink = get_permalink($obj->ID);
-				}
-
-				return $obj;
+			if ( ! is_object($obj) ){
+				return; // TODO false?
 			}
-			return false; // $obj_post;
+
+			$str_class = get_class($obj);
+			$str_class_lower = strtolower($str_class);
+
+			$obj_new = new \stdClass();
+			$obj_new->$str_class_lower = clone $obj;
+			// ezx - short for ez extras
+			$obj_new->ezx = new \stdClass();
+
+			// is there anything additional we want to do with this value of instanceof
+			$str_method = 'ez_clone_' . $str_class_lower;
+			if ( method_exists($this, $str_method)){
+				$obj_new = $this->$str_method($obj_new);
+			}
+			return $obj_new;
 		}
-		// p.z. post_clone() can probably go elsewhere but for now I'll leave it here. As it's
-		// primarily a controller tool
+
+
+		/**
+		 * once cloned there's some additional (quick) magic for instances of wp_post
+		 * @param $obj_new
+		 *
+		 * @return mixed
+		 */
+		protected function ez_clone_wp_post($obj_new){
+
+			// for convenience post the ID and post_author (user_id) in the "root"
+			$obj_new->ID = $obj_new->wp_post->ID;
+			$obj_new->post_author = $obj_new->wp_post->post_author;
+			// add the parmalink
+			$obj_new->ezx->permalink = get_permalink($obj_new->wp_post->ID);
+
+			return $obj_new;
+		}
+
+
 
 		// ------------ Your class should address everything below this line ------------ //
 
@@ -185,10 +178,19 @@ if ( ! class_exists('Controller') ) {
 		 */
 		abstract protected function model();
 
+		/**
+		 * @return object
+		 */
 		abstract protected function partials();
 
+		/**
+		 * @return object
+		 */
 		abstract protected function router();
 
+		/**
+		 * @return object
+		 */
 		abstract protected function viewargs();
 
 	}

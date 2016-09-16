@@ -53,7 +53,7 @@ if ( ! class_exists('TODO_VIEW')) {
 			*/
 
 			$vargs = new \stdClass();
-			// $vargs->enclosure = $obj_enc;
+			// $vargs->enclose = $obj_enc;
 
 			return $vargs;
 		}

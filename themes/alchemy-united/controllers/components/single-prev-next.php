@@ -2,9 +2,9 @@
 
 namespace WPezTheme;
 
-if ( ! class_exists( 'Single_Term_Category' ) ) {
-	class Single_Term_Category extends \WPezBoilerStrap\Toolbox\Parents\Controller {
-
+if ( ! class_exists('Single_Prev_Next')) {
+	class Single_Prev_Next extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	{
 		protected $_wpezconfig;
 
 		public function __construct() {
@@ -15,16 +15,14 @@ if ( ! class_exists( 'Single_Term_Category' ) ) {
 		/**
 		 * return string
 		 */
-		public function get_view() {
-
-			$str_ret = '';
+		public function get_view(){
 
 			$obj = new \stdClass();
 
 			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Components\Icon_Label_Links_V1';
+			$obj->class = '\\WPezBoilerStrap\Views\Components\Prev_Next_Min_V1';
 			$obj->args = $this->get_view_args();
-			// $obj->args->use = 'defaults';
+		//	$obj->args->use = 'defaults';
 			$obj->method = 'render';
 
 			$str_ret = $this->ez_loader($obj);
@@ -39,8 +37,6 @@ if ( ! class_exists( 'Single_Term_Category' ) ) {
 
 			$lang = new \stdClass();
 
-			$lang->label = ' Categories: '; // e.g. Tags, Catgories, etc.
-
 			return $lang;
 		}
 
@@ -49,14 +45,11 @@ if ( ! class_exists( 'Single_Term_Category' ) ) {
 		 */
 		protected function model() {
 
-			global $post;
+			$obj_single_v1 = new \WPezBoilerStrap\Models\Components\Adjacent_Post_V1();
+			//	$ga = $single->get_adjacent();
+			$mod = $obj_single_v1->get_adjacent_posts();
 
-			$obj = new \stdClass();
-
-			$single = new \WPezBoilerStrap\Models\Posts\Single_V1();
-			$obj->array_links = $single->get_terms($post->ID, 'category');
-
-			return $obj;
+			return $mod;
 		}
 
 		/**
@@ -86,12 +79,16 @@ if ( ! class_exists( 'Single_Term_Category' ) ) {
 		 */
 		protected function viewargs() {
 
-			$str_method = 'single_term_category';
+			// $obj = new \stdClass();
 
-			$obj_vargs = $this->_wpezconfig->get('viewargs');
+			$str_method = 'single_prev_next';
 
-			return $obj_vargs->get($str_method);
+			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+
+			return $vargs;
+
 		}
+
 
 
 	}

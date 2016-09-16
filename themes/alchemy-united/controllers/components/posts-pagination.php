@@ -2,8 +2,8 @@
 
 namespace WPezTheme;
 
-if ( ! class_exists('TODO_CONTROLLER')) {
-	class TODO_CONTROLLER extends \WPezBoilerStrap\Toolbox\Parents\Controller
+if ( ! class_exists('Posts_Pagination')) {
+	class Posts_Pagination extends \WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -19,16 +19,16 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 
 			$str_ret = '';
 
-			/*
+
 			$obj_gv = new \stdClass();
 
 			$obj_gv->active = true;
-			$obj_gv->class = '\\WPezBoilerStrap\Views\Wrappers\Wrapper_Two_V1';
+			$obj_gv->class = '\\WPezBoilerStrap\Views\Components\Pagination_V1';
 			$obj_gv->args = $this->get_view_args();
+		//	$obj_gv->args->use = 'defaults';
 			$obj_gv->method = 'render';
 
 			$str_ret = $this->ez_loader($obj_gv);
-			*/
 
 			return $str_ret;
 		}
@@ -38,9 +38,12 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 		 */
 		protected function language() {
 
-			$obj = new \stdClass();
+			$lang = new \stdClass();
 
-			return $obj;
+			$lang->prev = ' Prev';
+			$lang->next = 'Next ';
+
+			return $lang;
 		}
 
 		/**
@@ -52,14 +55,11 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 
 			$mod = new \stdClass();
 
-			/*
-			$loop = new \WPezBoilerStrap\Models\Posts\Loop_V1();
 
-			$arr_args = $this->globals('get_pagination');
-			$arr_pages = $loop->get_pagination($arr_args);
-
+			$loop = new \WPezBoilerStrap\Models\Components\Paginate_Links_V1();
+			$arr_pages = $loop->get_pagination();
 			$mod->pages = $arr_pages;
-*/
+
 			return $mod;
 		}
 
@@ -90,9 +90,27 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 		 */
 		protected function viewargs() {
 
-			$obj = new \stdClass();
+			$vargs = new \stdClass();
 
-			return $obj;
+			$vargs->wrapper_tag = 'ul';
+			$vargs->wrapper_global_attrs = array(
+				'class' => 'pagination'
+			);
+			$vargs->page_tag = 'li';
+			$vargs->page_class_current = 'active';
+
+			$vargs->icon_tag = 'i';
+			$vargs->icon_prev_global_attrs = array(
+				'class' => 'glyphicon glyphicon-chevron-left',
+				'aria-hidden' => "true"
+			);
+
+			$vargs->icon_next_global_attrs = array(
+				'class' => 'glyphicon glyphicon-chevron-right',
+				'aria-hidden' => "true"
+			);
+
+			return $vargs;
 		}
 
 

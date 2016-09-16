@@ -13,19 +13,41 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 		}
 
 		/**
+		 * - The Parent Controller has these standard "helper' methods:
+		 *
+		 * - get_path($str) - (where $str = __DIR__) will return the gtp friendly path of the current
+		 *  file. useful when loading pathials that are in the same folder
+		 *
+		 * - ez_loader$obj) - for loading controllers and views.
+		 *
+		 * - ez_clone($obj) - will clone a (WP) object and "reset" so its ez compatible.
+		 */
+
+		/**
 		 * return string
 		 */
 		public function get_view(){
 
+			$gv = new \stdClass();
 			$str_ret = '';
 
-			/*
-			$obj_gv = new \stdClass();
 
-			$obj_gv->active = true;
-			$obj_gv->class = '\\WPezBoilerStrap\Views\Wrappers\Wrapper_Two_V1';
-			$obj_gv->args = $this->get_view_args();
-			$obj_gv->method = 'render';
+			/*
+			// ez on off switch
+			$gv->active = true;
+			// where is the slug (optional)
+			//$ogv->slug_path = "";
+			// the gtp slug (optional)
+			//$gv->slug = '';
+			// the class in that tp
+			$gv->class = '\\WPezBoilerStrap\Views\Wrappers\Wrapper_Two_V1';
+			// the args we're "injecting" into the class
+			$gv->args = $this->get_view_args();
+			// IF we want to use the view's default args (optional)
+			// $gv->args->use = 'defaults';
+			// once we init the class what method do we "request" (optional)
+			// note: if method is empty of false, ex_loader will return the init'ed obj of the class
+			$gv->method = 'render';
 
 			$str_ret = $this->ez_loader($obj_gv);
 			*/
@@ -38,9 +60,12 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 		 */
 		protected function language() {
 
-			$obj = new \stdClass();
+			// $lang = new \stdClass();
 
-			return $obj;
+			$str_method = 'TODO';
+
+			$lang = $this->_wpezconfig->ez_get('language', $str_method);
+			return $lang;
 		}
 
 		/**
@@ -48,9 +73,9 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 		 */
 		protected function model() {
 
-			$obj = new \stdClass();
+			$mod = new \stdClass();
 
-			return $obj;
+			return $mod;
 		}
 
 		/**
@@ -58,13 +83,16 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 		 */
 		protected function partials() {
 
-			$obj = new \stdClass();
+			// $gtp_path = $this->gtp_path(__DIR__);
+
+			$parts = new \stdClass();
 
 			/*
 			$part        = new \stdClass();
 
 			$part->active = true;
-			$part->slug  = 'controllers\sidebar-accordion';
+			$part->slug_path  = 'controllers';
+			$part->slug  = 'sidebar-accordion';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Sidebar_Accordion';
 			$part->args  = '';
@@ -72,13 +100,14 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 
 			$str_accord = $this->ez_loader($part);
 
-			$obj->one = $str_accord;
+			$parts->one = $str_accord;
 
 			// -
 			$part        = new \stdClass();
 
 			$part->active = true;
-			$part->slug  = 'controllers\single-wrapper';
+			$part->slug_path  = 'controllers';
+			$part->slug  = 'single-wrapper';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Single_Wrapper';
 			$part->args  = '';
@@ -86,14 +115,15 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 
 			$str_sing_wrap = $this->ez_loader($part);
 
-			$obj->two = $str_sing_wrap;
+			$parts->two = $str_sing_wrap;
 
 
 			// -
 			$part        = new \stdClass();
 
 			$part->active = true;
-			$part->slug  = 'controllers\single-next-prev';
+			$part->slug_path  = 'controllers';
+			$part->slug  = 'single-next-prev';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Single_Next_Prev';
 			$part->args  = '';
@@ -101,10 +131,10 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 
 			$str_sing_np = $this->ez_loader($part);
 
-			$obj->three = $str_sing_np;
+			$parts->three = $str_sing_np;
 			*/
 
-			return $obj;
+			return $parts;
 		}
 
 
@@ -113,9 +143,9 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 		 */
 		protected function router() {
 
-			$obj = new \stdClass();
+			$route = new \stdClass();
 
-			return $obj;
+			return $route;
 		}
 
 
@@ -124,18 +154,11 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 		 */
 		protected function viewargs() {
 
-			$obj = new \stdClass();
+			$vargs = new \stdClass();
 
-			// $str_method = 'index-body';
-
-			// $obj_vargs = $this->_wpezconfig->get('viewargs');
-
-			// return $obj_vargs->get($str_method);
-
-			return $obj;
+			//$str_method = 'TODO';
+			//$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+			return $vargs;
 		}
-
-
-
 	}
 }

@@ -58,7 +58,7 @@ if ( ! class_exists('Header')) {
 			$obj        = new \stdClass();
 
 			$obj->active = true;
-			$obj->slug  = 'controllers\header-nav';
+			$obj->slug  = 'controllers\navs\header-nav';
 			$obj->name  = '';
 			$obj->class = '\\WPezTheme\Header_Nav';
 			$obj->args  = '';

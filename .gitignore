@@ -19,7 +19,7 @@ uploads*
 gt-cache
 ics-importer-cache
 .htaccess
-*/node_modules/*
+**/node_modules/**
 **/.idea/workspace.xml
 **/.idea/tasks.xml
 wp-config.php

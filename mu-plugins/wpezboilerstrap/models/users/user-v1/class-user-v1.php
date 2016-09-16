@@ -75,15 +75,15 @@ class User_V1 {
 
 			$obj_u = $this->arr_users[$str_login_name];
 			$obj_ret->ID = $obj_u->ID;
-			$obj_ret->posts_url = $obj_u->posts_url;
 			$obj_ret->display_name = $obj_u->display_name;
+			$obj_ret->posts_url = $obj_u->posts_url;
 
 		} elseif ( isset( $this->arr_users[$str_prefix . $str_user_id] ) ) {
 
 			$obj_u = $this->arr_users[$str_prefix . $str_user_id];
 			$obj_ret->ID = $obj_u->ID;
-			$obj_ret->posts_url = $obj_u->posts_url;
 			$obj_ret->display_name = $obj_u->display_name;
+			$obj_ret->posts_url = $obj_u->posts_url;
 
 		} else{
 
