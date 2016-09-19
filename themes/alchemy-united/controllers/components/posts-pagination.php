@@ -19,16 +19,15 @@ if ( ! class_exists('Posts_Pagination')) {
 
 			$str_ret = '';
 
+			$gv = new \stdClass();
 
-			$obj_gv = new \stdClass();
-
-			$obj_gv->active = true;
-			$obj_gv->class = '\\WPezBoilerStrap\Views\Components\Pagination_V1';
-			$obj_gv->args = $this->get_view_args();
+			$gv->active = true;
+			$gv->class = '\\WPezBoilerStrap\Views\Components\Pagination_V1';
+			$gv->args = $this->get_view_args();
 		//	$obj_gv->args->use = 'defaults';
-			$obj_gv->method = 'render';
+			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($obj_gv);
+			$str_ret = $this->ez_loader($gv);
 
 			return $str_ret;
 		}

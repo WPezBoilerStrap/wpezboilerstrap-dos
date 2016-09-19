@@ -7,6 +7,7 @@ if ( ! class_exists('Header_V1') ) {
 
 		function view( $lang, $mod, $parts, $vargs ) {
 
+			// TODO? - this is really just a group
 			$str_ret = '';
 
 			$str_ret .= '<header>';

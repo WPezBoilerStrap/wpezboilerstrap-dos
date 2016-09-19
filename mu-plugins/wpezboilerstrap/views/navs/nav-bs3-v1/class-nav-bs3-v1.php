@@ -9,27 +9,26 @@ if ( ! class_exists('Nav_BS3_V1') ) {
 
 			$str_ret = '';
 
-			$str_ret .= '<div id="' . esc_attr( $vargs->wrap_id ) . '" class="' . esc_attr( $vargs->wrap_class ) . '" role="' . esc_attr( $vargs->wrap_role ) . '">';
+			$str_ret .= '<div' . $this->global_attrs($vargs->wrapper_global_attrs). '>';
+			$str_ret .= '<div' . $this->global_attrs($vargs->inner_global_attrs). '>';
+			$str_ret .= '<div' . $this->global_attrs($vargs->header_global_attrs). '>';
 
-			$str_ret .= '<div class="' . esc_attr( $vargs->inner_class ) . '">';
-
-			$str_ret .= '<div class="' . esc_attr( $vargs->header_class ) . '">';
-
-			$str_ret .= '<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="' . $vargs->data_target . '">';
+			$str_ret .= '<button' . $this->global_attrs($vargs->button_global_attrs). '>';
 			$str_ret .= '<span class="sr-only">Toggle navigation</span>';
 			$str_ret .= '<span class="icon-bar"></span>';
 			$str_ret .= '<span class="icon-bar"></span>';
 			$str_ret .= '<span class="icon-bar"></span>';
-
 			$str_ret .= '</button>';
+
 			$str_ret .= '<a class="' . esc_attr( $vargs->brand_class ) . '" href="' . esc_url( $mod->brand_url ) . '" title="' . esc_html( $lang->brand_title ) . '">' . esc_html( $lang->brand_name ) . '</a>';
 
 			$str_ret .= '</div>';
 
-			$str_ret .= $mod->wp_nav_menu;
+			$str_ret .= $mod->menu;
 
 			$str_ret .= '</div>';
 			$str_ret .= '</div>';
+
 
 			return $str_ret;
 
@@ -37,40 +36,74 @@ if ( ! class_exists('Nav_BS3_V1') ) {
 
 		protected function lang_defaults() {
 
-			$obj = new \stdClass();
-			$obj->brand_title = 'BRAND_TITLE';
-			$obj->brand_name = 'BRAND_NAME';
+			$lang = new \stdClass();
+			$lang->brand_title = 'WPezBoilerStrap';
+			$lang->brand_name = 'WPezBoilerStrap';
 
-			return $obj;
+			return $lang;
 		}
 
 		protected function mod_defaults() {
 
-			$obj = new \stdClass();
+			$mod = new \stdClass();
 
-			$obj->brand_url = 'http://BRAND_URL.com';
-			$obj->wp_nav_menu = 'WP_NAV_MENU';
+			$mod->brand_url = 'http://BRAND_URL.com';
+			$mod->menu = 'INSERT MOD-MENU HERE';
 
-			return $obj;
+			return $mod;
 		}
 
 		protected function parts_defaults() {
-			// TODO: Implement parts_defaults() method.
+			$parts = new \stdClass();
+
+			return $parts;
 		}
 
 		protected function vargs_defaults() {
 
-			$obj = new \stdClass();
+			$obj_enc = new \stdClass();
 
-			$obj->wrap_id = 'WRAP_ID';
-			$obj->wrap_class = 'WRAP_CLASS';
-			$obj->wrap_role = 'WRAP_ROLE';
-			$obj->inner_class = 'INNER_CLASS'; // e.g., containter
-			$obj->header_class = 'HEADER_CLASS'; // e.g., navbar-header
-			$obj->data_target = 'DATA_TARGET'; // e.g., .navbar-collapse
-			$obj->brand_class = 'BRAND_LINK_CLASS'; // e.g., navbar-brand
+			$obj_enc->active = true;            // an enclosure master switch - default is true
 
-			return $obj;
+			$obj_enc->semantic_active = true;
+			$obj_enc->semantic_tag = 'nav';
+			$obj_enc->semantic_global_attrs = array(
+				//'class' => 'my semantic class test'
+			);
+
+			$obj_enc->wrapper_active = false;
+			$obj_enc->wrapper_tag = 'div';
+			$obj_enc->wrapper_global_attrs = array(
+				// 'class' => 'HEADER-CLASS'
+			);
+
+			$vargs = new \stdClass();
+			$vargs->enclose = $obj_enc;
+
+			$vargs->wrapper_global_attrs = array(
+				'id' => 'nav-main',
+				'class' => 'navbar navbar-default',
+				'role' => 'navigation'
+			);
+
+			$vargs->inner_global_attrs = array(
+				'class' => 'container',
+			);
+
+			$vargs->header_global_attrs = array(
+				'class' => 'navbar-header',
+			);
+
+			$vargs->button_global_attrs = array(
+				'type' => 'button',
+				'class' => 'navbar-toggle collapsed',
+				'data-toggle' => 'collapse',
+				'data-target' => '.navbar-collapse'
+			);
+
+			$vargs->brand_class = 'navbar-brand'; 
+
+			return $vargs;
 		}
 
 	}

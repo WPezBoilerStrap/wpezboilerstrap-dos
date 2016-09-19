@@ -9,7 +9,6 @@ if ( ! class_exists( 'Index')) {
 
 		public function __construct() {
 			$this->_wpezconfig = WPezConfig::ez_new();
-
 		}
 
 
@@ -18,14 +17,14 @@ if ( ! class_exists( 'Index')) {
 		 */
 		public function get_view(){
 
-			$obj = new \stdClass();
+			$gv = new \stdClass();
 
-			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Indexes\Index_BS3_V1';
-			$obj->args = $this->get_view_args();
-			$obj->method = 'render';
+			$gv->active = true;
+			$gv->class = '\\WPezBoilerStrap\Views\Indexes\Index_BS3_V1';
+			$gv->args = $this->get_view_args();
+			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($obj);
+			$str_ret = $this->ez_loader($gv);
 
 			return $str_ret;
 		}
@@ -35,9 +34,9 @@ if ( ! class_exists( 'Index')) {
 		 */
 		protected function language() {
 
-			$obj = new \stdClass();
+			$lang = new \stdClass();
 
-			return $obj;
+			return $lang;
 		}
 
 		/*
@@ -45,9 +44,9 @@ if ( ! class_exists( 'Index')) {
 		 */
 		protected function model() {
 
-			$obj = new \stdClass();
+			$mod = new \stdClass();
 
-			return $obj;
+			return $mod;
 		}
 
 		/*
@@ -55,21 +54,25 @@ if ( ! class_exists( 'Index')) {
 		 */
 		protected function partials() {
 
-			$obj        = new \stdClass();
+			$parts       = new \stdClass();
 
-			$obj->active = true;
-			$obj->slug  = 'controllers\index-body';
-			$obj->name  = '';
-			$obj->class = '\\WPezTheme\Index_Body';
-			$obj->args  = '';
-			$obj->method = 'get_view';
+			$part = new \stdClass();
 
-			$str_body = $this->ez_loader($obj);
+			$parts->pre_head_close = ''; // e.g. add google analytics snippet
 
-			$obj = new \stdClass();
-			$obj->body = $str_body;
+			$part->active = true;
+			$part->slug  = 'controllers\index-body';
+			$part->name  = '';
+			$part->class = '\\WPezTheme\Index_Body';
+			$part->args  = '';
+			$part->method = 'get_view';
 
-			return $obj;
+			$str_body = $this->ez_loader($part);
+			$parts->body = $str_body;
+
+
+
+			return $parts;
 		}
 
 		/*
@@ -77,9 +80,9 @@ if ( ! class_exists( 'Index')) {
 		 */
 		protected function router() {
 
-			$obj = new \stdClass();
+			$route = new \stdClass();
 
-			return $obj;
+			return $route;
 		}
 
 		/*
@@ -89,9 +92,9 @@ if ( ! class_exists( 'Index')) {
 
 			$str_method = 'index';
 
-			$obj_vargs= $this->_wpezconfig->get('viewargs');
+			$obj_vargs= $this->_wpezconfig->ez_get('viewargs', $str_method);
 
-			return $obj_vargs->get($str_method);
+			return $obj_vargs;
 		}
 
 	}

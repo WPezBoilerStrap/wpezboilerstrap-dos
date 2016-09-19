@@ -12,20 +12,21 @@ if ( ! class_exists('Language_AU_En_V1')){
 	    }
 
 	    public function index() {
-		    $o      = new \stdClass();
-		    $o->one = 'index';
 
-		    return $o;
+		    $lang      = new \stdClass();
+		    $lang->one = 'index';
+
+		    return $lang;
 	    }
 
 	    protected function header_nav(){
 
-	    	$obj = new \stdClass();
+	    	$lang = new \stdClass();
 
-		    $obj->brand_title = 'Home: ' . $this->_brand;
-	        $obj->brand_name =  $this->_brand;
+		    $lang->brand_title = 'Home: ' . $this->_brand;
+	        $lang->brand_name =  $this->_brand;
 
-            return $obj;
+            return $lang;
         }
 
     }

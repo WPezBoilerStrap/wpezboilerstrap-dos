@@ -17,7 +17,18 @@ if ( ! class_exists('Footer')) {
  */
 		public function get_view(){
 
-			$str_ret = '<br>TODO: FOOTER';
+
+			$str_ret = '';
+
+			$gv = new \stdClass();
+
+			$gv->active = true;
+			$gv->class = '\\WPezBoilerStrap\Views\Footers\Footer_V1';
+			$gv->args = $this->get_view_args();
+				$gv->args->use = 'defaults';
+			$gv->method = 'render';
+
+			$str_ret = $this->ez_loader($gv);
 
 			return $str_ret;
 		}

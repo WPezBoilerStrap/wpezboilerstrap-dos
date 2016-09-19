@@ -18,14 +18,14 @@ if ( ! class_exists( 'Index_Body')) {
 		 */
 		public function get_view(){
 
-			$obj = new \stdClass();
+			$gv = new \stdClass();
 
-			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Groups\Group_Three_V1';
-			$obj->args = $this->get_view_args();
-			$obj->method = 'render';
+			$gv->active = true;
+			$gv->class = '\\WPezBoilerStrap\Views\Groups\Group_Three_V1';
+			$gv->args = $this->get_view_args();
+			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($obj);
+			$str_ret = $this->ez_loader($gv);
 
 			return $str_ret;
 
@@ -36,9 +36,9 @@ if ( ! class_exists( 'Index_Body')) {
 		 */
 		protected function language() {
 
-			$l = new \stdClass();
+			$lang = new \stdClass();
 
-			return $l;
+			return $lang;
 		}
 
 		/*
@@ -46,9 +46,9 @@ if ( ! class_exists( 'Index_Body')) {
 		 */
 		protected function model() {
 
-			$obj = new \stdClass();
+			$mod = new \stdClass();
 
-			return $obj;
+			return $mod;
 		}
 
 		/*
@@ -56,49 +56,52 @@ if ( ! class_exists( 'Index_Body')) {
 		 */
 		protected function partials() {
 
-			$obj        = new \stdClass();
+			$part        = new \stdClass();
 
-			$obj->active = true;
-			$obj->slug  = 'controllers\header';
-			$obj->name  = '';
-			$obj->class = '\\WPezTheme\Header';
-			$obj->args  = '';
-			$obj->method = 'get_view';
+			$part->active = true;
+			$part->slug_path = 'controllers/headers';
+			$part->slug  = 'header';
+			$part->name  = '';
+			$part->class = '\\WPezTheme\Header';
+			$part->args  = '';
+			$part->method = 'get_view';
 
-			$str_header = $this->ez_loader($obj);
-
-			//
-			$obj        = new \stdClass();
-
-			$obj->active = true;
-			$obj->slug  = 'controllers\main';
-			$obj->name  = '';
-			$obj->class = '\\WPezTheme\main';
-			$obj->args  = '';
-			$obj->method = 'get_view';
-
-			$str_main = $this->ez_loader($obj);
+			$str_header = $this->ez_loader($part);
 
 			//
-			$obj        = new \stdClass();
+			$part        = new \stdClass();
 
-			$obj->active = true;
-			$obj->slug  = 'controllers\footer';
-			$obj->name  = '';
-			$obj->class = '\\WPezTheme\Footer';
-			$obj->args  = '';
-			$obj->method = 'get_view';
+			$part->active = true;
+			$part->slug_path = 'controllers';
+			$part->slug  = 'main';
+			$part->name  = '';
+			$part->class = '\\WPezTheme\main';
+			$part->args  = '';
+			$part->method = 'get_view';
 
-			$str_footer  = $this->ez_loader($obj);
+			$str_main = $this->ez_loader($part);
 
 			//
-			$obj = new \stdClass();
+			$part        = new \stdClass();
 
-			$obj->one = $str_header;
-			$obj->two = $str_main;
-			$obj->three = $str_footer;
+			$part->active = true;
+			$part->slug_path = 'controllers';
+			$part->slug  = 'footer-bottom';
+			$part->name  = '';
+			$part->class = '\\WPezTheme\Footer';
+			$part->args  = '';
+			$part->method = 'get_view';
 
-			return $obj;
+			$str_footer  = $this->ez_loader($part);
+
+			//
+			$parts = new \stdClass();
+
+			$parts->one = $str_header;
+			$parts->two = $str_main;
+			$parts->three = $str_footer;
+
+			return $parts;
 		}
 
 		/*
@@ -116,10 +119,12 @@ if ( ! class_exists( 'Index_Body')) {
 		 */
 		protected function viewargs() {
 
-			$obj = new \stdClass();
-			$obj->semantic = 'section';
+			$vargs = new \stdClass();
 
-			return $obj;
+			$str_method = 'index_body';
+			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+
+			return $vargs;
 		}
 
 	}

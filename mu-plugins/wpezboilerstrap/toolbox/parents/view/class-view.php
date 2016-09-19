@@ -328,5 +328,24 @@ if ( ! class_exists( 'View' ) ) {
 		abstract protected function parts_defaults();
 
 		abstract protected function vargs_defaults();
+		/*
+		  	$obj_enc->active = true;
+		// an enclosure master switch - default is true
+
+			$obj_enc->semantic_active = true;   // default is true
+			$obj_enc->semantic_tag = 'header';
+			$obj_enc->semantic_global_attrs = array(
+				//'class' => 'my semantic class test'
+			);
+
+			$obj_enc->wrapper_active = false;   // default is true
+			$obj_enc->wrapper_tag = 'tag_TODO';
+			$obj_enc->wrapper_global_attrs = array(
+				'class' => 'my wrapper class test'
+			);
+
+			$vargs = new \stdClass();
+			$vargs->enclose = $obj_enc;
+		 */
 	}
 	}

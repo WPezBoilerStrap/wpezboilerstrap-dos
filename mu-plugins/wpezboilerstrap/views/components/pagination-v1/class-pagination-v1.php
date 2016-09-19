@@ -7,7 +7,7 @@ if ( ! class_exists('Pagination_V1')) {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
 
-			$str_ret = '<row>';
+			$str_ret = '';
 
 			$str_ret .= $this->element_open($vargs->wrapper_tag, $vargs->wrapper_global_attrs );
 
@@ -59,7 +59,7 @@ if ( ! class_exists('Pagination_V1')) {
 
 			$str_ret .= $this->element_close($vargs->wrapper_tag);
 
-			return $str_ret . '</row>';
+			return $str_ret;
 		}
 
 

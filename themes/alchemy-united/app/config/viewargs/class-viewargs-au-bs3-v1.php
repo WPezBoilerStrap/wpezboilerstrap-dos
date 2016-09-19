@@ -12,40 +12,96 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 
 	    protected function index(){
 
-		    $va = new \stdClass();
-		    //	$va->language_attributes = TODO;
-		    $va->html_class = 'no-js';
-		    $va->viewport_content = 'width=device-width, initial-scale=1.0';
-		    $va->html5shiv = 'https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js';
-		    $va->respondjs = 'https://oss.maxcdn.com/respond/1.4.2/respond.min.js';
-		    $va->body_class = '';
+		    $vargs = new \stdClass();
 
-		    return $va;
+		    $vargs->lang_attrs = get_language_attributes();
+		    $vargs->html_global_attrs = array(
+			    'class' => 'no-js'
+		    );
+		    $vargs->charset = get_bloginfo( 'charset' );
+		    $vargs->viewport_content = 'width=device-width, initial-scale=1.0';
+		    $vargs->html5shiv = 'https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js';
+		    $vargs->respondjs = 'https://oss.maxcdn.com/respond/1.4.2/respond.min.js';
+		    $vargs->body_class = '';
+
+		    return $vargs;
+	    }
+
+	    protected function index_body(){
+
+		    $obj_enc = new \stdClass();
+
+		    $obj_enc->active = false;
+
+		    $obj_enc->semantic_active = true;
+		    $obj_enc->semantic_tag = 'section';
+		    $obj_enc->semantic_global_attrs = array(
+			    //'class' => 'my semantic class test'
+		    );
+
+		    $obj_enc->wrapper_active = true;
+		    $obj_enc->wrapper_tag = 'div';
+		    $obj_enc->wrapper_global_attrs = array(
+			   // 'class' => 'my wrapper class test'
+		    );
+
+		    $vargs = new \stdClass();
+		    $vargs->enclose = $obj_enc;
+
+		    return $vargs;
+
 	    }
 
 	    protected function header() {
 
-            $obj = new \stdClass();
-            $obj->wrap_id = 'nav-main-header';
-            $obj->wrap_class = 'header';
+		    $obj_enc = new \stdClass();
 
-            return $obj;
+		    $obj_enc->active = true;            // an enclosure master switch
+
+		    $obj_enc->semantic_active = true;
+		    $obj_enc->semantic_tag = 'header';
+		    $obj_enc->semantic_global_attrs = array(
+			    //'class' => 'my semantic class test'
+		    );
+
+		    $obj_enc->wrapper_active = false;
+		    $obj_enc->wrapper_tag = 'div';
+		    $obj_enc->wrapper_global_attrs = array(
+			    // 'class' => 'HEADER-CLASS'
+		    );
+
+		    $vargs = new \stdClass();
+		    $vargs->enclose = $obj_enc;
+
+		    return $vargs;
         }
 
 
         protected function header_nav_bs3(){
 
-            $obj = new \stdClass();
+            $vargs = new \stdClass();
 
-            $obj->wrap_id = 'nav-main';
-            $obj->wrap_class = 'navbar navbar-default';
-            $obj->wrap_role = 'navigation';
-            $obj->inner_class = 'container';
-            $obj->header_class = 'navbar-header';
-            $obj->data_target = '.navbar-collapse';
-	        $obj->brand_class = 'navbar-brand';
+	        $vargs->wrapper_global_attrs = array(
+		        'id' => 'nav-main',
+		        'class' => 'navbar navbar-default',
+		        'role' => 'navigation'
+	        );
+	        $vargs->inner_global_attrs = array(
+		        'class' => 'container',
+	        );
+	        $vargs->header_global_attrs = array(
+		        'class' => 'navbar-header',
+	        );
+	        $vargs->button_global_attrs = array(
+		        'type' => 'button',
+		        'class' => 'navbar-toggle collapsed',
+		        'data-toggle' => 'collapse',
+		        'data-target' => '.navbar-collapse'
+	        );
 
-            return $obj;
+	        $vargs->brand_class = 'navbar-brand';
+
+            return $vargs;
         }
 
         protected function page(){

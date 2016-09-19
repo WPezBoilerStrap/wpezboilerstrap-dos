@@ -2,8 +2,8 @@
 
 namespace WPezTheme;
 
-if ( ! class_exists('Header_Nav')) {
-	class Header_Nav extends \WPezBoilerStrap\Toolbox\Parents\Controller
+if ( ! class_exists('Header')) {
+	class Header extends \WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -12,20 +12,20 @@ if ( ! class_exists('Header_Nav')) {
 			$this->_wpezconfig = WPezConfig::ez_new();
 		}
 
+
 		/**
 		 * @return bool|string
 		 */
 		public function get_view(){
 
+			$gv = new \stdClass();
 
-			$obj = new \stdClass();
+			$gv->active = true;
+			$gv->class = '\\WPezBoilerStrap\Views\Groups\Group_One_V1';
+			$gv->args = $this->get_view_args();
+			$gv->method = 'render';
 
-			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Navs\Nav_BS3_V1';
-			$obj->args = $this->get_view_args();
-			$obj->method= 'render';
-
-			$str_ret = $this->ez_loader($obj);
+			$str_ret = $this->ez_loader($gv);
 
 			return $str_ret;
 		}
@@ -35,11 +35,9 @@ if ( ! class_exists('Header_Nav')) {
 		 */
 		protected function language() {
 
-			$str_method = 'header_nav';
+			$lang= new \stdClass();
 
-			$obj_lang = $this->_wpezconfig->ez_get('language', $str_method);
-
-			return $obj_lang;
+			return $lang;
 		}
 
 		/*
@@ -47,13 +45,7 @@ if ( ! class_exists('Header_Nav')) {
 		 */
 		protected function model() {
 
-			$menu = new \WPezTheme\Scaffolding\Menus();
-			$menu_args = $menu->get('menu_main');
-
 			$mod = new \stdClass();
-
-			$mod->brand_url = home_url( '/' );
-			$mod->menu = wp_nav_menu($menu_args->wp_nav_menu);
 
 			return $mod;
 		}
@@ -63,7 +55,20 @@ if ( ! class_exists('Header_Nav')) {
 		 */
 		protected function partials() {
 
+			$part        = new \stdClass();
+
+			$part->active = true;
+			$part->slug_path  = 'controllers\navs';
+			$part->slug  = 'header-nav';
+			$part->name  = '';
+			$part->class = '\\WPezTheme\Header_Nav';
+			$part->args  = '';
+			$part->method = 'get_view';
+
+			$str_nav = $this->ez_loader($part);
+
 			$parts = new \stdClass();
+			$parts->one = $str_nav;
 
 			return $parts;
 		}
@@ -85,13 +90,14 @@ if ( ! class_exists('Header_Nav')) {
 		 */
 		protected function viewargs() {
 
-			$str_method = 'header_nav_bs3';
+			$str_method = 'header';
 
 			$obj_vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
 
 			return $obj_vargs;
-
 		}
+
+
 
 	}
 }
