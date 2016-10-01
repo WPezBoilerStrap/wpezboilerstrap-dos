@@ -22,10 +22,10 @@ if ( ! class_exists('Options') ) {
 		}
 
 
-		public function get( $str_meth = '' ) {
+		public function get( $str_meth = '', $str_arg = '' ) {
 
 			if ( method_exists( $this, $str_meth ) ) {
-				return $this->$str_meth();
+				return $this->$str_meth($str_arg, $str_arg);
 			}
 
 			return new \stdClass();

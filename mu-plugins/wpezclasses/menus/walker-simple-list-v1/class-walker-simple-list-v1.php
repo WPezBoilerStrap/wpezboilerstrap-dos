@@ -44,7 +44,7 @@ class Walker_Simple_List_V1 extends \Walker_Nav_Menu {
             'child_of'          => 'is-child-of-',
             'not_child'         => 'not-child',
 
-            'separator_active'  => true,                            // on / off switch for using the separator
+            'separator_active'  => false,                            // on / off switch for using the separator
             'separator_outside' => true,                            // is the separator within the </a> or outside?
             'separator_class'   => 'simple-list-1-delimiter-wrap',  // assign a class to the separator
             'separator'         => ','                              // what is the separator? the default is ',' (comma)
@@ -194,7 +194,7 @@ class Walker_Simple_List_V1 extends \Walker_Nav_Menu {
         $str_delimit_out = '';
         if ( $arr_ez_args_defaults['separator_active'] === true && $item->menu_order < $int_ele_cnt ){
             $str_delimit_temp = '<span class="' . esc_attr($arr_ez_args_defaults['separator_class']). '">';
-            $str_delimit_temp .= sanitize_text_field($arr_ez_args_defaults['separator']);
+            $str_delimit_temp .= esc_attr($arr_ez_args_defaults['separator']);
             $str_delimit_temp .= '</span>';
 
             if ( $arr_ez_args_defaults['separator_outside'] === true ){

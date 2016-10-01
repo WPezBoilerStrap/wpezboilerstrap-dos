@@ -20,49 +20,31 @@ if ( ! class_exists('Adjacent_Post_V1')) {
 
 			global $post;
 
-			$ga = new \stdClass();
+			$new_clone = new \WPezBoilerStrap\Toolbox\Tools\Cloning();
+
+			$adj_posts = new \stdClass();
 
 			// prev
-			$obj          = new \stdClass();
-			$obj_temp = $this->get_adjacent_prev( $bool_in_same_term, $arr_excluded_terms, $str_taxonomy );
-			$obj->ID = $obj_temp->ID;
-			$obj->post_author = $obj_temp->post_author;
-			$obj->wp_post = $obj_temp;
+			$obj_prev = $this->get_adjacent_prev( $bool_in_same_term, $arr_excluded_terms, $str_taxonomy );
+			$obj_prev_new = $new_clone->ez_clone($obj_prev);
+			$adj_posts->prev = $obj_prev_new;
 
-			$ga->prev = $obj;
+			// next
+			$obj_next = $this->get_adjacent_next( $bool_in_same_term, $arr_excluded_terms, $str_taxonomy );
+			$obj_next_new = $new_clone->ez_clone($obj_next);
+			$adj_posts->next = $obj_next_new;
 
-			$obj = new \stdClass();
-			$obj->permalink = get_permalink($obj_temp);
-
-			$ga->prev->ezx = $obj;
-
-			// prev
-			$obj          = new \stdClass();
-			$obj_temp = $this->get_adjacent_next( $bool_in_same_term, $arr_excluded_terms, $str_taxonomy );
-			$obj->ID = $obj_temp->ID;
-			$obj->post_author = $obj_temp->post_author;
-			$obj->wp_post = $obj_temp;
-
-			$ga->next = $obj;
-
-			$obj = new \stdClass();
-			$obj->permalink = get_permalink($obj_temp);
-
-			$ga->next->ezx = $obj;
-
-			return $ga;
+			return $adj_posts;
 
 		}
 
 		public function get_adjacent_prev( $bool_in_same_term = false, $arr_excluded_terms = array(), $str_taxonomy = 'category' ) {
 			$bool_prev = true;
-
 			return get_adjacent_post( $bool_in_same_term, $arr_excluded_terms, $bool_prev, $str_taxonomy );
 		}
 
 		public function get_adjacent_next( $bool_in_same_term = false, $arr_excluded_terms = array(), $str_taxonomy = 'category' ) {
 			$bool_prev = false;
-
 			return get_adjacent_post( $bool_in_same_term, $arr_excluded_terms, $bool_prev, $str_taxonomy );
 		}
 

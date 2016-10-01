@@ -2,14 +2,14 @@
 
 namespace WPezTheme;
 
-if ( ! class_exists('TODO_CONTROLLER')) {
-	class TODO_CONTROLLER extends \WPezBoilerStrap\Toolbox\Parents\Controller
+if ( ! class_exists('Is_Archive')) {
+	class Is_Archive extends \WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
 		public function __construct() {
 
-			// $this->_wpezconfig = WPezConfig::ez_new();
+			$this->_wpezconfig = WPezConfig::ez_new();
 		}
 
 		/**
@@ -29,8 +29,6 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 			$gv = new \stdClass();
 			$str_ret = '';
 
-
-			/*
 			// ez on off switch
 			$gv->active = true;
 			// where is the slug (optional)
@@ -38,17 +36,17 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 			// the gtp slug (optional)
 			//$gv->slug = '';
 			// the class in that tp
-			$gv->class = '\\WPezBoilerStrap\Views\Groups\Group_Two_V1';
+			$gv->class = '\\WPezBoilerStrap\Views\Components\Name_Description_V1';
 			// the args we're "injecting" into the class
 			$gv->args = $this->get_view_args();
 			// IF we want to use the view's default args (optional)
-			// $gv->args->use = 'defaults';
+			//  $gv->args->use = 'defaults';
 			// once we init the class what method do we "request" (optional)
 			// note: if method is empty of false, ex_loader will return the init'ed obj of the class
 			$gv->method = 'render';
 
 			$str_ret = $this->ez_loader($gv);
-			*/
+
 
 			return $str_ret;
 		}
@@ -58,11 +56,16 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 		 */
 		protected function language() {
 
-			// $lang = new \stdClass();
+			$lang = new \stdClass();
 
-			$str_method = 'TODO';
+			$lang->category_1 = 'Category: ' ;
+			$lang->post_tag_1 = 'Tag: ';
+			$lang->author_1 = 'Author: ';
+			$lang->search = 'Search term: ';
+			$lang->search_found = 'Total found: ';
 
-			$lang = $this->_wpezconfig->ez_get('language', $str_method);
+			// $str_method = 'TODO';
+			//$lang = $this->_wpezconfig->ez_get('language', $str_method);
 			return $lang;
 		}
 
@@ -71,7 +74,27 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 		 */
 		protected function model() {
 
+			global $wp_query;
+
 			$mod = new \stdClass();
+
+			if ( is_category() || is_tag() || is_author() ){
+
+				$cat = 'category_' . (string) is_category();
+				$tag = 'post_tag_' . (string) is_tag();
+				$auth = 'author_' . (string) is_author();
+
+				$obj_lang = $this->language();
+				$str_prefix = $obj_lang->$cat . $obj_lang->$tag . $obj_lang->$auth;
+
+				$mod->name = $str_prefix . $wp_query->queried_object->name;
+				$mod->description = $wp_query->queried_object->description;
+
+			} elseif ( is_search() ){
+
+				$mod->name = $this->language()->search . get_search_query();
+				$mod->description = $this->language()->search_found . $wp_query->found_posts;
+			}
 
 			return $mod;
 		}
@@ -84,54 +107,6 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 			// $gtp_path = $this->gtp_path(__DIR__);
 
 			$parts = new \stdClass();
-
-			/*
-			$part        = new \stdClass();
-
-			$part->active = true;
-			$part->slug_path  = $this->gtp_path(__DIR__);
-			$part->slug  = 'sidebar-accordion';
-			$part->name  = '';
-			$part->class = '\\WPezTheme\Sidebar_Accordion';
-			$part->args  = '';
-			$part->method = 'get_view';
-
-			$str_accord = $this->ez_loader($part);
-
-			$parts->one = $str_accord;
-
-			// -
-			$part        = new \stdClass();
-
-			$part->active = true;
-			$part->slug_path  = 'controllers';
-			$part->slug  = 'single-wrapper';
-			$part->name  = '';
-			$part->class = '\\WPezTheme\Single_Wrapper';
-			$part->args  = '';
-			$part->method = 'get_view';
-
-			$str_sing_wrap = $this->ez_loader($part);
-
-			$parts->two = $str_sing_wrap;
-
-
-			// -
-			$part        = new \stdClass();
-
-			$part->active = true;
-			$part->slug_path  = 'controllers';
-			$part->slug  = 'single-next-prev';
-			$part->name  = '';
-			$part->class = '\\WPezTheme\Single_Next_Prev';
-			$part->args  = '';
-			$part->method = 'get_view';
-
-			$str_sing_np = $this->ez_loader($part);
-
-			$parts->three = $str_sing_np;
-			*/
-
 			return $parts;
 		}
 
@@ -152,10 +127,10 @@ if ( ! class_exists('TODO_CONTROLLER')) {
 		 */
 		protected function viewargs() {
 
-			$vargs = new \stdClass();
+			// $vargs = new \stdClass();
 
-			//$str_method = 'TODO';
-			//$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+			$str_method = 'is_archive';
+			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
 			return $vargs;
 		}
 	}

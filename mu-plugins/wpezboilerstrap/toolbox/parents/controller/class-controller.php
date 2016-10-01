@@ -119,7 +119,7 @@ if ( ! class_exists('Controller') ) {
 
 
 
-		protected function ez_clone($obj, $bool_add_basics = true){
+		protected function TODOX_ez_clone($obj, $bool_ezx = true){
 
 			if ( ! is_object($obj) ){
 				return; // TODO false?
@@ -129,18 +129,28 @@ if ( ! class_exists('Controller') ) {
 			$str_class_lower = strtolower($str_class);
 
 			$obj_new = new \stdClass();
+			// add a clone of the org obj to the new obj. the orig obj's class is the property holding the clone.
+			// we don't want to "disturb" the orginal (WP) object.
 			$obj_new->$str_class_lower = clone $obj;
 			// ezx - short for ez extras
-			$obj_new->ezx = new \stdClass();
-
-			// is there anything additional we want to do with this value of instanceof
+			// add the ezx property and store any of the ez-centric properties there. again, leave the orig obj alone.
+			// this also establishes a "known" within the ez architecture.
+			$obj_new = $this->ezx_exists($obj_new);
+			// is there anything additional we want to do with this type of obj?
 			$str_method = 'ez_clone_' . $str_class_lower;
-			if ( method_exists($this, $str_method)){
+			if ( $bool_ezx !== false && method_exists($this, $str_method)){
 				$obj_new = $this->$str_method($obj_new);
 			}
 			return $obj_new;
 		}
 
+		protected function TODOX_ezx_exists($obj_new = '') {
+
+			if ( is_object( $obj_new ) && ! property_exists( $obj_new, 'ezx' ) ) {
+				$obj_new->ezx = new \stdClass();
+			}
+			return $obj_new;
+		}
 
 		/**
 		 * once cloned there's some additional (quick) magic for instances of wp_post
@@ -148,15 +158,79 @@ if ( ! class_exists('Controller') ) {
 		 *
 		 * @return mixed
 		 */
-		protected function ez_clone_wp_post($obj_new){
+		protected function TODOX_ez_clone_wp_post($obj_new = ''){
 
-			// for convenience post the ID and post_author (user_id) in the "root"
+			if ( ! is_object($obj_new) ){
+				return false; // TODO
+			}
+
 			$obj_new->ID = $obj_new->wp_post->ID;
+			$obj_new->post_type = $obj_new->wp_post->post_type;
+
+
+			$str_post_type_lower = strtolower($obj_new->wp_post->post_type);
+			$str_method = 'ez_clone_wp_post_' . $str_post_type_lower;
+			if ( method_exists($this, $str_method)){
+				$obj_new = $this->$str_method($obj_new);
+			}
+
+			return $obj_new;
+		}
+
+
+
+		protected function TODOX_ez_clone_wp_post_post($obj_new){
+
+			if ( ! is_object($obj_new)){
+				return false; // TODO return?
+			}
+
+			$obj_new = $this->ezx_exists($obj_new);
+
 			$obj_new->post_author = $obj_new->wp_post->post_author;
-			// add the parmalink
 			$obj_new->ezx->permalink = get_permalink($obj_new->wp_post->ID);
 
 			return $obj_new;
+
+		}
+
+		protected function TODOX_ez_clone_wp_post_nav_menu_item ($obj_new = ''){
+
+			if ( ! is_object($obj_new)){
+				return false; // TODO return?
+			}
+
+			$obj_new = $this->ezx_exists($obj_new);
+
+			$obj_new->ezx->url = $obj_new->wp_post->url;
+			$obj_new->ezx->anchor = $obj_new->wp_post->title;
+			$obj_new->ezx->target = $obj_new->wp_post->target;
+			$obj_new->ezx->attr_title  = $obj_new->wp_post->attr_title;
+			$obj_new->ezx->class = esc_attr(implode(' ',$obj_new->wp_post->classes ));
+
+			return $obj_new;
+		}
+
+
+		protected function TODOX_ez_clone_menu($arr_objs = '', $bool_ezx = true){
+
+			if ( is_array($arr_objs) && count($arr_objs) > 0 ){
+
+				// let's check the first obj in the array;
+				$obj_0 = array_values($arr_objs)[0];
+
+				if ( $obj_0 instanceof \WP_Post && $obj_0->post_type == 'nav_menu_item'  ){
+
+					$new_arr = array();
+					foreach ( $arr_objs as $key => $obj ){
+
+						$new_arr[] = $this->ez_clone($obj);
+					}
+					return $new_arr;
+				}
+
+			}
+			return $arr_objs;
 		}
 
 

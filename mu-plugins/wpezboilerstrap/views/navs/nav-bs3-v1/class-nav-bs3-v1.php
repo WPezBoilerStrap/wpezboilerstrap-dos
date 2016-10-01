@@ -47,7 +47,7 @@ if ( ! class_exists('Nav_BS3_V1') ) {
 
 			$mod = new \stdClass();
 
-			$mod->brand_url = 'http://BRAND_URL.com';
+			$mod->brand_url = 'http://TODO.com';
 			$mod->menu = 'INSERT MOD-MENU HERE';
 
 			return $mod;

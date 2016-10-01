@@ -85,10 +85,10 @@ if ( ! class_exists( 'Index_Body')) {
 			$part        = new \stdClass();
 
 			$part->active = true;
-			$part->slug_path = 'controllers';
-			$part->slug  = 'footer-bottom';
+			$part->slug_path = 'controllers/footers';
+			$part->slug  = 'footer-group';
 			$part->name  = '';
-			$part->class = '\\WPezTheme\Footer';
+			$part->class = '\\WPezTheme\Footer_Group';
 			$part->args  = '';
 			$part->method = 'get_view';
 

@@ -5,19 +5,14 @@
 
 namespace WPezTheme;
 
-if ( !class_exists( 'Build_Loader' ) ) {
+if ( !class_exists( 'Scaffolding_Loader' ) ) {
 
-    class Build_Loader
+    class Scaffolding_Loader
     {
 
         function __construct()
         {
-            /*
-            $obj = new WPezConfig;
-            $g = $obj->get( 'globals' );
 
-            $this->loader( $g );
-            */
             $this->loader();
         }
 

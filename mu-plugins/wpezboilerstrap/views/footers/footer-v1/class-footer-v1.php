@@ -75,12 +75,11 @@ if ( ! class_exists('Footer_V1') ) {
 
 		protected function vargs_defaults() {
 
-
 			$obj_enc = new \stdClass();
 
 			$obj_enc->active = true;            // an enclosure master switch - default is true
 
-			$obj_enc->semantic_active = true;   // default is true
+			$obj_enc->semantic_active = false;   // default is true
 			$obj_enc->semantic_tag = 'footer';
 			$obj_enc->semantic_global_attrs = array(
 				'class' => 'container'
@@ -121,9 +120,6 @@ if ( ! class_exists('Footer_V1') ) {
 			$vargs->back_to_top_href = '#top';
 
 			return $vargs;
-
-
-
 		}
 
 	}

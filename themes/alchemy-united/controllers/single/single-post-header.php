@@ -7,9 +7,9 @@ if ( ! class_exists('Single_Post_Header')) {
 	{
 		protected $_wpezconfig;
 
-		public function __construct( $x = '') {
+		public function __construct($mix_args = '') {
 
-			// $this->_wpezconfig = WPezConfig::ez_new();
+			$this->_wpezconfig = WPezConfig::ez_new();
 		}
 
 		/**
@@ -17,14 +17,14 @@ if ( ! class_exists('Single_Post_Header')) {
 		 */
 		public function get_view(){
 
-			$obj = new \stdClass();
+			$gv = new \stdClass();
 
-			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Posts\Post_Header_V1';
-			$obj->args = $this->get_view_args();
-			$obj->method = 'render';
+			$gv->active = true;
+			$gv->class = '\\WPezBoilerStrap\Views\Posts\Post_Header_V1';
+			$gv->args = $this->get_view_args();
+			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($obj);
+			$str_ret = $this->ez_loader($gv);
 
 			return $str_ret;
 		}
@@ -34,9 +34,9 @@ if ( ! class_exists('Single_Post_Header')) {
 		 */
 		protected function language() {
 
-			$obj = new \stdClass();
+			$lang = new \stdClass();
 
-			return $obj;
+			return $lang;
 		}
 
 		/**
@@ -46,12 +46,14 @@ if ( ! class_exists('Single_Post_Header')) {
 
 			global $post;
 
-			$obj_post = $this->ez_clone($post);
+			$new_cloning = new \WPezBoilerStrap\Toolbox\Tools\Cloning();
+
+			$mod = $new_cloning->ez_clone($post);
 
 			$obj_user = new \WPezBoilerStrap\Models\Users\User_V1();
-			$obj_post->ezx->user = $obj_user->user_min($obj_post->post_author);
+			$mod->user = $obj_user->user_min($mod->post_author);
 
-			return $obj_post;
+			return $mod;
 
 		}
 
@@ -60,38 +62,37 @@ if ( ! class_exists('Single_Post_Header')) {
 		 */
 		protected function partials() {
 
-			$gtp_path = $this->gtp_path(__DIR__) . '/';
-
-			$obj = new \stdClass();
+			$gtp_path = $this->gtp_path(__DIR__) ;
 
 			$part        = new \stdClass();
 
 			$part->active = true;
 			$part->slug_path = $gtp_path;
-			$part->slug  = 'single-term-category';
+			$part->slug  = 'single-term-group';
 			$part->name  = '';
-			$part->class = '\\WPezTheme\Single_Term_Category';
+			$part->class = '\\WPezTheme\Single_Term_Group';
 			$part->args  = '';
 			$part->method = 'get_view';
 
-			$str_term_cats = $this->ez_loader($part);
-
-			$obj->one = $str_term_cats;
+			$str_term_wrap = $this->ez_loader($part);
 
 			$part        = new \stdClass();
 
-			$part->active = true;
+			$part->active = false; // <<<
 			$part->slug_path = $gtp_path;
 			$part->slug  = 'single-term-post-tag';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Single_Term_Post_tag';
 			$part->method = 'get_view';
 
-			$str_term_tags = $this->ez_loader($part);
+			//$str_term_tags = $this->ez_loader($part);
 
-			$obj->two = $str_term_tags;
+			$parts = new \stdClass();
 
-			return $obj;
+			$parts->one = $str_term_wrap;
+			$parts->two = '';
+
+			return $parts;
 		}
 
 
@@ -100,9 +101,9 @@ if ( ! class_exists('Single_Post_Header')) {
 		 */
 		protected function router() {
 
-			$obj = new \stdClass();
+			$route = new \stdClass();
 
-			return $obj;
+			return $route;
 		}
 
 		/**
@@ -110,24 +111,10 @@ if ( ! class_exists('Single_Post_Header')) {
 		 */
 		protected function viewargs() {
 
-			$obj_enc = new \stdClass();
-
-			$obj_enc->active = true;            // an enclosure master switch - default is true
-
-			$obj_enc->semantic_active = true;   // default is true
-			$obj_enc->semantic_tag = 'header';
-			$obj_enc->semantic_global_attrs = array(
-				//'class' => 'my semantic class test'
-			);
-
-			$obj_enc->wrapper_active = false;   // default is true
-			$obj_enc->wrapper_tag = 'tag_TODO';
-			$obj_enc->wrapper_global_attrs = array(
-				'class' => 'my wrapper class test'
-			);
-
 			$vargs = new \stdClass();
-			$vargs->enclose = $obj_enc;
+
+			$str_method = 'single_post_header';
+			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
 
 			return $vargs;
 		}

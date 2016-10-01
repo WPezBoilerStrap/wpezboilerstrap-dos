@@ -2,8 +2,9 @@
 
 namespace WPezTheme;
 
-if ( ! class_exists( 'Single_Term_Post_Tag' ) ) {
-	class Single_Term_Post_Tag extends \WPezBoilerStrap\Toolbox\Parents\Controller {
+if ( ! class_exists('Tabs_Menu_Tags')) {
+	class Tabs_Menu_Tags extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	{
 
 		protected $_wpezconfig;
 
@@ -39,7 +40,7 @@ if ( ! class_exists( 'Single_Term_Post_Tag' ) ) {
 
 			$lang = new \stdClass();
 
-			$lang->label = ' Tags: '; // e.g. Tags, Catgories, etc.
+			$lang->label = 'Tags'; // e.g. Tags, Catgories, etc.
 
 			return $lang;
 		}
@@ -49,14 +50,14 @@ if ( ! class_exists( 'Single_Term_Post_Tag' ) ) {
 		 */
 		protected function model() {
 
-			global $post;
-
 			$mod = new \stdClass();
 
-			$arr_objs = get_the_terms($post->ID, 'post_tag');
-
+			$tools_menu = new \WPezBoilerStrap\Models\Navs\Nav_Menu_V1();
+			// get the menu by name
+			$arr_main = $tools_menu->nav_menu_location_items('menu_tags');
+			//clone it
 			$tools_clone = new \WPezBoilerStrap\Toolbox\Tools\Cloning();
-			$arr_objs = $tools_clone->ez_clone_get_the_terms($arr_objs);
+			$arr_objs = $tools_clone->ez_clone_menu_items($arr_main);
 
 			$mod->array_objects = $arr_objs ;
 
@@ -90,7 +91,7 @@ if ( ! class_exists( 'Single_Term_Post_Tag' ) ) {
 		 */
 		protected function viewargs() {
 
-			$str_method = 'single_term_post_tag';
+			$str_method = 'tabs_menu_tags';
 
 			$obj_vargs = $this->_wpezconfig->get('viewargs');
 

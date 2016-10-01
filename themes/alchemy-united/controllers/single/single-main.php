@@ -2,14 +2,14 @@
 
 namespace WPezTheme;
 
-if ( ! class_exists('Single_Wrapper')) {
-	class Single_Wrapper extends \WPezBoilerStrap\Toolbox\Parents\Controller
+if ( ! class_exists('Single_Main')) {
+	class Single_Main extends \WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
 		public function __construct() {
 
-			// $this->_wpezconfig = WPezConfig::ez_new();
+			$this->_wpezconfig = WPezConfig::ez_new();
 		}
 
 		/**
@@ -17,14 +17,14 @@ if ( ! class_exists('Single_Wrapper')) {
 		 */
 		public function get_view(){
 
-			$obj = new \stdClass();
+			$gv = new \stdClass();
 
-			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Groups\Group_Two_V1';
-			$obj->args = $this->get_view_args();
-			$obj->method = 'render';
+			$gv->active = true;
+			$gv->class = '\\WPezBoilerStrap\Views\Groups\Group_Two_V1';
+			$gv->args = $this->get_view_args();
+			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($obj);
+			$str_ret = $this->ez_loader($gv);
 
 			return $str_ret;
 		}
@@ -44,9 +44,9 @@ if ( ! class_exists('Single_Wrapper')) {
 		 */
 		protected function model() {
 
-			$obj = new \stdClass();
+			$mod = new \stdClass();
 
-			return $obj;
+			return $mod;
 
 		}
 
@@ -55,10 +55,7 @@ if ( ! class_exists('Single_Wrapper')) {
 		 */
 		protected function partials() {
 
-			$gtp_path = $this->gtp_path(__DIR__) . '////';
-
-
-			$obj = new \stdClass();
+			$gtp_path = $this->gtp_path(__DIR__) . '/';
 
 			$part        = new \stdClass();
 
@@ -71,8 +68,6 @@ if ( ! class_exists('Single_Wrapper')) {
 			$part->method = 'get_view';
 
 			$str_sing_ph = $this->ez_loader($part);
-
-			$obj->one = $str_sing_ph;
 
 			// -
 			$part        = new \stdClass();
@@ -87,9 +82,12 @@ if ( ! class_exists('Single_Wrapper')) {
 
 			$str_sing_con = $this->ez_loader($part);
 
-			$obj->two = $str_sing_con;
+			$parts = new \stdClass();
 
-			return $obj;
+			$parts->one = $str_sing_ph;
+			$parts->two = $str_sing_con;
+
+			return $parts;
 		}
 
 
@@ -109,15 +107,12 @@ if ( ! class_exists('Single_Wrapper')) {
 		 */
 		protected function viewargs() {
 
-			// ->enclose
-			$enc = new \stdClass();
-			$enc->semantic_tag = 'article';
+			$vargs = new \stdClass();
 
+			$str_method = 'single_main';
+			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
 
-			$obj = new \stdClass();
-			$obj->enclose = $enc;
-
-			return $obj;
+			return $vargs;
 		}
 
 

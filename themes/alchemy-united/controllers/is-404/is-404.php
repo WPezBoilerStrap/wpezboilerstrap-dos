@@ -29,9 +29,9 @@ if ( ! class_exists('Is_404')) {
 		 */
 		protected function language() {
 
-			$obj = new \stdClass();
+			$lang = new \stdClass();
 
-			return $obj;
+			return $lang;
 		}
 
 		/*
@@ -39,9 +39,9 @@ if ( ! class_exists('Is_404')) {
 		 */
 		protected function model() {
 
-			$obj = new \stdClass();
+			$mod = new \stdClass();
 
-			return $obj;
+			return $mod;
 		}
 
 		/*
@@ -49,9 +49,9 @@ if ( ! class_exists('Is_404')) {
 		 */
 		protected function partials() {
 
-			$obj = new \stdClass();
+			$parts = new \stdClass();
 
-			return $obj;
+			return $parts;
 		}
 
 
@@ -60,9 +60,9 @@ if ( ! class_exists('Is_404')) {
 		 */
 		protected function router() {
 
-			$obj = new \stdClass();
+			$route = new \stdClass();
 
-			return $obj;
+			return $route;
 		}
 
 
@@ -71,9 +71,9 @@ if ( ! class_exists('Is_404')) {
 		 */
 		protected function viewargs() {
 
-			$obj = new \stdClass();
+			$vargs = new \stdClass();
 
-			return $obj;
+			return $vargs;
 		}
 
 

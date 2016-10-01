@@ -7,15 +7,14 @@ if ( ! class_exists('Post_List_Layout_V1')) {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
 
-			$obj_wp_post = $mod->wp_post;
-			$obj_ezx = $mod->ezx;
 
+			$str_ret = '';
 
-			$str_ret = '<row>TODO - Post List Layout V1<br>';
+			$str_ret = '<img src="http://placehold.it/738x300">';
 
-			$str_ret .= '<br>-- ' . $obj_wp_post->post_title . ' - ' . $obj_ezx->permalink . '<br>';
+			$str_ret .= '<br>-- ' . $mod->title . ' - ' . $mod->url . '<br>';
 
-			$str_ret .= esc_attr(date($vargs->date_format, strtotime($obj_wp_post->post_date)));
+			$str_ret .= esc_attr(date($vargs->date_format, strtotime($mod->orig_obj->post_date)));
 
 			$str_ret .= '</row>';
 

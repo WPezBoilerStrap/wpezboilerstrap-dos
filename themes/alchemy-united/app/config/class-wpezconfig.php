@@ -17,12 +17,12 @@ if ( ! class_exists('WPezConfig') ){
        }
 
 
-        protected function build(){
+        protected function scaffolding(){
 
             $obj = new \stdClass();
-            $obj->slug = 'app\build-loader';
+            $obj->slug = 'app\scaffolding\scaffolding-loader';
             $obj->name = '';
-            $obj->class = '\\WPezTheme\Build_Loader';
+            $obj->class = '\\WPezTheme\Scaffolding_Loader';
 
             return $obj;
         }
@@ -61,7 +61,8 @@ if ( ! class_exists('WPezConfig') ){
 		        $obj        = new \stdClass();
 
 		        $obj->active = true;
-		        $obj->slug  = '\app\config\options\class-options-au-v1';
+		        $obj->slug_path = 'app\config\options';
+		        $obj->slug  = 'class-options-au-v1';
 		        $obj->name  = '';
 		        $obj->class = '\\WPezTheme\Options_AU_V1';
 		        $obj->args  = '';
@@ -82,7 +83,8 @@ if ( ! class_exists('WPezConfig') ){
 			    $obj        = new \stdClass();
 
 			    $obj->active = true;
-			    $obj->slug  = '\app\config\options\class-router-au-v1';
+			    $obj->slug_path  = 'app\config\options';
+			    $obj->slug  = 'class-router-au-v1';
 			    $obj->name  = '';
 			    $obj->class = '\\WPezTheme\Router_AU_V1';
 			    $obj->args  = '';

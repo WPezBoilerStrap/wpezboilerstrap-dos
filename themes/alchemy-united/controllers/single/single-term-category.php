@@ -51,12 +51,16 @@ if ( ! class_exists( 'Single_Term_Category' ) ) {
 
 			global $post;
 
-			$obj = new \stdClass();
+			$mod = new \stdClass();
 
-			$single = new \WPezBoilerStrap\Models\Posts\Single_V1();
-			$obj->array_links = $single->get_terms($post->ID, 'category');
+			$arr_objs = get_the_terms($post->ID, 'category');
 
-			return $obj;
+			$tools_clone = new \WPezBoilerStrap\Toolbox\Tools\Cloning();
+			$arr_objs = $tools_clone->ez_clone_get_the_terms($arr_objs);
+
+			$mod->array_objects = $arr_objs ;
+
+			return $mod;
 		}
 
 		/**
@@ -88,12 +92,7 @@ if ( ! class_exists( 'Single_Term_Category' ) ) {
 
 			$str_method = 'single_term_category';
 
-			// $obj_vargs = $this->_wpezconfig->get('viewargs');
-
-			// $x = $obj_vargs->get($str_method);
-
 			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
-
 			return $vargs;
 		}
 

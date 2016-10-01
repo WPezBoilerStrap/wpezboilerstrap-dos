@@ -44,17 +44,16 @@ if ( ! class_exists('Single_Content')) {
 		 */
 		protected function model() {
 
-			$obj = new \stdClass();
-
 			global $post;
 
 			$content = $post->post_content;
 			$content = apply_filters( 'the_content', $content );
 			$content = str_replace( ']]>', ']]&gt;', $content );
 
-			$obj->post_content = $content;
+			$mod = new \stdClass();
+			$mod->post_content = $content;
 
-			return $obj;
+			return $mod;
 		}
 
 		/**
@@ -62,9 +61,9 @@ if ( ! class_exists('Single_Content')) {
 		 */
 		protected function partials() {
 
-			$obj = new \stdClass();
+			$parts = new \stdClass();
 
-			return $obj;
+			return $parts;
 		}
 
 
@@ -73,9 +72,9 @@ if ( ! class_exists('Single_Content')) {
 		 */
 		protected function router() {
 
-			$obj = new \stdClass();
+			$route = new \stdClass();
 
-			return $obj;
+			return $route;
 		}
 
 
@@ -84,9 +83,9 @@ if ( ! class_exists('Single_Content')) {
 		 */
 		protected function viewargs() {
 
-			$obj = new \stdClass();
+			$vargs = new \stdClass();
 
-			return $obj;
+			return $vargs;
 		}
 
 

@@ -21,10 +21,10 @@ if ( ! class_exists('Language') ) {
 		 	$this->_args = $mix_args;
 		 }
 
-		public function get( $str_meth = '' ) {
+		public function get( $str_meth = '', $str_arg = '' ) {
 
 			if ( method_exists( $this, $str_meth ) ) {
-				return $this->$str_meth();
+				return $this->$str_meth($str_arg);
 			}
 
 			return new \stdClass();

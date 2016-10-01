@@ -9,51 +9,40 @@ if ( ! class_exists('Icon_Label_Links_V1')) {
 
 			$str_ret = '';
 
-			$str_ret .= '<' . esc_attr($vargs->wrapper_tag) . ' ';
-			$str_ret .= $this->global_attrs($vargs->wrapper_global_attrs );
-			$str_ret .= '>';
+			https://premium.wpmudev.org/blog/convert-html5-template-wordpress-theme/?npp=b&utm_expid=3606929-84.YoGL0StOSa-tkbGo-lVlvw.1&utm_referrer=https%3A%2F%2Fwww.facebook.com%2F
 
-			$str_ret .= '<span ';
-			$str_ret .= $this->global_attrs($vargs->icon_span_global_attrs );
-			$str_ret .= '></span>';
+			$str_ret .= $this->element_open($vargs->wrapper_tag, $vargs->wrapper_global_attrs);
 
-			$str_ret .= '<span ';
-			$str_ret .= $this->global_attrs($vargs->label_span_global_attrs );
-			$str_ret .= '>';
+			$str_ret .= $this->element_open($vargs->icon_label_wrapper_tag, $vargs->icon_label_wrapper_global_attrs);
+
+			$str_ret .= $this->element_open($vargs->icon_tag, $vargs->icon_global_attrs);
+			$str_ret .= $this->element_close($vargs->icon_tag);
+
+			$str_ret .= $this->element_open($vargs->label_tag, $vargs->label_global_attrs);
 			$str_ret .= esc_attr($lang->label);
-			$str_ret .= '</span>';
+			$str_ret .= $this->element_close($vargs->label_tag);
 
-			$arr_one = array();
-			foreach ($mod->array_links as $key => $obj) {
+			$str_ret .= $this->element_close($vargs->icon_label_wrapper_tag);
+
+			$arr_to_implode = array();
+			foreach ($mod->array_objects as $key => $obj) {
 
 				//   <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
 				$str_link = '<a href="' . esc_url( $obj->url ) . '"';
-				if ( ! empty( $vargs->link_class ) || ! empty( $vargs->obj_class  ) ) {
-					$str_link .= ' class="' . trim( esc_attr( $vargs->link_class . ' ' . $obj->link_class ) ) . '"';
-				}
-
-				if ( ! empty($vargs->link_rel) ) {
-					$str_link .= ' rel="' . esc_attr( $vargs->link_rel ) . '"';
-				}
-
-				if ( ! empty($obj->title) ) {
-					$str_link .= ' title="' . esc_attr( $obj->title ) . '"';
-				}
-				$str_link .= '>';
-				$str_link .= esc_attr($obj->anchor);
-
+				$str_link .= $this->global_attrs($obj->global_attrs) . '>';
+				$str_link .= esc_attr($obj->anchor_text);
 				$str_link.= '</a>'; // list close
 
-				$arr_one[] = $str_link;
+				$arr_to_implode[] = $str_link;
 			}
 
 			$str_ig = esc_attr($vargs->implode_glue);
-			$str_implode = implode($str_ig, $arr_one);
+			$str_implode = implode($str_ig, $arr_to_implode);
 
 			$str_ret .= $str_implode;
+			$str_ret .= $this->element_close($vargs->wrapper_tag);
 
 			return $str_ret;
-
 		}
 
 		/*
@@ -115,16 +104,25 @@ if ( ! class_exists('Icon_Label_Links_V1')) {
 				'id' => 'VARGS-WRAPPER_GLOBAL_ATTRS-ID',
 				'class' => 'VARGS-WRAPPER_GLOBAL_ATTRS-CLASS'
 			);
-			$vargs->icon_span_global_attrs = array(
+
+			$vargs->icon_label_wrapper_tag = 'div';
+			$vargs->icon_label_wrapper_global_attrs = array(
 				'class' => 'VARGS-ICON_SPAN_CLASS fa fa-tags' // e.g., some FA class
 			);
-			$vargs->label_span_global_attrs = array(
+
+			$vargs->icon_tag = 'i';
+			$vargs->icon_global_attrs = array(
+				'class' => 'VARGS-ICON_SPAN_CLASS fa fa-tags' // e.g., some FA class
+			);
+			$vargs->label_tag = 'span';
+			$vargs->label_global_attrs = array(
 				'class' => 'VARGS-LABEL_SPAN_CLASS' // e.g., some FA class
 			);
+
 			$vargs->link_class = 'VARGS-LINK_CLASS'; // apply to every link, there is also a mod->link_class
 			$vargs->link_rel = 'VARGS-LINK_REL';
-			$vargs->implode_glue = ', ';
 
+			$vargs->implode_glue = ', '; // aka delimiter
 			return $vargs;
 		}
 	}

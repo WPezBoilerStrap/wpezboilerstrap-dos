@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ratios>
+    <!-- traditional tv -->
+    <ratio>
+        <name>tv</name>
+        <w>4</w>
+        <h>3</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <ratio>
+        <name>4x3</name>
+        <w>4</w>
+        <h>3</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- academy standard film aspect ratio -->
+    <ratio>
+        <name>academy</name>
+        <w>1.375</w>
+        <h>1</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <ratio>
+        <name>1.375x1</name>
+        <w>1.375</w>
+        <h>1</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- imax -->
+    <ratio>
+        <name>imax</name>
+        <w>1.43</w>
+        <h>1</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <ratio>
+        <name>1.43x1</name>
+        <w>1.43</w>
+        <h>1</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- traditional photo -->
+    <ratio>
+        <name>photo</name>
+        <w>6</w>
+        <h>4</h>
+        <unit>in</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <ratio>
+        <name>6x4</name>
+        <w>6</w>
+        <h>4</h>
+        <unit>in</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <ratio>
+        <name>3x2</name>
+        <w>3</w>
+        <h>2</h>
+        <unit>in</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- us letter (paper) = 1:1.2941 -->
+    <ratio>
+        <name>letter</name>
+        <w>11</w>
+        <h>8.5</h>
+        <unit>in</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>11x8.5</name>
+        <w>11</w>
+        <h>8.5</h>
+        <unit>in</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- us: legal (paper) = 1:1.6471 -->
+    <ratio>
+        <name>legal</name>
+        <w>14</w>
+        <h>8.5</h>
+        <unit>in</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>14x8.5</name>
+        <w>14</w>
+        <h>8.5</h>
+        <unit>in</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- us: jr legal (paper) = 1:1.6471 -->
+    <ratio>
+        <name>jr_legal</name>
+        <w>8</w>
+        <h>5</h>
+        <unit>in</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>8x5</name>
+        <w>8</w>
+        <h>5</h>
+        <unit>in</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- us: ledger / tabloid (paper) = 1:1.5455 -->
+    <ratio>
+        <name>ledger</name>
+        <w>17</w>
+        <h>11</h>
+        <unit>in</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>tabloid</name>
+        <w>17</w>
+        <h>11</h>
+        <unit>in</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>17x11</name>
+        <w>17</w>
+        <h>11</h>
+        <unit>in</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- a0 (paper) -->
+    <ratio>
+        <name>a0</name>
+        <w>1189</w>
+        <h>841</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>1189x841</name>
+        <w>1189</w>
+        <h>841</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- a1 (paper) -->
+    <ratio>
+        <name>a1</name>
+        <w>841</w>
+        <h>594</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>841x594</name>
+        <w>841</w>
+        <h>594</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- a2 (paper) mm -->
+    <ratio>
+        <name>a2</name>
+        <w>594</w>
+        <h>420</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>594x420</name>
+        <w>594</w>
+        <h>420</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- a3 (paper) mm -->
+    <ratio>
+        <name>a3</name>
+        <w>420</w>
+        <h>297</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>420x297</name>
+        <w>420</w>
+        <h>297</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- a4 (paper) -->
+    <ratio>
+        <name>a4</name>
+        <w>297</w>
+        <h>210</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>297x210</name>
+        <w>297</w>
+        <h>210</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- a5 (paper) -->
+    <ratio>
+        <name>a5</name>
+        <w>210</w>
+        <h>148</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>210x148</name>
+        <w>210</w>
+        <h>148</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- a6 (paper) -->
+    <ratio>
+        <name>a6</name>
+        <w>148</w>
+        <h>105</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>148x105</name>
+        <w>148</w>
+        <h>105</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- a7 (paper) -->
+    <ratio>
+        <name>a7</name>
+        <w>105</w>
+        <h>74</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>105x74</name>
+        <w>105</w>
+        <h>74</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- a8 (paper) -->
+    <ratio>
+        <name>a8</name>
+        <w>74</w>
+        <h>52</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>74x52</name>
+        <w>74</w>
+        <h>52</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- a9 (paper) -->
+    <ratio>
+        <name>a9</name>
+        <w>52</w>
+        <h>37</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>52x37</name>
+        <w>52</w>
+        <h>37</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- a10 (paper) -->
+    <ratio>
+        <name>a10</name>
+        <w>37</w>
+        <h>26</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <ratio>
+        <name>37x26</name>
+        <w>27</w>
+        <h>26</h>
+        <unit>mm</unit>
+        <orientation>land</orientation>
+        <type>paper</type>
+    </ratio>
+    <!-- golden ratio -->
+    <ratio>
+        <name>golden</name>
+        <w>16.18</w>
+        <h>10</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <ratio>
+        <name>golden_ratio</name>
+        <w>16.18</w>
+        <h>10</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <ratio>
+        <name>16.18x10</name>
+        <w>16.18</w>
+        <h>10</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- hd video -->
+    <ratio>
+        <name>video</name>
+        <w>16</w>
+        <h>9</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <ratio>
+        <name>hd_video</name>
+        <w>16</w>
+        <h>9</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <ratio>
+        <name>16x9</name>
+        <w>16</w>
+        <h>9</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- widescreen -->
+    <ratio>
+        <name>widescreen</name>
+        <w>24</w>
+        <h>10</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <ratio>
+        <name>24x10</name>
+        <w>24</w>
+        <h>10</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- square -->
+    <ratio>
+        <name>square</name>
+        <w>1</w>
+        <h>1</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <ratio>
+        <name>sqr</name>
+        <w>1</w>
+        <h>1</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <ratio>
+        <name>1x1</name>
+        <w>1</w>
+        <h>1</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- 1.5 x 1 -->
+    <ratio>
+        <name>1.5x1</name>
+        <w>1.5</w>
+        <h>1</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- 2 x 1 -->
+    <ratio>
+        <name>2x1</name>
+        <w>2</w>
+        <h>1</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- 2.5 x 1 -->
+    <ratio>
+        <name>2.5x1</name>
+        <w>2.5</w>
+        <h>1</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- 3 x 1 -->
+    <ratio>
+        <name>3x1</name>
+        <w>3</w>
+        <h>1</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- 3.5 x 1 -->
+    <ratio>
+        <name>3.5x1</name>
+        <w>3.5</w>
+        <h>1</h>
+        <unit>0</unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- 4 x 1 -->
+    <ratio>
+        <name>4x1</name>
+        <w>4</w>
+        <h>1</h>
+        <unit></unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- 4.5 x 1 -->
+    <ratio>
+        <name>4.5x1</name>
+        <w>4.5</w>
+        <h>1</h>
+        <unit></unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- 5 x 1 -->
+    <ratio>
+        <name>5x1</name>
+        <w>5</w>
+        <h>1</h>
+        <unit></unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- 5.5 x 1 -->
+    <ratio>
+        <name>5.5x1</name>
+        <w>5.5</w>
+        <h>1</h>
+        <unit></unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- 6 x 1 -->
+    <ratio>
+        <name>6x1</name>
+        <w>6</w>
+        <h>1</h>
+        <unit></unit>
+        <orientation>land</orientation>
+    </ratio>
+    <!-- http://designerstoolbox.com/designresources/banners/ -->
+    <!-- web ad: full banner -->
+    <ratio>
+        <name>banner</name>
+        <w>468</w>
+        <h>60</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <ratio>
+        <name>banner_ad</name>
+        <w>468</w>
+        <h>60</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <ratio>
+        <name>full_banner</name>
+        <w>468</w>
+        <h>60</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <!-- web ad: leaderboard -->
+    <ratio>
+        <name>leaderboard</name>
+        <w>720</w>
+        <h>90</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <!-- web ad: square 1 -->
+    <ratio>
+        <name>ad_square_1</name>
+        <w>336</w>
+        <h>280</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <!-- web ad: square 2 -->
+    <ratio>
+        <name>ad_square_2</name>
+        <w>300</w>
+        <h>250</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <!-- web ad: square 3 -->
+    <ratio>
+        <name>ad_square_3</name>
+        <w>250</w>
+        <h>250</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <!-- web ad: Skyscraper 1 -->
+    <ratio>
+        <name>skyscraper_1</name>
+        <w>600</w>
+        <h>160</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <!-- web ad: Skyscraper 2 -->
+    <ratio>
+        <name>skyscraper_2</name>
+        <w>600</w>
+        <h>120</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <!-- web ad: Small Skyscraper -->
+    <ratio>
+        <name>small_skyscraper</name>
+        <w>240</w>
+        <h>120</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <ratio>
+        <name>skyscraper_sm</name>
+        <w>240</w>
+        <h>120</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <!-- web ad: fat Skyscraper -->
+    <ratio>
+        <name>fat_skyscraper</name>
+        <w>400</w>
+        <h>240</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <!-- web ad: half banner -->
+    <ratio>
+        <name>half_banner</name>
+        <w>234</w>
+        <h>60</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <!-- web ad: Rectangle -->
+    <ratio>
+        <name>rectangle</name>
+        <w>180</w>
+        <h>150</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <!-- web ad: square button -->
+    <ratio>
+        <name>square_button</name>
+        <w>125</w>
+        <h>125</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+    <ratio>
+        <name>sqr_button</name>
+        <w>125</w>
+        <h>125</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+        <type>web banner</type>
+    </ratio>
+
+    <!-- web ad: button 1 -->
+    <ratio>
+        <name>button_1</name>
+        <w>120</w>
+        <h>90</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+    </ratio>
+
+    <!-- web ad: button 2 -->
+    <ratio>
+        <name>button_2</name>
+        <w>120</w>
+        <h>60</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+    </ratio>
+
+    <!-- web ad: button 3 -->
+    <ratio>
+        <name>button_3</name>
+        <w>88</w>
+        <h>31</h>
+        <unit>px</unit>
+        <orientation>land</orientation>
+    </ratio>
+    
+</ratios>

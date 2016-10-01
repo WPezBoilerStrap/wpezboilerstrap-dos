@@ -7,21 +7,20 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
 
-			// simplify the nested objs a bit
-			$obj_prev   = $mod->prev->wp_post;
-			$obj_prev_ezx = $mod->prev->ezx;
+			// $obj_prev_orig   = $mod->prev->orig_obj;
+			$obj_prev = $mod->prev;
 
-			$obj_next   = $mod->next->wp_post;
-			$obj_next_ezx = $mod->next->ezx;
+			//$obj_next_orig   = $mod->next->orig_obj;
+			$obj_next = $mod->next;
 
 			$str_ret = '';
 			$str_ret .= $this->element_open($vargs->wrapper_tag, $vargs->wrapper_global_attrs);
 
 			// prev
 			$str_ret .= $this->element_open($vargs->page_tag, $vargs->page_prev_global_attrs);
-			if ( ! empty( $obj_prev_ezx->permalink ) && ! empty( $obj_prev->post_title ) ) {
+			if ( ! empty( $obj_prev->url ) && ! empty( $obj_prev->title ) ) {
 
-				$str_ret .= '<a href="' . esc_url( $obj_prev_ezx->permalink ) . ' ">';
+				$str_ret .= '<a href="' . esc_url( $obj_prev->url ) . ' ">';
 
 				/*
 				 * This isn't as tricky as it looks :)
@@ -35,7 +34,8 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 				$str_ret .= esc_attr( $vargs->prev_icon );
 				$str_ret .= $this->element_close($vargs->icon_tag);
 
-				$str_title = esc_attr( $obj_prev->post_title );
+				$str_title = esc_attr( $obj_prev->title );
+				// or use your own title. for example, perpahs a simple "Prav" and "Next" will do?
 				if ( ! empty($lang->prev_title) && $lang->prev_title !== false ){
 					$str_title = esc_attr($lang->prev_title);
 				}
@@ -46,11 +46,11 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 
 			// next
 			$str_ret .= $this->element_open($vargs->page_tag, $vargs->page_next_global_attrs);
-			if ( ! empty( $obj_next_ezx->permalink ) && ! empty( $obj_next->post_title ) ) {
+			if ( ! empty( $obj_next->url ) && ! empty( $obj_next->title ) ) {
 
-				$str_ret .= '<a href="' . esc_url( $obj_next_ezx->permalink ) . ' ">';
+				$str_ret .= '<a href="' . esc_url( $obj_next->url ) . ' ">';
 
-				$str_title = esc_attr( $obj_next->post_title );
+				$str_title = esc_attr( $obj_next->title );
 				if ( ! empty($lang->next_title) && $lang->next_title !== false ){
 					$str_title = esc_attr($lang->next_title);
 				}
@@ -84,27 +84,18 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 			$mod = new \stdClass();
 
 			$obj_post             = new \stdClass();
-			$obj_post->post_title = 'MOD - Prev Post_Title';
-			$obj_post_x           = new \stdClass();
-			$obj_post_x->permalink  = 'http://MOD-POST_X-PREV-URL.com';
+			$obj_post->title = 'MOD-Prev Title';
+			$obj_post->url  = 'http://MOD-PREV-URL.com';
+			$obj_post->orig_obj = 'WP_Post Object';
 
-			$obj_prev = new \stdClass();
-
-			$obj_prev->wp_post       = $obj_post;
-			$obj_prev->ezx = $obj_post_x;
+			$mod->prev = $obj_post;
 
 			$obj_post             = new \stdClass();
-			$obj_post->post_title = 'MOD - Next Post_Title';
-			$obj_post_x           = new \stdClass();
-			$obj_post_x->permalink  = 'http://MOD-POST_X-NEXT-URL.com';
+			$obj_post->title = 'MOD-Next Title';
+			$obj_post->url  = 'http://MOD-NEXT-URL.com';
+			$obj_post->orig_obj = 'WP_Post Object';
 
-			$obj_next = new \stdClass();
-
-			$obj_next->wp_post       = $obj_post;
-			$obj_next->ezx = $obj_post_x;
-
-			$mod->prev = $obj_prev;
-			$mod->next = $obj_next;
+			$mod->next = $obj_post;
 
 			return $mod;
 		}

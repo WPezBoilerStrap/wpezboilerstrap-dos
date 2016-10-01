@@ -2,8 +2,8 @@
 
 namespace WPezTheme;
 
-if ( ! class_exists('Posts')) {
-	class Posts extends \WPezBoilerStrap\Toolbox\Parents\Controller
+if ( ! class_exists('Blog_Group')) {
+	class Blog_Group extends \WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -22,7 +22,7 @@ if ( ! class_exists('Posts')) {
 			$obj_gv = new \stdClass();
 
 			$obj_gv->active = true;
-			$obj_gv->class = '\\WPezBoilerStrap\Views\Groups\Group_Three_V1';
+			$obj_gv->class = '\\WPezBoilerStrap\Views\Groups\Group_Four_V1';
 			$obj_gv->args = $this->get_view_args();
 			$obj_gv->method = 'render';
 
@@ -56,7 +56,7 @@ if ( ! class_exists('Posts')) {
 		 */
 		protected function partials() {
 
-			$parts = new \stdClass();
+
 
 			$part        = new \stdClass();
 
@@ -70,23 +70,31 @@ if ( ! class_exists('Posts')) {
 
 			$str_accord = $this->ez_loader($part);
 
-			$parts->one = $str_accord;
+			// -
+			$part        = new \stdClass();
+
+			$part->active = true;
+			$part->slug_path = $this->gtp_path(__DIR__);
+			$part->slug  = 'is-archive';
+			$part->name  = '';
+			$part->class = '\\WPezTheme\Is_Archive';
+			$part->args  = '';
+			$part->method = 'get_view';
+
+			$str_is_arch = $this->ez_loader($part);
 
 			// -
 			$part        = new \stdClass();
 
 			$part->active = true;
 			$part->slug_path = $this->gtp_path(__DIR__);
-			$part->slug  = 'posts-loop';
+			$part->slug  = 'blog-loop';
 			$part->name  = '';
-			$part->class = '\\WPezTheme\Posts_Loop';
+			$part->class = '\\WPezTheme\Blog_Loop';
 			$part->args  = '';
 			$part->method = 'get_view';
 
 			$str_sing_wrap = $this->ez_loader($part);
-
-			$parts->two = $str_sing_wrap;
-
 
 			// -
 			$part        = new \stdClass();
@@ -101,7 +109,11 @@ if ( ! class_exists('Posts')) {
 
 			$str_posts_pg = $this->ez_loader($part);
 
-			$parts->three = $str_posts_pg;
+			$parts = new \stdClass();
+			$parts->one = $str_accord;
+			$parts->two = $str_is_arch;
+			$parts->three = $str_sing_wrap;
+			$parts->four = $str_posts_pg;
 
 			return $parts;
 		}

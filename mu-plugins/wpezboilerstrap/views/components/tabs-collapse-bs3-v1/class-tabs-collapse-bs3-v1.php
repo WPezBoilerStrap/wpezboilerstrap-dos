@@ -58,13 +58,13 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 					$str_tab_panes .= $this->element_open($vargs->pane_inner_tag , $vargs->pane_inner_global_attrs);
 						// $str_tab_panes .= $this->element_open( 'div', array( 'class' => "well" ) );
 
-					// pane_icon_tag
-					// pane_icon_global_attrs
-					$str_tab_panes .= $this->element_open($vargs->pane_icon_tag, $obj->pane_icon_global_attrs);
-					$str_tab_panes .= $this->element_close($vargs->pane_icon_tag);
+
+					// pane_icon
+					$str_tab_panes .= $this->element_open($obj->pane_icon_tag, $obj->pane_icon_global_attrs);
+					$str_tab_panes .= $this->element_close($obj->pane_icon_tag);
 						// $str_tab_panes .= '<i class="' . esc_attr( $obj->button_icon_class ) . '"></i>';
 
-					// pane_name_tag
+					// pane_name
 					if ( $obj->pane_name_active !== false ) {
 						$str_tab_panes .= $this->element_open( $vargs->pane_name_tag, $vargs->pane_name_global_attrs );
 						// pane_name
@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 						$str_tab_panes .= $this->element_close( $vargs->pane_name_tag );
 					}
 
-					// pane_name_tag
+					// pane_desc
 					if ( $obj->pane_desc_active !== false) {
 						$str_tab_panes .= $this->element_open( $vargs->pane_desc_tag, $vargs->pane_desc_global_attrs );
 						// pane_name
@@ -88,7 +88,19 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 						$str_content .= $parts->$str_prop;
 					}
 					//$prop = $obj->vws;
+					$str_tab_panes .= $this->element_open($vargs->pane_content_tag , $vargs->pane_content_global_attrs);
 					$str_tab_panes .= $str_content;
+					$str_tab_panes .= $this->element_close($vargs->pane_content_tag);
+
+					// pane_desc
+					if ( $obj->pane_footnote_active !== false) {
+						$str_tab_panes .= $this->element_open($vargs->pane_footnote_tag , $vargs->pane_footnote_global_attrs);
+						$str_tab_panes .= esc_attr($obj->pane_footnote);
+						$str_tab_panes .= $this->element_close($vargs->pane_footnote_tag);
+					}
+
+
+
 					// content_wrap_tag
 					$str_tab_panes .= $this->element_close( $vargs->pane_inner_tag );
 					// tab_wrap_element
@@ -101,8 +113,6 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 			if ( ! empty($str_nav_tabs) && ! empty($str_tab_panes) ) {
 
-				$str_ret .= 'Tabs Collapse BS3 1 - TODO + CLEANUP<br>';
-
 				/*
 				 * wrapper_class
 				 * ??
@@ -111,34 +121,23 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 				// tabs_wrap_outer_tag
 				// + global_attrs
-				$str_ret .= $this->element_open($vargs->tabs_wrap_outer_tag, $vargs->tabs_wrap_outer_global_attrs);
-					//$str_ret .= '<div class="row blog-controls TODO">';
-
-				// tabs_wrap_inner_tag
-				// + global_attrs
-				$str_ret .= $this->element_open($vargs->tabs_wrap_inner_tag,$vargs->tabs_wrap_inner_global_attrs);
-					// $str_ret .= '<div class="col-sm-5 col-sm-offset-7 TODO">';
-
+				$str_ret .= $this->element_open($vargs->tabs_wrapper_outer_tag, $vargs->tabs_wrapper_outer_global_attrs);
+				$str_ret .= $this->element_open($vargs->tabs_wrapper_inner_tag,$vargs->tabs_wrapper_inner_global_attrs);
 				$str_ret .= $str_nav_tabs;
-
-				$str_ret .= $this->element_close($vargs->tabs_wrap_inner_tag);
-					// $str_ret .= '</div>';
-				$str_ret .= $this->element_close($vargs->tabs_wrap_outer_tag);
-					// $str_ret .= '</div>';
+				$str_ret .= $this->element_close($vargs->tabs_wrapper_inner_tag);
+				$str_ret .= $this->element_close($vargs->tabs_wrapper_outer_tag);
 
 
 				// tabs_content_wrap_tag
 				// tabs_content_wrap_global_attrs
-				$str_ret .= $this->element_open($vargs->tabs_content_wrap_tag, $vargs->tabs_content_wrap_global_attrs);
-					// $str_ret .= '<div id="my-collapse-TODO" class="row blog-controls-open">';
+				$str_ret .= $this->element_open($vargs->panes_wrapper_tag, $vargs->panes_wrapper_global_attrs);
 
 				$str_ret .= $str_tab_panes;
 
-				$str_ret .= $this->element_close($vargs->tabs_content_wrap_tag);
-					// $str_ret .= '</div>';
+				$str_ret .= $this->element_close($vargs->panes_wrapper_tag);
 			} else {
 
-				$str_ret .= 'TODO - is empty';
+				$str_ret .= '<!-- tabs-collapse empty -->';
 			}
 
 			return $str_ret;
@@ -207,19 +206,19 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 			// $vargs->enclose = $obj_enc;
 
 			// the wrappers for the tabs and the content / panes
-			$vargs->tabs_wrap_outer_tag = 'div';
-			$vargs->tabs_wrap_outer_global_attrs = array(
+			$vargs->tabs_wrapper_outer_tag = 'div';
+			$vargs->tabs_wrapper_outer_global_attrs = array(
 				"class" => "row blog-controls"
 			);
-			$vargs->tabs_wrap_inner_tag = 'div';
-			$vargs->tabs_wrap_inner_global_attrs = array(
+			$vargs->tabs_wrapper_inner_tag = 'div';
+			$vargs->tabs_wrapper_inner_global_attrs = array(
 				"class" => "col-sm-5 col-sm-offset-7"
 			);
 
-			$vargs->tabs_content_wrap_tag = 'div';
-			$vargs->tabs_content_wrap_global_attrs = array(
+			$vargs->panes_wrapper_tag = 'div';
+			$vargs->panes_wrapper_global_attrs = array(
 				"id" => "my-collapse-TODO",
-				"class" => "row blog-controls-open"
+				"class" => "container blog-controls-open"
 			);
 
 			// the "globals" for the tabs and panes
@@ -254,6 +253,9 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 			$vargs->pane_desc_tag = 'span';
 			$vargs->pane_desc_global_attrs = array();
+
+			$vargs->pane_footnote_tag = 'div';
+			$vargs->pane_footnote_global_attrs = array();
 
 
 			// the individual tabs / panes

@@ -9,7 +9,7 @@ if ( ! class_exists('Posts_Pagination')) {
 
 		public function __construct() {
 
-			// $this->_wpezconfig = WPezConfig::ez_new();
+			$this->_wpezconfig = WPezConfig::ez_new();
 		}
 
 		/**
@@ -89,26 +89,9 @@ if ( ! class_exists('Posts_Pagination')) {
 		 */
 		protected function viewargs() {
 
-			$vargs = new \stdClass();
+			$str_method = 'posts_pagination';
 
-			$vargs->wrapper_tag = 'ul';
-			$vargs->wrapper_global_attrs = array(
-				'class' => 'pagination'
-			);
-			$vargs->page_tag = 'li';
-			$vargs->page_class_current = 'active';
-
-			$vargs->icon_tag = 'i';
-			$vargs->icon_prev_global_attrs = array(
-				'class' => 'glyphicon glyphicon-chevron-left',
-				'aria-hidden' => "true"
-			);
-
-			$vargs->icon_next_global_attrs = array(
-				'class' => 'glyphicon glyphicon-chevron-right',
-				'aria-hidden' => "true"
-			);
-
+			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
 			return $vargs;
 		}
 

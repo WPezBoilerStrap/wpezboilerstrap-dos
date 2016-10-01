@@ -2,14 +2,14 @@
 
 namespace WPezTheme;
 
-if ( ! class_exists('Footer')) {
-	class Footer extends \WPezBoilerStrap\Toolbox\Parents\Controller
+if ( ! class_exists('Single_Term_Group')) {
+	class Single_Term_Group extends \WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
 		public function __construct() {
 
-			// $this->_wpezconfig = WPezConfig::ez_new();
+			$this->_wpezconfig = WPezConfig::ez_new();
 		}
 
 		/**
@@ -29,10 +29,7 @@ if ( ! class_exists('Footer')) {
 		public function get_view(){
 
 			$gv = new \stdClass();
-			$str_ret = '';
 
-
-			/*
 			// ez on off switch
 			$gv->active = true;
 			// where is the slug (optional)
@@ -40,18 +37,14 @@ if ( ! class_exists('Footer')) {
 			// the gtp slug (optional)
 			//$gv->slug = '';
 			// the class in that tp
-			$gv->class = '\\WPezBoilerStrap\Views\Wrappers\Wrapper_Two_V1';
+			$gv->class = '\\WPezBoilerStrap\Views\Groups\Group_Two_V1';
 			// the args we're "injecting" into the class
 			$gv->args = $this->get_view_args();
-			// IF we want to use the view's default args (optional)
 			// $gv->args->use = 'defaults';
-			// once we init the class what method do we "request" (optional)
-			// note: if method is empty of false, ex_loader will return the init'ed obj of the class
 			$gv->method = 'render';
 
 			$str_ret = $this->ez_loader($gv);
-			*/
-			$str_ret = '<div class="text-center">TODO - footers/footer</div>';
+
 			return $str_ret;
 		}
 
@@ -83,56 +76,35 @@ if ( ! class_exists('Footer')) {
 		 */
 		protected function partials() {
 
-			// $gtp_path = $this->gtp_path(__DIR__);
+			$gtp_path = $this->gtp_path(__DIR__);
+
+			$part        = new \stdClass();
+
+			$part->active = true;
+			$part->slug_path = $gtp_path;
+			$part->slug  = 'single-term-category';
+			$part->name  = '';
+			$part->class = '\\WPezTheme\Single_Term_Category';
+			$part->args  = '';
+			$part->method = 'get_view';
+
+			$str_term_cats = $this->ez_loader($part);
+
+			$part        = new \stdClass();
+
+			$part->active = true;
+			$part->slug_path = $gtp_path;
+			$part->slug  = 'single-term-post-tag';
+			$part->name  = '';
+			$part->class = '\\WPezTheme\Single_Term_Post_Tag';
+			$part->method = 'get_view';
+
+			$str_term_tags = $this->ez_loader($part);
 
 			$parts = new \stdClass();
 
-			/*
-			$part        = new \stdClass();
-
-			$part->active = true;
-			$part->slug_path  = $this->gtp_path(__DIR__);
-			$part->slug  = 'sidebar-accordion';
-			$part->name  = '';
-			$part->class = '\\WPezTheme\Sidebar_Accordion';
-			$part->args  = '';
-			$part->method = 'get_view';
-
-			$str_accord = $this->ez_loader($part);
-
-			$parts->one = $str_accord;
-
-			// -
-			$part        = new \stdClass();
-
-			$part->active = true;
-			$part->slug_path  = 'controllers';
-			$part->slug  = 'single-wrapper';
-			$part->name  = '';
-			$part->class = '\\WPezTheme\Single_Wrapper';
-			$part->args  = '';
-			$part->method = 'get_view';
-
-			$str_sing_wrap = $this->ez_loader($part);
-
-			$parts->two = $str_sing_wrap;
-
-
-			// -
-			$part        = new \stdClass();
-
-			$part->active = true;
-			$part->slug_path  = 'controllers';
-			$part->slug  = 'single-next-prev';
-			$part->name  = '';
-			$part->class = '\\WPezTheme\Single_Next_Prev';
-			$part->args  = '';
-			$part->method = 'get_view';
-
-			$str_sing_np = $this->ez_loader($part);
-
-			$parts->three = $str_sing_np;
-			*/
+			$parts->one = $str_term_cats;
+			$parts->two = $str_term_tags;
 
 			return $parts;
 		}

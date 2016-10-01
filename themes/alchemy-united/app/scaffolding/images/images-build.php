@@ -2,7 +2,7 @@
 
 namespace WPezTheme\Scaffolding;
 
-if ( !class_exists( 'Images_Build' ) ) {
+if ( ! class_exists( 'Images_Build' ) ) {
 
     class Images_Build
     {
@@ -33,9 +33,13 @@ if ( !class_exists( 'Images_Build' ) ) {
             /**
              * let's use a longer more complete list of ratios;
              */
-            $obj_ratios = new \WPezClasses\Standards\Aspect_Ratios();
-            $arr_ratios = $obj_ratios->get();
+            $obj_ratios = new \WPezClasses\Reference\Aspect_Ratios();
+            $arr_ratios = $obj_ratios->get('banner');
 
+	        var_dump($arr_ratios);
+
+
+	        /*
             $obj_ais = new \WPezClasses\Scaffolding\Add_Image_Size();
             $obj_ais->set('resize_ratios', $arr_ratios);
 
@@ -44,6 +48,7 @@ if ( !class_exists( 'Images_Build' ) ) {
 
             $obj_helper = new \WPezClasses\Scaffolding\Helpers_Images();
             $obj_helper->set_isnc_append($arr_args);
+	        */
 
         }
     }

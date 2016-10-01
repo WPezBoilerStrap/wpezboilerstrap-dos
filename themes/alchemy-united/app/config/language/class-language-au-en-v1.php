@@ -7,7 +7,7 @@ if ( ! class_exists('Language_AU_En_V1')){
 
     	private $_brand = 'Alchemy United';
 
-    	public function ez__construct() {
+	    public function ez__construct() {
 		    // TODO: Implement ez__construct() method.
 	    }
 
@@ -27,6 +27,17 @@ if ( ! class_exists('Language_AU_En_V1')){
 	        $lang->brand_name =  $this->_brand;
 
             return $lang;
+        }
+
+        protected function footer_bottom($args = ''){
+	        $lang = new \stdClass();
+
+	        $lang->copyright_time = '2016 ';
+	        $lang->copyright_name = $this->_brand;
+
+	        $lang->back_to_top = 'Back to Top';
+
+	        return $lang;
         }
 
     }

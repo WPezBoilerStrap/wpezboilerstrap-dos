@@ -23,7 +23,7 @@ if ( ! class_exists('Functions')){
 
 	        $obj = WPezConfig::ez_new();
 
-            $b = $obj->get('build');
+            $b = $obj->get('scaffolding');
 
             get_template_part($b->slug, $b->name);
             if ( class_exists($b->class)){

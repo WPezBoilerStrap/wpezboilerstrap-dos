@@ -278,8 +278,6 @@ if ( ! class_exists( 'View' ) ) {
 		 */
 		public function render() {
 
-			$this->enclose_setup( $this->_vargs );
-
 			$str_ret = $this->view( $this->_lang, $this->_mod, $this->_parts, $this->_vargs );
 
 			return $this->enclose($str_ret);
@@ -292,6 +290,8 @@ if ( ! class_exists( 'View' ) ) {
 		 * @return string
 		 */
 		public function enclose($str_ret = ''){
+
+			$this->enclose_setup( $this->_vargs );
 
 			return $this->_semantic_open . $this->_wrapper_open . $str_ret . $this->_wrapper_close . $this->_semantic_close;
 

@@ -45,9 +45,9 @@ if ( ! class_exists('Single_Prev_Next')) {
 		 */
 		protected function model() {
 
-			$obj_single_v1 = new \WPezBoilerStrap\Models\Components\Adjacent_Post_V1();
+			$obj_adj_v1 = new \WPezBoilerStrap\Models\Components\Adjacent_Post_V1();
 			//	$ga = $single->get_adjacent();
-			$mod = $obj_single_v1->get_adjacent_posts();
+			$mod = $obj_adj_v1->get_adjacent_posts();
 
 			return $mod;
 		}
@@ -57,9 +57,9 @@ if ( ! class_exists('Single_Prev_Next')) {
 		 */
 		protected function partials() {
 
-			$obj = new \stdClass();
+			$parts = new \stdClass();
 
-			return $obj;
+			return $parts;
 		}
 
 
@@ -68,9 +68,9 @@ if ( ! class_exists('Single_Prev_Next')) {
 		 */
 		protected function router() {
 
-			$obj = new \stdClass();
+			$route = new \stdClass();
 
-			return $obj;
+			return $route;
 		}
 
 
@@ -83,7 +83,7 @@ if ( ! class_exists('Single_Prev_Next')) {
 
 			$str_method = 'single_prev_next';
 
-			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method, 'TODO');
 
 			return $vargs;
 

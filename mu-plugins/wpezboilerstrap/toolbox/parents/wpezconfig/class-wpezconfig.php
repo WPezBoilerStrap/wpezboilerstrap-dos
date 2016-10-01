@@ -22,10 +22,10 @@ if ( ! class_exists('WPezConfig') ) {
 		 */
 
 
-		public function get($str_meth = ''){
+		public function get($str_meth = '', $str_arg = ''){
 
 			if ( method_exists($this, $str_meth)){
-				return $this->$str_meth();
+				return $this->$str_meth($str_arg);
 			}
 			return new \stdClass();
 		}
@@ -36,11 +36,11 @@ if ( ! class_exists('WPezConfig') ) {
 		 *
 		 * @return \stdClass
 		 */
-		public function ez_get($str_meth = '', $str_meth_meth = ''){
+		public function ez_get($str_meth = '', $str_meth_meth = '', $str_arg = ''){
 
 			if ( method_exists($this, $str_meth) && method_exists($this->$str_meth(), 'get') && method_exists($this->$str_meth(), $str_meth_meth) ){
 				$obj = $this->$str_meth();
-				return $obj->get($str_meth_meth);
+				return $obj->get($str_meth_meth, $str_arg);
 			}
 			return new \stdClass();
 		}
@@ -86,7 +86,7 @@ if ( ! class_exists('WPezConfig') ) {
 		 * $obj->args = ''
 		 * return $obj;
 		 */
-		abstract protected function build();
+		abstract protected function scaffolding();
 
 		// return an instance of the language class
 		abstract public function language();

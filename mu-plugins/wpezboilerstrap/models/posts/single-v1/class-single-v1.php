@@ -5,32 +5,9 @@ namespace WPezBoilerStrap\Models\Posts;
 // Post_Next_Prev_V1
 class Single_V1 {
 
+	public function get_these_terms( $mix_post_id = '', $arr_taxs = array() ) {
 
-	public function get_terms( $mix_post_id = '', $str_tax = false ) {
-
-		if ( empty( $mix_post_id ) || $str_tax === false ) {
-			return array();
-		}
-
-		$int_post_id = (int) $mix_post_id;
-
-		$arr_objs = get_the_terms( $int_post_id, $str_tax );
-		if ( $arr_objs === false || is_array( $arr_objs->errors ) ) {
-			return array();
-		}
-		foreach ( $arr_objs as $key => $obj ) {
-			$obj->url    = get_term_link( $obj, $str_tax );
-			$obj->anchor = $obj->name;
-			$obj->title  = $obj->name;
-			if ( ! empty( $obj->description ) ) {
-				$obj->title = $obj->name . ' - ' . $obj->description;
-			}
-		}
-
-		return $arr_objs;
-	}
-
-	public function get_terms_multi( $mix_post_id = '', $arr_taxs = array() ) {
+		$tools_clone = new \WPezBoilerStrap\Toolbox\Tools\Cloning();
 
 		if ( ! is_array( $arr_taxs ) ) {
 			return 'TODO';
@@ -40,7 +17,8 @@ class Single_V1 {
 		foreach ( $arr_taxs as $key => $bool ) {
 			if ( $bool !== false ) {
 				$str_prop           = strtolower( trim( $key ) );
-				$obj_ret->$str_prop = $this->get_terms( $mix_post_id, $key );
+				$arr_objs = get_the_terms($mix_post_id, $key);
+				$obj_ret->$str_prop = $tools_clone->ez_clone_get_the_terms($arr_objs);
 			}
 		}
 

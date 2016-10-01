@@ -22,10 +22,10 @@ if ( ! class_exists('Router') ) {
 		}
 
 
-		public function get( $str_meth = 'route' ) {
+		public function get( $str_meth = 'route', $str_arg = '' ) {
 
 			if ( method_exists( $this, $str_meth ) ) {
-				return $this->$str_meth();
+				return $this->$str_meth($str_arg);
 			}
 
 			return '';

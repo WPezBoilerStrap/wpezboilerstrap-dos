@@ -9,7 +9,7 @@ if ( ! class_exists('Main')) {
 
 		public function __construct() {
 
-			// $this->_wpezconfig = WPezConfig::ez_new();
+			$this->_wpezconfig = WPezConfig::ez_new();
 		}
 
 		/*
@@ -89,7 +89,7 @@ if ( ! class_exists('Main')) {
 				$part        = new \stdClass();
 
 				$part->active = true;
-				$part->slug_path  = 'controllers';
+				$part->slug_path  = 'controllers/is-404';
 				$part->slug  = 'is-404';
 				$part->name  = '';
 				$part->class = '\\WPezTheme\Is_404';
@@ -103,10 +103,10 @@ if ( ! class_exists('Main')) {
 				$part        = new \stdClass();
 
 				$part->active = true;
-				$part->slug_path  = 'controllers/posts';
-				$part->slug  = 'posts';
+				$part->slug_path  = 'controllers/blog';
+				$part->slug  = 'blog-group';
 				$part->name  = '';
-				$part->class = '\\WPezTheme\Posts';
+				$part->class = '\\WPezTheme\Blog_Group';
 				$part->args  = '';
 				$part->method = 'get_view';
 
@@ -133,9 +133,12 @@ if ( ! class_exists('Main')) {
 		 */
 		protected function viewargs() {
 
-			$obj = new \stdClass();
+			$vargs = new \stdClass();
 
-			return $obj;
+			$str_method = 'main';
+			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+
+			return $vargs;
 		}
 
 

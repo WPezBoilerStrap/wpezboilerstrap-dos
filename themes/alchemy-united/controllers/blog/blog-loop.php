@@ -2,8 +2,8 @@
 
 namespace WPezTheme;
 
-if ( ! class_exists('Posts_Loop')) {
-	class Posts_Loop extends \WPezBoilerStrap\Toolbox\Parents\Controller
+if ( ! class_exists('Blog_Loop')) {
+	class Blog_Loop extends \WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -35,9 +35,11 @@ if ( ! class_exists('Posts_Loop')) {
 			foreach ($arr_posts as $key => $obj){
 
 				$obj_view->set_mod($obj);
-				$str_ret .= $obj_view->render();
+				$str_ret .= $obj_view->render_no_enclose();
 
 			}
+
+			$str_ret =  $obj_view->enclose($str_ret);
 
 			return $str_ret;
 		}
@@ -57,12 +59,13 @@ if ( ! class_exists('Posts_Loop')) {
 		 */
 		protected function model() {
 
-			$mod = new \stdClass();
-
 			global $wp_query;
 
-			$obj_users_v1 = new \WPezBoilerStrap\Models\Users\User_V1();
-			$obj_single_v1 = new \WPezBoilerStrap\Models\Posts\Single_V1();
+			$mod = new \stdClass();
+
+			$tools_cloning = new \WPezBoilerStrap\Toolbox\Tools\Cloning();
+			$model_users = new \WPezBoilerStrap\Models\Users\User_V1();
+			$model_single = new \WPezBoilerStrap\Models\Posts\Single_V1();
 
 			$arr_taxs = array(
 				'category' => true,
@@ -82,23 +85,18 @@ if ( ! class_exists('Posts_Loop')) {
 			// TODO - check to make sure we have posts?
 			foreach ( $wp_query->posts as $key => $obj_post){
 
-				$obj_new = new \stdClass;
+				$obj_new = $tools_cloning->ez_clone($obj_post);
 
-				$obj_new = $this->ez_clone($obj_post);
-
-				// add the terms
-				$obj_new->ezx->terms = $obj_single_v1->get_terms_multi( $obj_new->ID, $arr_taxs);
-				// add the featured image
-				$obj_new->ezx->img = $obj_single_v1->featured_image_min($obj_new->ID, $str_img_size);
+				// get the terms
+				$obj_new->terms = $model_single->get_these_terms($obj_new->ID, $arr_taxs);
+				// add some image stuff
+				$obj_new->img = $model_single->featured_image_min($obj_new->ID, $str_img_size);
 				// add the user  author
-				$obj_new->ezx->user = $obj_users_v1->user_min($obj_new->post_author);
+				$obj_new->user = $model_users->user_min($obj_new->post_author);
 
 				$arr_posts[$obj_new->ID] = $obj_new;
-
 			}
-
 			$mod->posts = $arr_posts;
-
 			return $mod;
 		}
 
@@ -129,7 +127,24 @@ if ( ! class_exists('Posts_Loop')) {
 		 */
 		protected function viewargs() {
 
+			$obj_enc = new \stdClass();
+
+			$obj_enc->active = true;            // an enclosure master switch - default is true
+
+			$obj_enc->semantic_active = true;   // default is true
+			$obj_enc->semantic_tag = 'article';
+			$obj_enc->semantic_global_attrs = array(
+				//'class' => 'container'
+			);
+
+			$obj_enc->wrapper_active = true;   // default is true
+			$obj_enc->wrapper_tag = 'div';
+			$obj_enc->wrapper_global_attrs = array(
+				'class' => 'container'
+			);
+
 			$vargs = new \stdClass();
+			$vargs->enclose = $obj_enc;
 
 			$vargs->date_format = 'Y';
 
