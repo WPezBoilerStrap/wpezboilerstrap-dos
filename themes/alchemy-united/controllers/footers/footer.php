@@ -69,6 +69,16 @@ if ( ! class_exists('Footer')) {
 		}
 
 		/**
+		 * @return \stdClass
+		 */
+		protected function macros() {
+
+			$mac = new \stdClass();
+
+			return $mac;
+		}
+
+		/**
 		 * return obj
 		 */
 		protected function model() {

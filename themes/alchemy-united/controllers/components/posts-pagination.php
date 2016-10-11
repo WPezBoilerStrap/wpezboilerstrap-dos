@@ -45,6 +45,14 @@ if ( ! class_exists('Posts_Pagination')) {
 			return $lang;
 		}
 
+
+		protected function macros() {
+
+			$mac = new \stdClass();
+
+			return $mac;
+		}
+
 		/**
 		 * return obj
 		 */

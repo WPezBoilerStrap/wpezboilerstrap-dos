@@ -17,33 +17,34 @@ if ( ! class_exists('Post_Content_V1')) {
 
 		protected function lang_defaults() {
 
-			$obj = new \stdClass();
+			$lang = new \stdClass();
 
-			return $obj;
+			return $lang;
 		}
+
 
 		protected function mod_defaults() {
 
-			$obj = new \stdClass();
+			$mod = new \stdClass();
 
-			$obj->post_content = 'MOD->POST_CONTENT';
+			$mod->post_content = 'MOD->POST_CONTENT';
 
-			return $obj;
+			return $mod;
 		}
 
 
 		protected function parts_defaults() {
 
-			$obj = new \stdClass();
+			$parts = new \stdClass();
 
-			return $obj;
+			return $parts;
 		}
 
 		protected function vargs_defaults() {
 
-			$obj = new \stdClass();
+			$vargs = new \stdClass();
 
-			return $obj;
+			return $vargs;
 		}
 	}
 }

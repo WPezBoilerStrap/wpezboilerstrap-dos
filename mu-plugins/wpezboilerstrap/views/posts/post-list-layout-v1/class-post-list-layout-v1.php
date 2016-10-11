@@ -30,6 +30,7 @@ if ( ! class_exists('Post_List_Layout_V1')) {
 			return $lang;
 		}
 
+
 		protected function mod_defaults() {
 
 			$mod = new \stdClass();

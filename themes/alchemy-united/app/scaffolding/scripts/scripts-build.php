@@ -8,21 +8,19 @@ if ( !class_exists( 'Scripts_Build' ) ) {
     class Scripts_Build
     {
 
-        function __construct()
-        {
+        function __construct() {
 
-            add_action( 'wp_enqueue_scripts', array($this, 'build') );
+            add_action( 'after_setup_theme', array($this, 'build') );
         }
 
         public function build(){
 
-            $obj_s = new Scripts();
-            $arr_args = $obj_s->get();
-            
-            $obj_wpe = new \WPezClasses\WPezCore\WP_Enqueue();
+            $ins_s = new Scripts_Args();
+            $arr_args = $ins_s->get();
 
-            $obj_wpe->register_script($arr_args);
-            $obj_wpe->enqueue_script($arr_args);
+            $ins_wpe = new \WPezClasses\WPezCore\WP_Enqueue();
+
+	        $ins_wpe->ez_loader($arr_args);
 
         }
     }

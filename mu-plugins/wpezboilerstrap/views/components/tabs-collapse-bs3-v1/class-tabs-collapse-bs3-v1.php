@@ -7,6 +7,8 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 	class Tabs_Collapse_BS3_V1 extends \WPezBoilerStrap\Toolbox\Parents\View {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
+			
+			$mac = $this->_mac;
 
 			$str_nav_tabs = '';
 			$str_tab_panes = '';
@@ -23,86 +25,88 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 					// tab_tag
 					// tab_global_attrs - class = active?
-					$str_nav_tabs .= $this->element_open($vargs->tab_tag, $arr_tab_global_attrs);
-						// $str_nav_tabs .= $this->element_open( 'div', array( 'class' => " TODO" ) );
+					$str_nav_tabs .= $mac::element_open($vargs->tab_tag, $arr_tab_global_attrs);
+						// $str_nav_tabs .= $mac::element_open( 'div', array( 'class' => " TODO" ) );
 
 					// tab_link_global_attrs
 					// Note: This href MUST match the id= of the content_wrap_global_attrs (below)
-					$str_nav_tabs .= '<a href="#' . sanitize_html_class( $obj->tab_link_href ).'" ' . $this->global_attrs($vargs->tab_link_global_attrs) .  '>';
+					$str_nav_tabs .= '<a href="#' . sanitize_html_class( $obj->tab_link_href ).'" ' . $mac::global_attrs($vargs->tab_link_global_attrs) .  '>';
 
 					// tab_icon_tag
 					// tab_icon_global_attrs
-					$str_nav_tabs .= $this->element_open($vargs->tab_icon_tag, $obj->tab_icon_global_attrs);
+					$str_nav_tabs .= $mac::element_open($vargs->tab_icon_tag, $obj->tab_icon_global_attrs);
 						//$str_nav_tabs .= '<i class="' . esc_attr( $obj->button_icon_class ) . '"></i>';
-					$str_nav_tabs .= $this->element_close($vargs->tab_icon_tag);
+					$str_nav_tabs .= $mac::element_close($vargs->tab_icon_tag);
 
 					// tab_name_tag
 					// tab_name_global_attrs
-					$str_nav_tabs .= $this->element_open($vargs->tab_name_tag, $obj->tab_name_global_attrs);
+					$str_nav_tabs .= $mac::element_open($vargs->tab_name_tag, $vargs->tab_name_global_attrs);
 						// $str_nav_tabs .= '<span class="' . esc_attr( $obj->button_Xicon_class ) . '">' . esc_attr( $obj->name ) . '</span>';
 					// tab_name
 					$str_nav_tabs .= esc_attr( $obj->tab_name );
-					$str_nav_tabs .= $this->element_close($vargs->tab_name_tag);
+					$str_nav_tabs .= $mac::element_close($vargs->tab_name_tag);
 
 					$str_nav_tabs .= '</a>';
-					$str_nav_tabs .= $this->element_close( $vargs->tab_tag );
+					$str_nav_tabs .= $mac::element_close( $vargs->tab_tag );
 
 					// -- PANES --
 
 					// pane_wrap_tag = TODO?
 					// pane_wrap_global_attrs
-					$str_tab_panes .= '<span id="' . sanitize_html_class( $obj->tab_link_href ) . '"' . $this->global_attrs($vargs->pane_wrap_global_attrs). '>';
+					$str_tab_panes .= '<span id="' . sanitize_html_class( $obj->tab_link_href ) . '"' . $mac::global_attrs($vargs->pane_wrap_global_attrs). '>';
 
 					// pane_inner_tag
 					// pane_inner_global_attrs
-					$str_tab_panes .= $this->element_open($vargs->pane_inner_tag , $vargs->pane_inner_global_attrs);
-						// $str_tab_panes .= $this->element_open( 'div', array( 'class' => "well" ) );
+					$str_tab_panes .= $mac::element_open($vargs->pane_inner_tag , $vargs->pane_inner_global_attrs);
+						// $str_tab_panes .= $mac::element_open( 'div', array( 'class' => "well" ) );
 
 
 					// pane_icon
-					$str_tab_panes .= $this->element_open($obj->pane_icon_tag, $obj->pane_icon_global_attrs);
-					$str_tab_panes .= $this->element_close($obj->pane_icon_tag);
+					$str_tab_panes .= $mac::element_open($obj->pane_icon_tag, $obj->pane_icon_global_attrs);
+					$str_tab_panes .= $mac::element_close($obj->pane_icon_tag);
 						// $str_tab_panes .= '<i class="' . esc_attr( $obj->button_icon_class ) . '"></i>';
 
 					// pane_name
 					if ( $obj->pane_name_active !== false ) {
-						$str_tab_panes .= $this->element_open( $vargs->pane_name_tag, $vargs->pane_name_global_attrs );
+						$str_tab_panes .= $mac::element_open( $vargs->pane_name_tag, $vargs->pane_name_global_attrs );
 						// pane_name
 						$str_tab_panes .= esc_attr( $obj->pane_name );
-						$str_tab_panes .= $this->element_close( $vargs->pane_name_tag );
+						$str_tab_panes .= $mac::element_close( $vargs->pane_name_tag );
 					}
 
 					// pane_desc
 					if ( $obj->pane_desc_active !== false) {
-						$str_tab_panes .= $this->element_open( $vargs->pane_desc_tag, $vargs->pane_desc_global_attrs );
+						$str_tab_panes .= $mac::element_open( $vargs->pane_desc_tag, $vargs->pane_desc_global_attrs );
 						// pane_name
 						$str_tab_panes .= esc_attr( $obj->pane_desc );
-						$str_tab_panes .= $this->element_close( $vargs->pane_desc_tag );
+						$str_tab_panes .= $mac::element_close( $vargs->pane_desc_tag );
 					}
 
 					// if mod then mod->$property else if parts then $parts->$property
 					$str_content = '';
-					if ( isset($obj->pane_source) && ( $obj->pane_source == 'mod' || $obj->pane_source == 'parts') ) {
+					if ( isset($obj->pane_source) && $obj->pane_source == 'mod' ) {
 						$str_prop = $obj->source_property;
 						$str_content .= $mod->$str_prop;
+					} else if ( isset($obj->pane_source) && $obj->pane_source == 'parts'){
+						$str_prop = $obj->source_property;
 						$str_content .= $parts->$str_prop;
 					}
 					//$prop = $obj->vws;
-					$str_tab_panes .= $this->element_open($vargs->pane_content_tag , $vargs->pane_content_global_attrs);
+					$str_tab_panes .= $mac::element_open($vargs->pane_content_tag , $vargs->pane_content_global_attrs);
 					$str_tab_panes .= $str_content;
-					$str_tab_panes .= $this->element_close($vargs->pane_content_tag);
+					$str_tab_panes .= $mac::element_close($vargs->pane_content_tag);
 
 					// pane_desc
 					if ( $obj->pane_footnote_active !== false) {
-						$str_tab_panes .= $this->element_open($vargs->pane_footnote_tag , $vargs->pane_footnote_global_attrs);
+						$str_tab_panes .= $mac::element_open($vargs->pane_footnote_tag , $vargs->pane_footnote_global_attrs);
 						$str_tab_panes .= esc_attr($obj->pane_footnote);
-						$str_tab_panes .= $this->element_close($vargs->pane_footnote_tag);
+						$str_tab_panes .= $mac::element_close($vargs->pane_footnote_tag);
 					}
 
 
 
 					// content_wrap_tag
-					$str_tab_panes .= $this->element_close( $vargs->pane_inner_tag );
+					$str_tab_panes .= $mac::element_close( $vargs->pane_inner_tag );
 					// tab_wrap_element
 					$str_tab_panes .= '</span>';
 
@@ -121,20 +125,20 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 				// tabs_wrap_outer_tag
 				// + global_attrs
-				$str_ret .= $this->element_open($vargs->tabs_wrapper_outer_tag, $vargs->tabs_wrapper_outer_global_attrs);
-				$str_ret .= $this->element_open($vargs->tabs_wrapper_inner_tag,$vargs->tabs_wrapper_inner_global_attrs);
+				$str_ret .= $mac::element_open($vargs->tabs_wrapper_outer_tag, $vargs->tabs_wrapper_outer_global_attrs);
+				$str_ret .= $mac::element_open($vargs->tabs_wrapper_inner_tag,$vargs->tabs_wrapper_inner_global_attrs);
 				$str_ret .= $str_nav_tabs;
-				$str_ret .= $this->element_close($vargs->tabs_wrapper_inner_tag);
-				$str_ret .= $this->element_close($vargs->tabs_wrapper_outer_tag);
+				$str_ret .= $mac::element_close($vargs->tabs_wrapper_inner_tag);
+				$str_ret .= $mac::element_close($vargs->tabs_wrapper_outer_tag);
 
 
 				// tabs_content_wrap_tag
 				// tabs_content_wrap_global_attrs
-				$str_ret .= $this->element_open($vargs->panes_wrapper_tag, $vargs->panes_wrapper_global_attrs);
+				$str_ret .= $mac::element_open($vargs->panes_wrapper_tag, $vargs->panes_wrapper_global_attrs);
 
 				$str_ret .= $str_tab_panes;
 
-				$str_ret .= $this->element_close($vargs->panes_wrapper_tag);
+				$str_ret .= $mac::element_close($vargs->panes_wrapper_tag);
 			} else {
 
 				$str_ret .= '<!-- tabs-collapse empty -->';
@@ -150,6 +154,7 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 			return $lang;
 		}
+		
 
 		protected function mod_defaults() {
 
@@ -234,9 +239,8 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 				"aria-controls" => "collapseExample"
 			);
 			$vargs->tab_icon_tag = 'i';
-			$vargs->tab_name_global_attrs = array(
-
-			);
+			$vargs->tab_name_tag = 'span';
+			$vargs->tab_name_global_attrs = array();
 
 			// $vargs->pane_wrap_tag = 'div';
 			$vargs->pane_wrap_global_attrs = array(
@@ -253,6 +257,9 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 			$vargs->pane_desc_tag = 'span';
 			$vargs->pane_desc_global_attrs = array();
+
+			$vargs->pane_content_tag = 'span';
+			$vargs->pane_content_global_attrs = array();
 
 			$vargs->pane_footnote_tag = 'div';
 			$vargs->pane_footnote_global_attrs = array();

@@ -17,6 +17,8 @@ if ( ! class_exists('Blog_Loop')) {
 		 */
 		public function get_view(){
 
+			$mac = '\WPezBoilerStrap\Toolbox\Tools\View_Macros';
+
 			$str_ret = '';
 
 			$gv = new \stdClass();
@@ -39,7 +41,9 @@ if ( ! class_exists('Blog_Loop')) {
 
 			}
 
-			$str_ret =  $obj_view->enclose($str_ret);
+			$obj_enc = $mac::enclose($gv->args->vargs);
+
+			$str_ret =  $obj_enc->semantic_open . $obj_enc->view_wrapper_open . $str_ret . $obj_enc->view_wrapper_close . $obj_enc->semantic_close;
 
 			return $str_ret;
 		}
@@ -52,6 +56,10 @@ if ( ! class_exists('Blog_Loop')) {
 			$obj = new \stdClass();
 
 			return $obj;
+		}
+
+		protected function macros() {
+			return new \stdClass();
 		}
 
 		/**
@@ -137,9 +145,9 @@ if ( ! class_exists('Blog_Loop')) {
 				//'class' => 'container'
 			);
 
-			$obj_enc->wrapper_active = true;   // default is true
-			$obj_enc->wrapper_tag = 'div';
-			$obj_enc->wrapper_global_attrs = array(
+			$obj_enc->view_wrapper_active = true;   // default is true
+			$obj_enc->view_wrapper_tag = 'div';
+			$obj_enc->view_wrapper_global_attrs = array(
 				'class' => 'container'
 			);
 

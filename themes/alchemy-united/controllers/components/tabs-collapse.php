@@ -45,9 +45,19 @@ if ( ! class_exists('Tabs_Collapse')) {
 		/**
 		 * return obj
 		 */
+		protected function macros() {
+
+			$mac = new \stdClass();
+
+			return $mac;
+		}
+
+		/**
+		 * return obj
+		 */
 		protected function model() {
 
-			$menus = new \WPezTheme\Scaffolding\Menus();
+			$menus = new \WPezTheme\Scaffolding\Menus_Args();
 			// social share
 			$menus_args = $menus->get('menu_social_share');
 			$str_menu_social_share = wp_nav_menu($menus_args->wp_nav_menu);

@@ -7,26 +7,23 @@ if ( ! class_exists('Post_Page_V1')) {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
 
-			$str_open  = '';
-			$str_close = '';
-			if ( ! empty ( $vargs->semantic ) ) {
-				$str_open  = '<' . esc_attr( $vargs->semantic ) . '>';
-				$str_close = '</' . esc_attr( $vargs->semantic ) . '>';
-			}
+			$mac = $this->_mac;
 
 			$str_ret = '';
 
-			$str_ret .= $str_open;
-
-			$str_ret .= '<' . esc_attr( $vargs->title_wrap ) . '>';
+			$str_ret .= $mac::element_open($vargs->title_tag, $vargs->title_global_attrs);
 
 			$str_ret .= esc_attr( $mod->post_title );
 
-			$str_ret .= '</' . esc_attr( $vargs->title_wrap ) . '>';
+			$str_ret .= $mac::element_close($vargs->title_tag);
+
+			$str_ret .= $mac::element_open($vargs->content_tag, $vargs->content_global_attrs);
 
 			$str_ret .= wp_kses_post( $mod->post_content );
 
-			$str_ret .= $str_close;
+			$str_ret .= $mac::element_close($vargs->content_tag);
+
+
 
 			return $str_ret;
 		}
@@ -34,38 +31,36 @@ if ( ! class_exists('Post_Page_V1')) {
 
 		protected function lang_defaults() {
 
-			$obj = new \stdClass();
-
-			return $obj;
+			return new \stdClass();
 		}
+
 
 		protected function mod_defaults() {
 
-			$obj = new \stdClass();
+			$mod = new \stdClass();
 
-			$obj->post_title   = 'THIS IS THE POST_TITLE';
-			$obj->post_content = 'THIS IS THE POST_CONTENT';
+			$mod->post_title   = '';
+			$mod->post_content = '';
 
-			return $obj;
+			return $mod;
 		}
 
 
 		protected function parts_defaults() {
 
-			$obj = new \stdClass();
-
-			return $obj;
+			return new \stdClass();
 		}
 
 		protected function vargs_defaults() {
 
-			$obj = new \stdClass();
+			$vargs = new \stdClass();
 
-			$obj->semantic     = 'SEMANTIC';
-			$obj->title_wrap   = 'TITLE_WRAP'; // e.g., H1
-			$obj->content_wrap = 'CONTENT_WRAP'; // e.g., div
+			$vargs->title_tag   = 'h1'; // e.g., H1
+			$vargs->title_global_attrs = array();
+			$vargs->content_tag = 'div'; // e.g., div
+			$vargs->content_global_attrs = array();
 
-			return $obj;
+			return $vargs;
 		}
 
 	}

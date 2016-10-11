@@ -12,11 +12,10 @@ if ( ! class_exists('Footer_Bottom')) {
 			$this->_wpezconfig = WPezConfig::ez_new();
 		}
 
-		/*
- * return string
- */
+		/**
+		 * @return bool|string
+		 */
 		public function get_view(){
-
 
 			$str_ret = '';
 
@@ -25,7 +24,6 @@ if ( ! class_exists('Footer_Bottom')) {
 			$gv->active = true;
 			$gv->class = '\\WPezBoilerStrap\Views\Footers\Footer_V1';
 			$gv->args = $this->get_view_args();
-			// $gv->args->use = 'defaults';
 			$gv->method = 'render';
 
 			$str_ret = $this->ez_loader($gv);
@@ -33,52 +31,50 @@ if ( ! class_exists('Footer_Bottom')) {
 			return $str_ret;
 		}
 
-		/*
-		 * return obj
+		/**
+		 * @return \stdClass
 		 */
 		protected function language() {
-
-			$lang = new \stdClass();
 
 			$str_method = 'footer_bottom';
 			$lang = $this->_wpezconfig->ez_get('language', $str_method);
 			return $lang;
 		}
 
-		/*
-		 * return obj
+		/**
+		 * @return \stdClass
 		 */
 		protected function model() {
 
-			$m = new \stdClass();
+			$mod = new \stdClass();
 
-			return $m;
+			return $mod;
 		}
 
-		/*
-		 * return obj
+		/**
+		 * @return \stdClass
 		 */
 		protected function partials() {
 
-			$p = new \stdClass();
+			$parts = new \stdClass();
 
-			return $p;
+			return $parts;
 		}
 
 
-		/*
-		 * return obj
+		/**
+		 * @return \stdClass
 		 */
 		protected function router() {
 
-			$r = new \stdClass();
+			$route = new \stdClass();
 
-			return $r;
+			return $route;
 		}
 
 
-		/*
-		 * return obj
+		/**
+		 * @return \stdClass
 		 */
 		protected function viewargs() {
 

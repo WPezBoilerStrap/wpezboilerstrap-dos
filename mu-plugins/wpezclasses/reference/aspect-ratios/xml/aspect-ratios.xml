@@ -456,7 +456,7 @@
         <name>4x1</name>
         <w>4</w>
         <h>1</h>
-        <unit></unit>
+        <unit>0</unit>
         <orientation>land</orientation>
     </ratio>
     <!-- 4.5 x 1 -->
@@ -464,7 +464,7 @@
         <name>4.5x1</name>
         <w>4.5</w>
         <h>1</h>
-        <unit></unit>
+        <unit>0</unit>
         <orientation>land</orientation>
     </ratio>
     <!-- 5 x 1 -->
@@ -472,7 +472,7 @@
         <name>5x1</name>
         <w>5</w>
         <h>1</h>
-        <unit></unit>
+        <unit>0</unit>
         <orientation>land</orientation>
     </ratio>
     <!-- 5.5 x 1 -->
@@ -480,7 +480,7 @@
         <name>5.5x1</name>
         <w>5.5</w>
         <h>1</h>
-        <unit></unit>
+        <unit>0</unit>
         <orientation>land</orientation>
     </ratio>
     <!-- 6 x 1 -->
@@ -488,7 +488,7 @@
         <name>6x1</name>
         <w>6</w>
         <h>1</h>
-        <unit></unit>
+        <unit>0</unit>
         <orientation>land</orientation>
     </ratio>
     <!-- http://designerstoolbox.com/designresources/banners/ -->

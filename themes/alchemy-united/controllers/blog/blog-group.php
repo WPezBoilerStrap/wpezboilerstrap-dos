@@ -36,9 +36,19 @@ if ( ! class_exists('Blog_Group')) {
 		 */
 		protected function language() {
 
-			$obj = new \stdClass();
+			$lang = new \stdClass();
 
-			return $obj;
+			return $lang;
+		}
+
+		/**
+		 * return obj
+		 */
+		protected function macros() {
+
+			$mac = new \stdClass();
+
+			return $mac;
 		}
 
 		/**
@@ -124,9 +134,9 @@ if ( ! class_exists('Blog_Group')) {
 		 */
 		protected function router() {
 
-			$obj = new \stdClass();
+			$route = new \stdClass();
 
-			return $obj;
+			return $route;
 		}
 
 
@@ -135,9 +145,9 @@ if ( ! class_exists('Blog_Group')) {
 		 */
 		protected function viewargs() {
 
-			$obj = new \stdClass();
+			$vargs = new \stdClass();
 
-			return $obj;
+			return $vargs;
 		}
 
 

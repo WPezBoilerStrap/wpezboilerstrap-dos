@@ -6,6 +6,8 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 	class Prev_Next_Min_V1 extends \WPezBoilerStrap\Toolbox\Parents\View {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
+			
+			$mac = $this->_mac;
 
 			// $obj_prev_orig   = $mod->prev->orig_obj;
 			$obj_prev = $mod->prev;
@@ -14,10 +16,11 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 			$obj_next = $mod->next;
 
 			$str_ret = '';
-			$str_ret .= $this->element_open($vargs->wrapper_tag, $vargs->wrapper_global_attrs);
+			$str_ret .= $mac::element_open($vargs->wrapper_tag, $vargs->wrapper_global_attrs);
 
 			// prev
-			$str_ret .= $this->element_open($vargs->page_tag, $vargs->page_prev_global_attrs);
+			$str_ret .= $mac::element_open($vargs->page_tag, $vargs->page_prev_global_attrs);
+
 			if ( ! empty( $obj_prev->url ) && ! empty( $obj_prev->title ) ) {
 
 				$str_ret .= '<a href="' . esc_url( $obj_prev->url ) . ' ">';
@@ -30,9 +33,9 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 				 * -- Override the wp_post title with some other text title
 				 * That should cover most basic use cases. Hopefully :)
 				 */
-				$str_ret .= $this->element_open($vargs->icon_tag, $vargs->icon_prev_global_attrs);
+				$str_ret .= $mac::element_open($vargs->icon_tag, $vargs->icon_prev_global_attrs);
 				$str_ret .= esc_attr( $vargs->prev_icon );
-				$str_ret .= $this->element_close($vargs->icon_tag);
+				$str_ret .= $mac::element_close($vargs->icon_tag);
 
 				$str_title = esc_attr( $obj_prev->title );
 				// or use your own title. for example, perpahs a simple "Prav" and "Next" will do?
@@ -42,10 +45,10 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 				$str_ret .= $str_title;
 				$str_ret .= '</a>';
 			}
-			$str_ret .= $this->element_close($vargs->page_tag);
+			$str_ret .= $mac::element_close($vargs->page_tag);
 
 			// next
-			$str_ret .= $this->element_open($vargs->page_tag, $vargs->page_next_global_attrs);
+			$str_ret .= $mac::element_open($vargs->page_tag, $vargs->page_next_global_attrs);
 			if ( ! empty( $obj_next->url ) && ! empty( $obj_next->title ) ) {
 
 				$str_ret .= '<a href="' . esc_url( $obj_next->url ) . ' ">';
@@ -56,15 +59,15 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 				}
 				$str_ret .= $str_title;
 
-				$str_ret .= $this->element_open($vargs->icon_tag, $vargs->icon_next_global_attrs);
+				$str_ret .= $mac::element_open($vargs->icon_tag, $vargs->icon_next_global_attrs);
 				$str_ret .= esc_attr( $vargs->next_icon );
-				$str_ret .= $this->element_close($vargs->icon_tag);
+				$str_ret .= $mac::element_close($vargs->icon_tag);
 
 				$str_ret .= '</a>';
 			}
-			$str_ret .= $this->element_close($vargs->page_tag);
+			$str_ret .= $mac::element_close($vargs->page_tag);
 
-			$str_ret .= $this->element_close($vargs->wrapper_tag);
+			$str_ret .= $mac::element_close($vargs->wrapper_tag);
 			return $str_ret;
 		}
 
@@ -78,6 +81,7 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 
 			return $lang;
 		}
+		
 
 		protected function mod_defaults() {
 

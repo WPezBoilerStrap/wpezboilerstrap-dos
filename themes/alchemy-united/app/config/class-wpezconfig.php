@@ -34,7 +34,7 @@ if ( ! class_exists('WPezConfig') ){
 	     */
         public function language(){
 
-        	if ( ! isset( $this->_lang )) {
+        	if ( ! isset( self::$_lang )) {
 
 		        $obj        = new \stdClass();
 
@@ -44,10 +44,10 @@ if ( ! class_exists('WPezConfig') ){
 		        $obj->class = '\\WPezTheme\Language_AU_En_V1';
 		        $obj->args  = '';
 
-		        $this->_lang = $this->gtp_loader( $obj );
+		        self::$_lang = $this->gtp_loader( $obj );
 
 	        }
-	        return $this->_lang;
+	        return self::$_lang;
         }
 
 
@@ -56,7 +56,7 @@ if ( ! class_exists('WPezConfig') ){
 	     */
         protected function options(){
 
-	        if ( ! isset( $this->_opts )) {
+	        if ( ! isset( self::$_opts )) {
 
 		        $obj        = new \stdClass();
 
@@ -67,9 +67,9 @@ if ( ! class_exists('WPezConfig') ){
 		        $obj->class = '\\WPezTheme\Options_AU_V1';
 		        $obj->args  = '';
 
-		        $this->_opts = $this->gtp_loader( $obj );
+		        self::$_opts = $this->gtp_loader( $obj );
 	        }
-	        return $this->_opts;
+	        return self::$_opts;
 
         }
 
@@ -78,7 +78,7 @@ if ( ! class_exists('WPezConfig') ){
 	     */
 	    protected function router(){
 
-		    if ( ! isset( $this->_route )) {
+		    if ( ! isset( self::$_route )) {
 
 			    $obj        = new \stdClass();
 
@@ -89,9 +89,9 @@ if ( ! class_exists('WPezConfig') ){
 			    $obj->class = '\\WPezTheme\Router_AU_V1';
 			    $obj->args  = '';
 
-			    $this->_route = $this->gtp_loader($obj);
+			    self::$_route = $this->gtp_loader($obj);
 		    }
-		    return $this->_route;
+		    return self::$_route;
 	    }
 
 
@@ -100,7 +100,7 @@ if ( ! class_exists('WPezConfig') ){
 	     */
         protected function viewargs(){
 
-	        if ( ! isset( $this->_vargs )) {
+	        if ( ! isset( self::$_vargs )) {
 
 		        $obj        = new \stdClass();
 
@@ -110,9 +110,9 @@ if ( ! class_exists('WPezConfig') ){
 		        $obj->class = '\\WPezTheme\Viewargs_AU_BS3_V1';
 		        $obj->args = '';
 
-		        $this->_vargs = $this->gtp_loader($obj);
+		        self::$_vargs = $this->gtp_loader($obj);
 	        }
-	        return $this->_vargs;
+	        return self::$_vargs;
         }
 
     }

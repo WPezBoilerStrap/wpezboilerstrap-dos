@@ -39,6 +39,17 @@ if ( ! class_exists('Single_Content')) {
 			return $obj;
 		}
 
+
+		/**
+		 * return obj
+		 */
+		protected function macros() {
+
+			$mac = new \stdClass();
+
+			return $mac;
+		}
+
 		/**
 		 * return obj
 		 */

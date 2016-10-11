@@ -2,34 +2,38 @@
 
 namespace WPezBoilerStrap\Views\Components;
 
-if ( ! class_exists('Icon_Label_Links_V1')) {
-	class Icon_Label_Links_V1 extends \WPezBoilerStrap\Toolbox\Parents\View {
+if ( ! class_exists('Icon_Name_Links_V1')) {
+	class Icon_Name_Links_V1 extends \WPezBoilerStrap\Toolbox\Parents\View {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
+
+			$mac = $this->_mac;
 
 			$str_ret = '';
 
 			https://premium.wpmudev.org/blog/convert-html5-template-wordpress-theme/?npp=b&utm_expid=3606929-84.YoGL0StOSa-tkbGo-lVlvw.1&utm_referrer=https%3A%2F%2Fwww.facebook.com%2F
 
-			$str_ret .= $this->element_open($vargs->wrapper_tag, $vargs->wrapper_global_attrs);
+			$str_ret .= $mac::element_open($vargs->wrapper_tag, $vargs->wrapper_global_attrs);
 
-			$str_ret .= $this->element_open($vargs->icon_label_wrapper_tag, $vargs->icon_label_wrapper_global_attrs);
+			$str_ret .= $mac::element_open($vargs->icon_label_wrapper_tag, $vargs->icon_label_wrapper_global_attrs);
 
-			$str_ret .= $this->element_open($vargs->icon_tag, $vargs->icon_global_attrs);
-			$str_ret .= $this->element_close($vargs->icon_tag);
+			// TODO - check if class + method exist?
+			$str_ret .= $mac::icon_name(
+				$vargs->icon_tag,
+				$vargs->icon_global_attrs,
+				$vargs->name_tag,
+				$vargs->name_global_attrs,
+				$mod->name
+			);
 
-			$str_ret .= $this->element_open($vargs->label_tag, $vargs->label_global_attrs);
-			$str_ret .= esc_attr($lang->label);
-			$str_ret .= $this->element_close($vargs->label_tag);
-
-			$str_ret .= $this->element_close($vargs->icon_label_wrapper_tag);
+			$str_ret .= $mac::element_close($vargs->icon_label_wrapper_tag);
 
 			$arr_to_implode = array();
 			foreach ($mod->array_objects as $key => $obj) {
 
 				//   <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
 				$str_link = '<a href="' . esc_url( $obj->url ) . '"';
-				$str_link .= $this->global_attrs($obj->global_attrs) . '>';
+				$str_link .= $mac::global_attrs($obj->global_attrs) . '>';
 				$str_link .= esc_attr($obj->anchor_text);
 				$str_link.= '</a>'; // list close
 
@@ -40,7 +44,7 @@ if ( ! class_exists('Icon_Label_Links_V1')) {
 			$str_implode = implode($str_ig, $arr_to_implode);
 
 			$str_ret .= $str_implode;
-			$str_ret .= $this->element_close($vargs->wrapper_tag);
+			$str_ret .= $mac::element_close($vargs->wrapper_tag);
 
 			return $str_ret;
 		}
@@ -58,6 +62,14 @@ if ( ! class_exists('Icon_Label_Links_V1')) {
 			$lang->label = ' LANG-LABEL '; // e.g. Tags, Catgories, etc.
 
 			return $lang;
+		}
+
+
+		protected function mac_defaults() {
+
+			$mac = new \stdClass();
+
+			return $mac;
 		}
 
 		protected function mod_defaults() {

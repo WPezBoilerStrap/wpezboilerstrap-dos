@@ -45,10 +45,18 @@ if ( ! class_exists('Search_HTML5')) {
 		/**
 		 * return obj
 		 */
+		protected function macros() {
+
+			$mac = new \stdClass();
+			return $mac;
+		}
+
+		/**
+		 * return obj
+		 */
 		protected function model() {
 
 			$mod = new \stdClass();
-
 			return $mod;
 		}
 

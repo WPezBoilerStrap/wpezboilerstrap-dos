@@ -6,10 +6,12 @@ if ( ! class_exists('Pagination_V1')) {
 	class Pagination_V1 extends \WPezBoilerStrap\Toolbox\Parents\View {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
+			
+			$mac = $this->_mac;
 
 			$str_ret = '';
 
-			$str_ret .= $this->element_open($vargs->wrapper_tag, $vargs->wrapper_global_attrs );
+			$str_ret .= $mac::element_open($vargs->wrapper_tag, $vargs->wrapper_global_attrs );
 
 			$str_temp = '';
 
@@ -24,7 +26,7 @@ if ( ! class_exists('Pagination_V1')) {
 					);
 				}
 
-				$str_temp .= $this->element_open($vargs->page_tag, $arr_page_global_attrs);
+				$str_temp .= $mac::element_open($vargs->page_tag, $arr_page_global_attrs);
 
 				$str_url = esc_url($obj_page->url);
 				if ( empty( $str_url )){
@@ -35,15 +37,15 @@ if ( ! class_exists('Pagination_V1')) {
 				$str_anchor = esc_attr($obj_page->anchor);
 				if ( $obj_page->type == 'prev' ){
 
-					$str_anchor = $this->element_open($vargs->icon_tag, $vargs->icon_prev_global_attrs);
-					$str_anchor .= $this->element_close($vargs->icon_tag);
+					$str_anchor = $mac::element_open($vargs->icon_tag, $vargs->icon_prev_global_attrs);
+					$str_anchor .= $mac::element_close($vargs->icon_tag);
 					$str_anchor .= esc_attr($lang->prev);
 
 				} elseif ( $obj_page->type == 'next' ){
 
 					$str_anchor = esc_attr($lang->next);
-					$str_anchor .= $this->element_open($vargs->icon_tag, $vargs->icon_next_global_attrs);
-					$str_anchor .= $this->element_close($vargs->icon_tag);
+					$str_anchor .= $mac::element_open($vargs->icon_tag, $vargs->icon_next_global_attrs);
+					$str_anchor .= $mac::element_close($vargs->icon_tag);
 
 				}
 
@@ -51,13 +53,13 @@ if ( ! class_exists('Pagination_V1')) {
 
 				$str_temp .= '</a>';
 
-				$str_temp .= $this->element_close($vargs->page_tag);
+				$str_temp .= $mac::element_close($vargs->page_tag);
 
 			}
 
 			$str_ret .= $str_temp;
 
-			$str_ret .= $this->element_close($vargs->wrapper_tag);
+			$str_ret .= $mac::element_close($vargs->wrapper_tag);
 
 			return $str_ret;
 		}
@@ -73,6 +75,7 @@ if ( ! class_exists('Pagination_V1')) {
 			return $lang;
 		}
 
+		
 		protected function mod_defaults() {
 
 			$mod = new \stdClass();

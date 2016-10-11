@@ -43,6 +43,16 @@ if ( ! class_exists('Single_Prev_Next')) {
 		/**
 		 * return obj
 		 */
+		protected function macros() {
+
+			$mac = new \stdClass();
+
+			return $mac;
+		}
+
+		/**
+		 * return obj
+		 */
 		protected function model() {
 
 			$obj_adj_v1 = new \WPezBoilerStrap\Models\Components\Adjacent_Post_V1();

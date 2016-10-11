@@ -58,10 +58,10 @@ if ( ! class_exists('Header')) {
 			$part        = new \stdClass();
 
 			$part->active = true;
-			$part->slug_path  = 'controllers\navs';
-			$part->slug  = 'header-nav';
+			$part->slug_path  = 'controllers\menus';
+			$part->slug  = 'header-menu';
 			$part->name  = '';
-			$part->class = '\\WPezTheme\Header_Nav';
+			$part->class = '\\WPezTheme\Header_Menu';
 			$part->args  = '';
 			$part->method = 'get_view';
 

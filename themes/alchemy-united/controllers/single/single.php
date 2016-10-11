@@ -29,8 +29,8 @@ if ( ! class_exists('Single')) {
 			return $str_ret;
 		}
 
-		/*
-		 * return obj
+		/**
+		 * @return \stdClass
 		 */
 		protected function language() {
 
@@ -39,8 +39,18 @@ if ( ! class_exists('Single')) {
 			return $lang;
 		}
 
-		/*
-		 * return obj
+		/**
+		 * @return \stdClass
+		 */
+		protected function macros() {
+
+			$mac = new \stdClass();
+
+			return $mac;
+		}
+
+		/**
+		 * @return \stdClass
 		 */
 		protected function model() {
 
@@ -49,8 +59,8 @@ if ( ! class_exists('Single')) {
 			return $mod;
 		}
 
-		/*
-		 * return obj
+		/**
+		 * @return \stdClass
 		 */
 		protected function partials() {
 

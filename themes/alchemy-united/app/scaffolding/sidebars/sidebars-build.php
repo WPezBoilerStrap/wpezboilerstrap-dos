@@ -15,13 +15,12 @@ if ( !class_exists( 'Sidebars_Build' ) ) {
         public function build()
         {
 
-            $obj_sb = new Sidebars();
-            $arr_args = $obj_sb->get();
-
+            $ins_sba = new Sidebars_Args();
+            $arr_args = $ins_sba->get();
 
             $obj_rsb = new \WPezClasses\Scaffolding\Register_Sidebar();
 
-           $x = $obj_rsb->loader( $arr_args );
+           $x = $obj_rsb->ez_loader( $arr_args );
 
         }
     }

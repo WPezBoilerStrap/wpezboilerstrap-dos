@@ -11,52 +11,52 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'View' ) ) {
 	abstract class View {
 
+		protected $_use = 'merge_defaults';
+		protected $_bool_enclose = true;
+		protected $_mac = '\WPezBoilerStrap\Toolbox\Tools\View_Macros';
+
+
 		protected $_lang;
 		protected $_mod;
 		protected $_parts;
 		protected $_vags;
 
-		/**
-		 * Allow a view to not allow an enclose.
-		 *
-		 * @var
-		 */
-		protected $_bool_enclose;
-		protected $_arr_enclose;
-
-		protected $_semantic_open;
-		protected $_semantic_close;
-		protected $_wrapper_open;
-		protected $_wrapper_close;
-
 		public function __construct( $obj_args = false ) {
+
+			$this->args_prep($obj_args);
+
+		}
+
+
+		private function args_prep($obj_args = false ){
 
 			$this->_land  = new \stdClass();
 			$this->_mod   = new \stdClass();
 			$this->_parts = new \stdClass();
 			$this->_vargs = new \stdClass();
 
-			$this->_arr_enclose = array( 'semantic', 'wrapper' );
+			$this->_arr_enclose = array( 'semantic', 'view_wrapper' );
 
-			if ( ! isset($obj_args->use) ){
+			if ( is_object( $obj_args ) && ! isset( $obj_args->use ) ) {
 
-				$this->set_args( $obj_args );
+				$this->set_args_merge( $obj_args );
 
-			} elseif ( $obj_args->use == 'defaults' ) {
+			} elseif ( is_object( $obj_args ) && isset ( $obj_args->use ) && $obj_args->use == 'defaults' ) {
 
 				$this->_lang  = $this->lang_defaults();
 				$this->_mod   = $this->mod_defaults();
 				$this->_parts = $this->parts_defaults();
 				$this->_vargs = $this->vargs_defaults();
 
-			} elseif ( is_object( $obj_args ) && $obj_args->use == 'merge' ) {
+			} elseif ( is_object( $obj_args ) && isset ( $obj_args->use ) && $obj_args->use == 'custom' ) {
 
-				$this->set_args_merge( $obj_args );
+				$this->set_args( $obj_args );
 
 			} elseif ( is_object( $obj_args ) ) {
 
-				$this->set_args( $obj_args );
+				$this->set_args_merge( $obj_args );
 			}
+
 		}
 
 		/**
@@ -77,14 +77,13 @@ if ( ! class_exists( 'View' ) ) {
 			}
 
 			if ( isset( $obj_args->lang ) && is_object( $obj_args->lang ) ) {
-				$this->_lang = (object) array_merge( (array) $this->_land, (array) $obj_args->lang );
+				$this->_lang = (object) array_merge( (array) $this->_lang, (array) $obj_args->lang );
 			}
 			if ( isset( $obj_args->mod ) && is_object( $obj_args->mod ) ) {
 				$this->_mod = (object) array_merge( (array) $this->_mod, (array) $obj_args->mod );
 			}
 			if ( isset( $obj_args->parts ) && is_object( $obj_args->parts ) ) {
 				$this->_parts = (object) array_merge( (array) $this->_parts, (array) $obj_args->parts );
-
 			}
 			if ( isset( $obj_args->vargs ) && is_object( $obj_args->vargs ) ) {
 				$this->_vargs = (object) array_merge( (array) $this->_vargs, (array) $obj_args->vargs );
@@ -141,161 +140,18 @@ if ( ! class_exists( 'View' ) ) {
 
 
 		/**
-		 * ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes
-		 *
-		 * @param string $arr
-		 *
-		 * @return string
-		 */
-		protected function global_attrs( $arr = '' ) {
-
-			$str_ret = '';
-			if ( is_array( $arr ) ) {
-				$arr_temp = array();
-				foreach ( $arr as $key => $val ) {
-					$esc_key = esc_attr( $key );
-					$esc_val = esc_attr( $val );
-					//TODO - add test for supported attrs
-					if ( ! empty( $esc_key ) && ! empty( $esc_val ) ) {
-						$arr_temp[] = $esc_key . '="' . $esc_val . '"';
-					}
-				}
-				$str_ret = implode( " ", $arr_temp );
-				if ( ! empty( $str_ret ) ) {
-					// we'll "force" a leading ' ' since that's probably the usual need. it can be trimmed later
-					$str_ret = ' ' . $str_ret;
-				}
-			}
-
-			return $str_ret;
-		}
-
-		// TODO:
-		protected function global_attrs_supported() {
-		}
-
-
-		/**
-		 * @param string $str_ele
-		 * @param string $arr_gats
-		 * @param bool $mix_validation << TODO
-		 *
-		 * @return string
-		 */
-		protected function element_open( $str_ele = '', $arr_gats = '', $mix_validation = false ) {
-
-			$str_ele_esc = esc_attr( $str_ele );
-
-			$str_ret = '';
-			// TODO - element tag validation?
-			if ( ! empty( $str_ele_esc ) ) {
-				$str_gats    = $this->global_attrs( $arr_gats );
-				$str_ret .= '<' . $str_ele_esc . $str_gats . '>';
-			}
-
-			return $str_ret;
-		}
-
-		// TODO - HTML tags supported
-		protected function element_open_supported() {
-		}
-
-		/**
-		 * @param string $str_ele
-		 * @param string $arr_gats
-		 * @param bool $mix_validation
-		 *
-		 * @return string
-		 */
-		protected function element_close( $str_ele = '', $arr_gats = '', $mix_validation = false ) {
-
-			$str_ele_esc = esc_attr( $str_ele );
-
-			$str_ret = '';
-			// TODO - element tag validation?
-
-			if ( ! empty( $str_ele_esc ) ) {
-				$str_ret .= '</' . $str_ele_esc . '>';
-			}
-			return $str_ret;
-		}
-
-
-		/**
-		 * @param string $obj_vargs
-		 *
-		 * @return bool
-		 */
-		protected function enclose_setup( $obj_vargs = '' ) {
-
-			/*
-			 * every view can have an enclose (i.e., semantic wrapper* and a wrapper nested within that).
-			 * (1) this standarizes it. it's (almost) always there. we can count on being
-			 *     able to customize an enclose for any given a view
-			 * (2) it's one less thing for the view dev to worry about.
-			 * (3) that is, it "forces" the view to be as minimal as possible. beyond that,
-			 *     the enclose_setup() takes care of what is (almost) always there.
-			 */
-
-			$this->_semantic_open  = '';
-			$this->_semantic_close = '';
-			$this->_wrapper_open   = '';
-			$this->_wrapper_close  = '';
-
-			// does the view not allow an encloses?
-			if ( $this->_bool_enclose === false ) {
-				return false;
-			}
-
-			if ( is_object( $obj_vargs->enclose ) && is_array( $this->_arr_enclose ) && ( ! isset( $obj_vargs->enclose->active ) || ( isset( $obj_vargs->enclose->active ) && $obj_vargs->enclose->active !== false ))) {
-
-				$obj_enc = $obj_vargs->enclose;
-				foreach ( $this->_arr_enclose as $key => $str_val ) {
-
-					$str_val = trim( $str_val );
-					$str_active = trim( $str_val ) . '_active';
-
-					if ( ! isset( $obj_enc->$str_active ) || $obj_enc->$str_active !== false ) {
-
-						$str_tag  = $str_val . '_tag';
-						$str_gats = $str_val . '_global_attrs';
-
-						// set the properties for this enclose value
-						$str_open  = '_' . $str_val . '_open';
-						$str_close = '_' . $str_val . '_close';
-						$this->$str_open  = $this->element_open( $obj_enc->$str_tag, $obj_enc->$str_gats );
-						$this->$str_close = $this->element_close( $obj_enc->$str_tag );
-					}
-				}
-				return true;
-			}
-			return false;
-		}
-
-
-		/**
 		 * @return string
 		 */
 		public function render() {
 
+			$mac = $this->_mac;
+			$obj_enc = $mac::enclose($this->_vargs, $this->_bool_enclose);
+
 			$str_ret = $this->view( $this->_lang, $this->_mod, $this->_parts, $this->_vargs );
 
-			return $this->enclose($str_ret);
-
+			return $obj_enc->semantic_open . $obj_enc->view_wrapper_open . $str_ret . $obj_enc->view_wrapper_close . $obj_enc->semantic_close;
 		}
 
-		/**
-		 * @param string $str_ret
-		 *
-		 * @return string
-		 */
-		public function enclose($str_ret = ''){
-
-			$this->enclose_setup( $this->_vargs );
-
-			return $this->_semantic_open . $this->_wrapper_open . $str_ret . $this->_wrapper_close . $this->_semantic_close;
-
-		}
 
 		/**
 		 * @return string
@@ -313,6 +169,7 @@ if ( ! class_exists( 'View' ) ) {
 
 		/**
 		 * @param $lang
+		 * @param $mac
 		 * @param $mod
 		 * @param $parts
 		 * @param $vargs
@@ -328,24 +185,6 @@ if ( ! class_exists( 'View' ) ) {
 		abstract protected function parts_defaults();
 
 		abstract protected function vargs_defaults();
-		/*
-		  	$obj_enc->active = true;
-		// an enclosure master switch - default is true
 
-			$obj_enc->semantic_active = true;   // default is true
-			$obj_enc->semantic_tag = 'header';
-			$obj_enc->semantic_global_attrs = array(
-				//'class' => 'my semantic class test'
-			);
-
-			$obj_enc->wrapper_active = false;   // default is true
-			$obj_enc->wrapper_tag = 'tag_TODO';
-			$obj_enc->wrapper_global_attrs = array(
-				'class' => 'my wrapper class test'
-			);
-
-			$vargs = new \stdClass();
-			$vargs->enclose = $obj_enc;
-		 */
 	}
-	}
+}

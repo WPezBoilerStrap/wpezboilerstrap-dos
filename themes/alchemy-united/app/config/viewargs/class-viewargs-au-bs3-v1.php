@@ -37,9 +37,9 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 			    //'class' => 'my semantic class test'
 		    );
 
-		    $obj_enc->wrapper_active = true;
-		    $obj_enc->wrapper_tag = 'div';
-		    $obj_enc->wrapper_global_attrs = array(
+		    $obj_enc->view_wrapper_active = true;
+		    $obj_enc->view_wrapper_tag = 'div';
+		    $obj_enc->view_wrapper_global_attrs = array(
 			   // 'class' => 'my wrapper class test'
 		    );
 
@@ -62,9 +62,9 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 			    //'class' => 'my semantic class test'
 		    );
 
-		    $obj_enc->wrapper_active = false;
-		    $obj_enc->wrapper_tag = 'div';
-		    $obj_enc->wrapper_global_attrs = array(
+		    $obj_enc->view_wrapper_active = false;
+		    $obj_enc->view_wrapper_tag = 'div';
+		    $obj_enc->view_wrapper_global_attrs = array(
 			    // 'class' => 'HEADER-CLASS'
 		    );
 
@@ -114,9 +114,9 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 		        //'class' => 'my semantic class test'
 	        );
 
-	        $obj_enc->wrapper_active = false;
-	        $obj_enc->wrapper_tag = 'div';
-	        $obj_enc->wrapper_global_attrs = array(
+	        $obj_enc->view_wrapper_active = false;
+	        $obj_enc->view_wrapper_tag = 'div';
+	        $obj_enc->view_wrapper_global_attrs = array(
 		        // 'class' => 'HEADER-CLASS'
 	        );
 
@@ -139,9 +139,9 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 		        'class' => 'container'
 	        );
 
-	        $obj_enc->wrapper_active = true;   // default is true
-	        $obj_enc->wrapper_tag = 'div';
-	        $obj_enc->wrapper_global_attrs = array(
+	        $obj_enc->view_wrapper_active = true;   // default is true
+	        $obj_enc->view_wrapper_tag = 'div';
+	        $obj_enc->view_wrapper_global_attrs = array(
 		        'class' => 'row'
 	        );
 
@@ -171,7 +171,7 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 		        'class' => 'center-block'
 	        );
 
-	        $vargs->back_to_top_href = '#top';
+	        $vargs->href_back_to_top = '#top';
 
 	        return $vargs;
         }
@@ -189,9 +189,9 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 		        //'class' => 'container'
 	        );
 
-	        $obj_enc->wrapper_active = false;   // default is true
-	        $obj_enc->wrapper_tag = 'row';
-	        $obj_enc->wrapper_global_attrs = array(
+	        $obj_enc->view_wrapper_active = false;   // default is true
+	        $obj_enc->view_wrapper_tag = 'row';
+	        $obj_enc->view_wrapper_global_attrs = array(
 		        //'class' => 'my wrapper class test'
 	        );
 
@@ -225,9 +225,9 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 		        //'class' => 'container'
 	        );
 
-	        $obj_enc->wrapper_active = false;   // default is true
-	        $obj_enc->wrapper_tag = 'row';
-	        $obj_enc->wrapper_global_attrs = array(
+	        $obj_enc->view_wrapper_active = false;   // default is true
+	        $obj_enc->view_wrapper_tag = 'row';
+	        $obj_enc->view_wrapper_global_attrs = array(
 		        //'class' => 'my wrapper class test'
 	        );
 
@@ -252,9 +252,9 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 		        //'class' => 'my semantic class test'
 	        );
 
-	        $obj_enc->wrapper_active = false;   // default is true
-	        $obj_enc->wrapper_tag = 'tag_TODO';
-	        $obj_enc->wrapper_global_attrs = array(
+	        $obj_enc->view_wrapper_active = false;   // default is true
+	        $obj_enc->view_wrapper_tag = 'tag_TODO';
+	        $obj_enc->view_wrapper_global_attrs = array(
 		       // 'class' => 'my wrapper class test'
 	        );
 
@@ -299,19 +299,18 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 		        'class' => 'text-left'
 	        );
 
-	        /*
+
 	        $vargs->icon_label_wrapper_tag = false;
 	        $vargs->icon_label_wrapper_global_attrs = array(
 		        'class' => 'VARGS-ICON_SPAN_CLASS' // e.g., some FA class
 	        );
-	        */
 
 	        $vargs->icon_tag = 'i';
 	        $vargs->icon_global_attrs = array(
 		        'class' => 'fa fa-flag fa-fw' // e.g., some FA class
 	        );
-	        $vargs->label_tag = 'span';
-	        $vargs->label_global_attrs = array(
+	        $vargs->name_tag = 'span';
+	        $vargs->name_global_attrs = array(
 		        'class' => 'test' // e.g., some FA class
 	        );
 	        $vargs->link_class = false; // apply to every link
@@ -331,19 +330,18 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 			    'class' => 'text-left'
 		    );
 
-		    /*
+
 		    $vargs->icon_label_wrapper_tag = false;
 		    $vargs->icon_label_wrapper_global_attrs = array(
 		        'class' => 'VARGS-ICON_SPAN_CLASS' // e.g., some FA class
 		    );
-		    */
 
 		    $vargs->icon_tag = 'i';
 		    $vargs->icon_global_attrs = array(
 			    'class' => 'fa fa-tags fa-fw' // e.g., some FA class
 		    );
-		    $vargs->label_tag = 'span';
-		    $vargs->label_global_attrs = array(
+		    $vargs->name_tag = 'span';
+		    $vargs->name_global_attrs = array(
 			    'class' => false // e.g., some FA class
 		    );
 		    $vargs->link_class = false; // apply to every link
@@ -365,9 +363,9 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 		        'class' => 'container'
 	        );
 
-	        $obj_enc->wrapper_active = true;
-	        $obj_enc->wrapper_tag = 'div';
-	        $obj_enc->wrapper_global_attrs = array(
+	        $obj_enc->view_wrapper_active = true;
+	        $obj_enc->view_wrapper_tag = 'div';
+	        $obj_enc->view_wrapper_global_attrs = array(
 		        'class' => 'row'
 	        );
 
@@ -587,19 +585,18 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 			    'class' => 'text-left'
 		    );
 
-		    /*
+
 		    $vargs->icon_label_wrapper_tag = false;
 		    $vargs->icon_label_wrapper_global_attrs = array(
 		        'class' => 'VARGS-ICON_SPAN_CLASS' // e.g., some FA class
 		    );
-		    */
 
 		    $vargs->icon_tag = 'i';
 		    $vargs->icon_global_attrs = array(
 			    'class' => 'fa fa-flag fa-fw' // e.g., some FA class
 		    );
-		    $vargs->label_tag = 'span';
-		    $vargs->label_global_attrs = array(
+		    $vargs->name_tag = 'span';
+		    $vargs->name_global_attrs = array(
 			    'class' => false // e.g., some FA class
 		    );
 		    $vargs->link_class = false; // apply to every link
@@ -619,19 +616,19 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 			    'class' => 'text-left'
 		    );
 
-		    /*
+
 		    $vargs->icon_label_wrapper_tag = false;
 		    $vargs->icon_label_wrapper_global_attrs = array(
 		        'class' => 'VARGS-ICON_SPAN_CLASS' // e.g., some FA class
 		    );
-		    */
+
 
 		    $vargs->icon_tag = 'i';
 		    $vargs->icon_global_attrs = array(
 			    'class' => 'fa fa-tags fa-fw' // e.g., some FA class
 		    );
-		    $vargs->label_tag = 'span';
-		    $vargs->label_global_attrs = array(
+		    $vargs->name_tag = 'span';
+		    $vargs->name_global_attrs = array(
 			    'class' => false // e.g., some FA class
 		    );
 		    $vargs->link_class = false; // apply to every link
@@ -655,9 +652,9 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 			    //'class' => 'my semantic class test'
 		    );
 
-		    $obj_enc->wrapper_active = false;
-		    $obj_enc->wrapper_tag = 'div';
-		    $obj_enc->wrapper_global_attrs = array(
+		    $obj_enc->view_wrapper_active = false;
+		    $obj_enc->view_wrapper_tag = 'div';
+		    $obj_enc->view_wrapper_global_attrs = array(
 			    // 'class' => 'HEADER-CLASS'
 		    );
 
@@ -665,10 +662,10 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 		    $vargs->enclose = $obj_enc;
 
 		    // note: this wrapper is NOT the enclose wrapper. they are independent.
-		    $vargs->wrapper_tag = 'div';
+		    $vargs->wrapper_tag = 'p';
 		    $vargs->wrapper_global_attrs = array();
 
-		    $vargs->name_tag = 'p';
+		    $vargs->name_tag = 'span';
 		    $vargs->name_global_attrs = array();
 
 		    // master on/off for the description
@@ -698,9 +695,9 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 			    'class' => 'container'
 		    );
 
-		    $obj_enc->wrapper_active = true;
-		    $obj_enc->wrapper_tag = 'div';
-		    $obj_enc->wrapper_global_attrs = array(
+		    $obj_enc->view_wrapper_active = true;
+		    $obj_enc->view_wrapper_tag = 'div';
+		    $obj_enc->view_wrapper_global_attrs = array(
 			    'class' => 'row text-center'
 		    );
 

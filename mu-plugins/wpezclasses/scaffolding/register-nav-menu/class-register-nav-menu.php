@@ -24,63 +24,60 @@
 namespace WPezClasses\Scaffolding;
 
 // No WP? Die! Now!!
-if ( !defined( 'ABSPATH' ) ) {
-    header( 'HTTP/1.0 403 Forbidden' );
-    die();
+if ( ! defined( 'ABSPATH' ) ) {
+	header( 'HTTP/1.0 403 Forbidden' );
+	die();
 }
 
-if ( !class_exists( 'Register_Nav_Menu' ) ) {
-    class Register_Nav_Menu
-    {
+if ( ! class_exists( 'Register_Nav_Menu' ) ) {
+	class Register_Nav_Menu {
 
-        public function __construct()
-        {
+		public function __construct() {
+		}
 
-        }
+		/**
+		 * @return stdClass
+		 */
+		protected function file_constants() {
+			$obj = new \stdClass();
 
-        /**
-         * @return stdClass
-         */
-        protected function basics()
-        {
-            $obj = new \stdClass();
+			$obj->url         = plugin_dir_url( __FILE__ );
+			$obj->path        = plugin_dir_path( __FILE__ );
+			$obj->path_parent = dirname( $this->_path );
+			$obj->basename    = plugin_basename( __FILE__ );
+			$obj->file        = __FILE__;
 
-            $obj->url = plugin_dir_url( __FILE__ );
-            $obj->path = plugin_dir_path( __FILE__ );
-            $obj->path_parent = dirname( $this->_path );
-            $obj->basename = plugin_basename( __FILE__ );
-            $obj->file = __FILE__;
+			return $obj;
+		}
 
-            return $obj;
-        }
+		/**
+		 * In case you want to build your own loader.
+		 *
+		 * @param $obj_ez
+		 */
+		public function wp_register_nav_menu( $obj_ez ) {
 
+			register_nav_menu( $obj_ez->register_nav_menu->location, $obj_ez->register_nav_menu->description );
 
-        public function loader( $arr_args = '' )
-        {
-           // $str_return_source = get_class() . ' > ' . __METHOD__;
-
-            if ( is_array( $arr_args ) && !empty($arr_args) ) {
-
-                foreach ( $arr_args as $str_key => $obj ) {
-
-                    if ( $obj->active === true ) {
-
-                        if ( isset($obj->theme_location) && is_string( $obj->theme_location ) && isset($obj->description) && is_string( $obj->description ) ) {
-
-                            register_nav_menu( $obj->theme_location, $obj->description );
-                        }
-                    }
-                }
-
-                //return array('status' => true, 'msg' => 'success', 'source' => $str_return_source, 'arr_args' => $arr_args);
-                return true;
-            }
-            else {
-                //return array('status' => false, 'msg' => 'ERROR: arr_args was not valid', 'source' => $str_return_source, 'arr_args' => 'error');
-                return false;
-            }
-        }
+		}
 
 
-    } // END: class
+		public function ez_loader( $arr_args = '' ) {
+
+			if ( is_array( $arr_args ) && ! empty( $arr_args ) ) {
+				foreach ( $arr_args as $str_key => $obj ) {
+					if ( $obj->active === true ) {
+						if ( isset( $obj->register_nav_menu->location ) && is_string( $obj->register_nav_menu->location ) && isset( $obj->register_nav_menu->description ) && is_string( $obj->register_nav_menu->description ) ) {
+							register_nav_menu( $obj->register_nav_menu->location, $obj->register_nav_menu->description );
+						}
+					}
+				}
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+
+	} // END: class
 } // END: if class exists

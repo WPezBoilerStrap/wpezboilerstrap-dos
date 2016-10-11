@@ -5,7 +5,7 @@
 
 namespace WPezTheme;
 
-add_theme_support( 'post-thumbnails' );
+
 
 if ( ! class_exists('Functions')){
     class Functions{
@@ -17,6 +17,10 @@ if ( ! class_exists('Functions')){
 	        $this->build_loader();
 
             add_filter( 'the_content', array($this, 'the_content_filter') );
+
+	        // TODO move to a project-centric plugin, here for demo purposes only
+	        $hc = new \WPezClasses\Theme\Head_Cleanup();
+	        $hc->ez_loader();
         }
 
         protected function build_loader(){
@@ -33,7 +37,7 @@ if ( ! class_exists('Functions')){
             }
         }
 
-        function the_content_filter($content) {
+        public function the_content_filter($content) {
 
             $content = str_replace('<p><img', '<p class="p-image"><img' ,$content);
             // otherwise returns the database content

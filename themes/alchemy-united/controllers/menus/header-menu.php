@@ -2,8 +2,8 @@
 
 namespace WPezTheme;
 
-if ( ! class_exists('Header_Nav')) {
-	class Header_Nav extends \WPezBoilerStrap\Toolbox\Parents\Controller
+if ( ! class_exists('Header_Menu')) {
+	class Header_Menu extends \WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -21,7 +21,7 @@ if ( ! class_exists('Header_Nav')) {
 			$obj = new \stdClass();
 
 			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Navs\Nav_BS3_V1';
+			$obj->class = '\\WPezBoilerStrap\Views\Menus\Menu_BS3_V1';
 			$obj->args = $this->get_view_args();
 			$obj->method= 'render';
 
@@ -42,12 +42,13 @@ if ( ! class_exists('Header_Nav')) {
 			return $obj_lang;
 		}
 
+
 		/*
 		 * return obj
 		 */
 		protected function model() {
 
-			$menu = new \WPezTheme\Scaffolding\Menus();
+			$menu = new \WPezTheme\Scaffolding\Menus_Args();
 			$menu_args = $menu->get('menu_main');
 
 			$mod = new \stdClass();

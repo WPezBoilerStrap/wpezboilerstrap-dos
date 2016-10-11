@@ -16,12 +16,12 @@ if ( !class_exists( 'Menus_Build' ) ) {
         public function build()
         {
 
-            $obj_m = new Menus();
-            $arr_args = $obj_m->get();
+            $ins_menus = new Menus_Args();
+            $arr_args = $ins_menus->get();
             
-            $obj_rnm = new \WPezClasses\Scaffolding\Register_Nav_Menu();
+            $ins_rnm = new \WPezClasses\Scaffolding\Register_Nav_Menu();
 
-            $x = $obj_rnm->loader( $arr_args );
+            $x = $ins_rnm->ez_loader( $arr_args );
 
         }
     }

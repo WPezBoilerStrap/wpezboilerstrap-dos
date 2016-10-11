@@ -12,9 +12,10 @@ if ( ! class_exists('Main')) {
 			$this->_wpezconfig = WPezConfig::ez_new();
 		}
 
-		/*
- * return string
- */
+
+		/**
+		 * @return bool|string
+		 */
 		public function get_view(){
 
 			$obj = new \stdClass();
@@ -29,32 +30,36 @@ if ( ! class_exists('Main')) {
 			return $str_ret;
 		}
 
-		/*
-		 * return obj
+
+		/**
+		 * @return \stdClass
 		 */
 		protected function language() {
 
-			$obj = new \stdClass();
+			$lang = new \stdClass();
 
-			return $obj;
+			return $lang;
 		}
 
-		/*
-		 * return obj
+
+		/**
+		 * @return \stdClass
 		 */
 		protected function model() {
 
-			$obj = new \stdClass();
+			$mod = new \stdClass();
 
-			return $obj;
+			return $mod;
 		}
+
+
 
 		/*
 		 * return obj
 		 */
 		protected function partials() {
 
-			$obj = new \stdClass();
+			$parts = new \stdClass();
 
 			if ( is_page() ){
 
@@ -68,7 +73,7 @@ if ( ! class_exists('Main')) {
 				$part->args  = '';
 				$part->method = 'get_view';
 
-				$obj->one = $this->ez_loader($part);
+				$parts->one = $this->ez_loader($part);
 
 			} elseif ( is_single() ) {
 
@@ -82,7 +87,7 @@ if ( ! class_exists('Main')) {
 				$part->args  = '';
 				$part->method = 'get_view';
 
-				$obj->one = $this->ez_loader($part);
+				$parts->one = $this->ez_loader($part);
 
 			} elseif ( is_404() ){
 
@@ -96,7 +101,7 @@ if ( ! class_exists('Main')) {
 				$part->args  = '';
 				$part->method = 'get_view';
 
-				$obj->one = $this->ez_loader($part);
+				$parts->one = $this->ez_loader($part);
 
 			} else {
 
@@ -110,10 +115,10 @@ if ( ! class_exists('Main')) {
 				$part->args  = '';
 				$part->method = 'get_view';
 
-				$obj->one = $this->ez_loader($part);
+				$parts->one = $this->ez_loader($part);
 
 			}
-			return $obj;
+			return $parts;
 		}
 
 
@@ -122,9 +127,9 @@ if ( ! class_exists('Main')) {
 		 */
 		protected function router() {
 
-			$obj = new \stdClass();
+			$route = new \stdClass();
 
-			return $obj;
+			return $route;
 		}
 
 

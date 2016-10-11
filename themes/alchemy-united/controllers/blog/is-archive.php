@@ -36,7 +36,7 @@ if ( ! class_exists('Is_Archive')) {
 			// the gtp slug (optional)
 			//$gv->slug = '';
 			// the class in that tp
-			$gv->class = '\\WPezBoilerStrap\Views\Components\Name_Description_V1';
+			$gv->class = '\\WPezBoilerStrap\Views\Components\Icon_Name_Description_V1';
 			// the args we're "injecting" into the class
 			$gv->args = $this->get_view_args();
 			// IF we want to use the view's default args (optional)
@@ -58,15 +58,26 @@ if ( ! class_exists('Is_Archive')) {
 
 			$lang = new \stdClass();
 
-			$lang->category_1 = 'Category: ' ;
-			$lang->post_tag_1 = 'Tag: ';
-			$lang->author_1 = 'Author: ';
+			$lang->category = 'Category: ' ;
+			$lang->post_tag = 'Tag: ';
+			$lang->author = 'Author: ';
 			$lang->search = 'Search term: ';
 			$lang->search_found = 'Total found: ';
 
 			// $str_method = 'TODO';
 			//$lang = $this->_wpezconfig->ez_get('language', $str_method);
 			return $lang;
+		}
+
+
+		/**
+		 * @return \stdClass
+		 */
+		protected function macros() {
+
+			$mac = new \stdClass();
+
+			return $mac;
 		}
 
 		/**
@@ -80,12 +91,14 @@ if ( ! class_exists('Is_Archive')) {
 
 			if ( is_category() || is_tag() || is_author() ){
 
-				$cat = 'category_' . (string) is_category();
-				$tag = 'post_tag_' . (string) is_tag();
-				$auth = 'author_' . (string) is_author();
-
-				$obj_lang = $this->language();
-				$str_prefix = $obj_lang->$cat . $obj_lang->$tag . $obj_lang->$auth;
+				$str_prefix = '';
+				if ( is_category() ){
+					$str_prefix = $this->language()->category;
+				} elseif ( is_tag() ){
+					$str_prefix = $this->language()->post_tag;
+				} elseif ( is_author() ) {
+					$str_prefix = $this->language()->author;
+				}
 
 				$mod->name = $str_prefix . $wp_query->queried_object->name;
 				$mod->description = $wp_query->queried_object->description;
@@ -131,6 +144,39 @@ if ( ! class_exists('Is_Archive')) {
 
 			$str_method = 'is_archive';
 			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+
+			$vargs->icon_tag = 'i';
+			$vargs->icon_global_attrs = array();
+
+			if ( is_category() || is_tag() || is_author() ){
+
+				$str_prefix = '';
+				if ( is_category() ){
+					$vargs->icon_global_attrs = array(
+						'class' => 'fa fa-flag fa-fw'
+					);
+				} elseif ( is_tag() ){
+					$vargs->icon_global_attrs = array(
+						'class' => 'fa fa-tags fa-fw'
+					);
+				} elseif ( is_author() ) {
+					$vargs->icon_global_attrs = array(
+						'class' => 'fa fa-user fa-fw'
+					);
+				}
+
+			} elseif ( is_search() ){
+				$vargs->icon_global_attrs = array(
+					'class' => 'fa fa-search fa-fw'
+				);
+
+			} else {
+				$vargs->icon_tag = false;
+
+			}
+
+
+
 			return $vargs;
 		}
 	}

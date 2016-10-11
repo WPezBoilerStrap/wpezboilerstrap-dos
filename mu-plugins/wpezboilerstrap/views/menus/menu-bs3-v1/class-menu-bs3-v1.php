@@ -1,19 +1,21 @@
 <?php
 
-namespace WPezBoilerStrap\Views\Navs;
+namespace WPezBoilerStrap\Views\Menus;
 
-if ( ! class_exists('Nav_BS3_V1') ) {
-	class Nav_BS3_V1 extends \WPezBoilerStrap\Toolbox\Parents\View {
+if ( ! class_exists('Menu_BS3_V1') ) {
+	class Menu_BS3_V1 extends \WPezBoilerStrap\Toolbox\Parents\View {
 
 		function view( $lang, $mod, $parts, $vargs ) {
+			
+			$mac = $this->_mac;
 
 			$str_ret = '';
 
-			$str_ret .= '<div' . $this->global_attrs($vargs->wrapper_global_attrs). '>';
-			$str_ret .= '<div' . $this->global_attrs($vargs->inner_global_attrs). '>';
-			$str_ret .= '<div' . $this->global_attrs($vargs->header_global_attrs). '>';
+			$str_ret .= '<div' . $mac::global_attrs($vargs->wrapper_global_attrs). '>';
+			$str_ret .= '<div' . $mac::global_attrs($vargs->inner_global_attrs). '>';
+			$str_ret .= '<div' . $mac::global_attrs($vargs->header_global_attrs). '>';
 
-			$str_ret .= '<button' . $this->global_attrs($vargs->button_global_attrs). '>';
+			$str_ret .= '<button' . $mac::global_attrs($vargs->button_global_attrs). '>';
 			$str_ret .= '<span class="sr-only">Toggle navigation</span>';
 			$str_ret .= '<span class="icon-bar"></span>';
 			$str_ret .= '<span class="icon-bar"></span>';
@@ -71,9 +73,9 @@ if ( ! class_exists('Nav_BS3_V1') ) {
 				//'class' => 'my semantic class test'
 			);
 
-			$obj_enc->wrapper_active = false;
-			$obj_enc->wrapper_tag = 'div';
-			$obj_enc->wrapper_global_attrs = array(
+			$obj_enc->view_wrapper_active = false;
+			$obj_enc->view_wrapper_tag = 'div';
+			$obj_enc->view_wrapper_global_attrs = array(
 				// 'class' => 'HEADER-CLASS'
 			);
 

@@ -16,27 +16,28 @@ if ( ! class_exists('Group_One_V1') ) {
 		}
 
 		protected function lang_defaults() {
-			// TODO: Implement lang_defaults() method.
+
+			return new \stdClass();
 		}
 
+
 		protected function mod_defaults() {
-			// TODO: Implement mod_defaults() method.
+
+			return new \stdClass();
 		}
 
 		protected function parts_defaults() {
 
-			$obj = new \stdClass();
+			$parts = new \stdClass();
 
-			$obj->one = 'PARTS->ONE';
+			$parts->one = 'PARTS->ONE';
 
-			return $obj;
+			return $parts;
 		}
 
 		protected function vargs_defaults() {
 
-			$vargs = new \stdClass();
-
-			return $vargs;
+			return new \stdClass();
 		}
 
 	}

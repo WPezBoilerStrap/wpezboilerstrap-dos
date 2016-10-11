@@ -7,9 +7,21 @@ if ( ! class_exists('Footer_V1') ) {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
 
+			$mac = $this->_mac;
+
+			// ---
+
+			$x = $this->vargs_defaults();
+
+		//	$y = $mac::enclose($x);
+
+		//	var_dump($y);
+
+			// --
+
 			$str_ret = '';
 
-			$str_ret .= $this->element_open($vargs->left_tag, $vargs->left_global_attrs );
+			$str_ret .= $mac::element_open($vargs->left_tag, $vargs->left_global_attrs );
 
 			$str_ret .= '<p>';
 
@@ -17,20 +29,20 @@ if ( ! class_exists('Footer_V1') ) {
 
 			$str_ret .= '</p>';
 
-			$str_ret .= $this->element_close($vargs->left_tag);
+			$str_ret .= $mac::element_close($vargs->left_tag);
 
-			$str_ret .= $this->element_open($vargs->middle_tag, $vargs->middle_global_attrs );
+			$str_ret .= $mac::element_open($vargs->middle_tag, $vargs->middle_global_attrs );
 
-			$str_ret .= '<img src="' . esc_url($vargs->logo_url) . '"' . $this->global_attrs($vargs->logo_class).  '>' ;
+			$str_ret .= '<img src="' . esc_url($vargs->logo_url) . '"' . $mac::global_attrs($vargs->logo_class).  '>' ;
 
-			$str_ret .= $this->element_close($vargs->middle_tag);
+			$str_ret .= $mac::element_close($vargs->middle_tag);
 
 
-			$str_ret .= $this->element_open($vargs->right_tag, $vargs->right_global_attrs );
+			$str_ret .= $mac::element_open($vargs->right_tag, $vargs->right_global_attrs );
 
 			$str_ret .= '<p>';
 
-			$str_ret .= '<a href="' . esc_attr($vargs->back_to_top) .'">';
+			$str_ret .= '<a href="' . esc_attr($vargs->href_back_to_top) .'">';
 
 			$str_ret .= esc_attr($lang->back_to_top);
 
@@ -40,7 +52,7 @@ if ( ! class_exists('Footer_V1') ) {
 
 
 
-			$str_ret .= $this->element_close($vargs->right_tag);
+			$str_ret .= $mac::element_close($vargs->right_tag);
 
 			return $str_ret;
 		}
@@ -50,13 +62,14 @@ if ( ! class_exists('Footer_V1') ) {
 
 			$lang = new \stdClass();
 
-			$lang->copyright_time = '2016 ';
+			$lang->copyright_time = date("Y") . ' ';
 			$lang->copyright_name = 'Brand Name';
 
 			$lang->back_to_top = 'Back to Top';
 
 			return $lang;
 		}
+
 
 		protected function mod_defaults() {
 
@@ -79,16 +92,16 @@ if ( ! class_exists('Footer_V1') ) {
 
 			$obj_enc->active = true;            // an enclosure master switch - default is true
 
-			$obj_enc->semantic_active = false;   // default is true
+			$obj_enc->semantic_active = true;   // default is true
 			$obj_enc->semantic_tag = 'footer';
 			$obj_enc->semantic_global_attrs = array(
 				'class' => 'container'
 			);
 
-			$obj_enc->wrapper_active = true;   // default is true
-			$obj_enc->wrapper_tag = 'row';
-			$obj_enc->wrapper_global_attrs = array(
-				//'class' => 'my wrapper class test'
+			$obj_enc->view_wrapper_active = true;   // default is true
+			$obj_enc->view_wrapper_tag = 'div';
+			$obj_enc->view_wrapper_global_attrs = array(
+				'class' => 'row'
 			);
 
 

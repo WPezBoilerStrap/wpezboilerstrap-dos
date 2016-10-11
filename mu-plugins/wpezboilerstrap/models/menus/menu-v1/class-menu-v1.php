@@ -1,9 +1,9 @@
 <?php
 
-namespace WPezBoilerStrap\Models\Navs;
+namespace WPezBoilerStrap\Models\Menus;
 
-if ( ! class_exists('Nav_Menu_V1') ) {
-	class Nav_Menu_V1 {
+if ( ! class_exists('Menu_V1') ) {
+	class Menu_V1 {
 
 		public function __construct() {
 

@@ -14,151 +14,112 @@
  * @license TODO
  */
 
-/*
-* == Change Log == 
-*
-* -- 24 April 2016 - Ready
-*
-*/
 
 namespace WPezClasses\Scaffolding;
 
 // No WP? Die! Now!!
-if ( !defined( 'ABSPATH' ) ) {
-    header( 'HTTP/1.0 403 Forbidden' );
-    die();
+if ( ! defined( 'ABSPATH' ) ) {
+	header( 'HTTP/1.0 403 Forbidden' );
+	die();
 }
 
-if ( !class_exists( 'Register_Sidebar' ) ) {
-    class Register_Sidebar
-    {
+if ( ! class_exists( 'Register_Sidebar' ) ) {
+	class Register_Sidebar {
 
-        function __construct()
-        {
-        }
+		function __construct() {
+		}
 
 
-        /**
-         * @return stdClass
-         */
-        protected function ez_defaults()
-        {
-            $obj = new \stdClass();
+		/**
+		 * @return stdClass
+		 */
+		protected function file_constants() {
+			$obj = new \stdClass();
 
-            $obj->filters = false;        // allow filter
-            $obj->env = '';                // environment
-            $obj->validation = false;     // currently NA but let's leave it for now
-            $obj->debug = false;
-            $obj->log = false;
+			$obj->url         = plugin_dir_url( __FILE__ );
+			$obj->path        = plugin_dir_path( __FILE__ );
+			$obj->path_parent = dirname( $this->_path );
+			$obj->basename    = plugin_basename( __FILE__ );
+			$obj->file        = __FILE__;
 
-            return $obj;
-        }
-
-        /**
-         * @return stdClass
-         */
-        protected function basics()
-        {
-            $obj = new \stdClass();
-
-            $obj->url = plugin_dir_url( __FILE__ );
-            $obj->path = plugin_dir_path( __FILE__ );
-            $obj->path_parent = dirname( $this->_path );
-            $obj->basename = plugin_basename( __FILE__ );
-            $obj->file = __FILE__;
-
-            return $obj;
-        }
+			return $obj;
+		}
 
 
-        /**
-         *
-         */
-        public function defaults()
-        {
-            $obj = new \stdClass();
+		/**
+		 * REF: https://codex.wordpress.org/Function_Reference/register_sidebar
+		 */
+		public function rs_defaults() {
+			$obj = new \stdClass();
 
-            $obj->active = true;
-            $obj->description = '';
-            $obj->before_widget = '<li id="%1$s" class="widget %2$s">';
-            $obj->after_widget = '</li>';
-            $obj->before_title = '<h2 class="widgettitle">';
-            $obj->after_title = '</h2>';
-
-            /*
-             * Allow filters?
-
-            if ( $this->_arr_init['filters'] ) {
-                $arr_defaults_via_filter = apply_filters( 'filter_ezc_theme_register_sidebar_1_base_defaults', $arr_defaults );
-                $arr_defaults = WPezHelpers::_ez_array_merge( array($arr_defaults, $arr_defaults_via_filter) );
-            }
-            */
-
-            return $obj;
-        }
+			$obj->active        = true;
+			$obj->description   = '';
+			$obj->before_widget = '<li id="%1$s" class="widget %2$s">';
+			$obj->after_widget  = '</li>\n';
+			$obj->before_title  = '<h2 class="widgettitle">';
+			$obj->after_title   = '</h2>\n';
 
 
-        /**
-         * Combines the base and the values and makes the register_sidebar() magic happen
-         */
-        public function loader( $arr_args = '' )
-        {
-            // $str_return_source = get_class() . ' ' . __METHOD__;
-
-            if ( isset($arr_args) && is_array( $arr_args ) && !empty($arr_args) ) {
-
-                foreach ( $arr_args as $str_key => $obj ) {
-
-                    if ( is_object( $obj ) ) {
-
-                        // how should be arr_merge the obj and the defaults
-                        if ( is_object( $obj->defaults ) ) {
-                            $obj = (object)array_merge( (array)$this->defaults(), (array)$obj->defaults, (array)$obj );
-                        }
-                        else {
-                            $obj = (object)array_merge( (array)$this->defaults(), (array)$obj );
-                        }
-
-                        if ( $obj->active === true ) {
-
-                            $str_before_widget = $obj->before_widget;
-                            $str_after_widget = $obj->after_widget;
-                            $arr_before = array();
-                            // if there's a before_widget_tag then we'll override the standard before_widget / after_widget
-                            if ( is_string( $obj->before_widget_tag ) ) {
-                                // TODO escape
-                                $arr_before[] = $obj->before_widget_tag;
-                                if ( is_string( $obj->before_widget_id ) ) {
-                                    // TODO escape
-                                    $arr_before[] = 'id="' . $obj->before_widget_id . '"';
-                                }
-
-                                if ( is_string( $obj->before_widget_class ) ) {
-                                    // TODO escape
-                                    $arr_before[] = 'class="' . $obj->before_widget_class . '"';
-                                }
-
-                                $str_before_widget = '<' . implode( ' ', $arr_before ) . '>';
-                                // TODO escape
-                                $str_after_widget = '</' . $obj->before_widget_tag . '>';
-                            }
-
-                            // TODO - validation
-                            register_sidebar( array(
-                                                  'name' => $obj->name,
-                                                  'description' => $obj->description,
-                                                  'id' => $obj->id_unique_sidebar,
-                                                  'before_widget' => $str_before_widget,
-                                                  'after_widget' => $str_after_widget,
-                                                  'before_title' => $obj->before_title,
-                                                  'after_title' => $obj->after_title
-                                              ) );
-                        }
-                    }
-                }
-            }
-        }
+			return $obj;
+		}
 
 
-    } // END: class
+		/**
+		 * Combines the base and the values and makes the register_sidebar() magic happen
+		 */
+		public function ez_loader( $arr_args = '' ) {
+
+			if ( isset( $arr_args ) && is_array( $arr_args ) && ! empty( $arr_args ) ) {
+
+				foreach ( $arr_args as $str_key => $obj ) {
+
+					if ( is_object($obj) ) {
+
+						// how should be arr_merge the obj and the defaults
+						if ( isset($obj->register_sidebar) && is_object( $obj->register_sidebar ) && isset($obj->defaults) && is_object( $obj->defaults ) ) {
+							$obj_wp = (object) array_merge( (array) $this->rs_defaults(), (array) $obj->defaults, (array) $obj->register_sidebar );
+						} elseif ( isset($obj->register_sidebar) && is_object( $obj->register_sidebar )){
+							$obj_wp = (object) array_merge( (array) $this->rs_defaults(), (array) $obj->register_sidebar );
+						} else {
+							$obj->active = false;
+						}
+
+						if ( $obj->active === true ) {
+
+							$str_before_widget = $obj_wp->before_widget;
+							$str_after_widget  = $obj_wp->after_widget;
+							// if there's a before_widget_tag then we'll override the standard before_widget / after_widget
+							if ( isset($obj->before_widget_tag) && ! empty( $obj->before_widget_tag ) && isset($obj->before_widget_global_args) ){
+
+								$str_before_widget = \WPezCore::element_open( $obj->before_widget_tag, $obj->before_widget_global_args );
+								$str_after_widget = \WPezCore::element_close($obj->before_widget_tag);
+							}
+
+							$str_before_title = $obj_wp->before_title;
+							$str_after_title  = $obj_wp->after_title;
+							// if there's a before_widget_tag then we'll override the standard before_widget / after_widget
+							if ( isset($obj->before_title_tag) && ! empty( $obj->before_title_tag ) && isset($obj->before_widget_global_args) ){
+
+								$str_before_title = \WPezCore::element_open( $obj->before_title_tag, $obj->before_title_global_args );
+								$str_after_title = \WPezCore::element_close($obj->before_title_tag);
+							}
+
+							// TODO - validation?
+							register_sidebar( array(
+								'name'        => $obj_wp->name,
+								'id'          => $obj_wp->id,
+								'description' => $obj_wp->description,
+								'class' => $obj_wp->description,
+								'before_widget' => $str_before_widget,
+								'after_widget'  => $str_after_widget,
+								'before_title'  => $str_before_title,
+								'after_title'   => $str_after_title )
+							);
+						}
+					}
+				}
+			}
+		}
+
+	} // END: class
 } // END: if class exists

@@ -3,19 +3,21 @@
 namespace WPezTheme\Scaffolding;
 
 if ( ! class_exists( 'Images_Build' ) ) {
+    class Images_Build {
 
-    class Images_Build
-    {
+    	protected $_jpeg_quality;
+	    protected $_featured_image_key;
 
-        function __construct()
-        {
+        function __construct() {
+
             add_action( 'init', array($this, 'build') );
         }
 
         public function build(){
 
-            $obj_i = new Images();
-            $arr_args = $obj_i->get();
+            $ins_images = new Images_Args();
+            $arr_objs_ez = $ins_images->get();
+	        $obj_settings = $ins_images->get('settings');
 
             /**
              * Which of the image size args should be used for the featured image (i.e., set_post_thumbnail_size())?
@@ -28,30 +30,33 @@ if ( ! class_exists( 'Images_Build' ) ) {
              * a thumbnail in size.
              * - Ref: http://codex.wordpress.org/Function_Reference/set_post_thumbnail_size
              */
-            $arr_args['w1170o']->featured_image = true;
+            if ( isset($arr_objs_ez[ $obj_settings->featured_image_key ])) {
+	            $arr_objs_ez[ $obj_settings->featured_image_key ]->featured_image = true;
+            }
 
-            /**
-             * let's use a longer more complete list of ratios;
-             */
+	        // - let's use a longer more complete list of ratios;
             $obj_ratios = new \WPezClasses\Reference\Aspect_Ratios();
-            $arr_ratios = $obj_ratios->get('banner');
+            $arr_ratios = $obj_ratios->ez_get();
 
-	        var_dump($arr_ratios);
+	        // - add image size
+	        $ins_ais = new \WPezClasses\Scaffolding\Add_Image_Size();
+	        // set the new ratious
+	        $ins_ais->set('ratios', $arr_ratios);
+	        // load'em up!
+	        $ins_ais->ez_loader($arr_objs_ez);
 
-
-	        /*
-            $obj_ais = new \WPezClasses\Scaffolding\Add_Image_Size();
-            $obj_ais->set('resize_ratios', $arr_ratios);
-
-            // do it!
-            $x = $obj_ais->loader($arr_args);
-
-            $obj_helper = new \WPezClasses\Scaffolding\Helpers_Images();
-            $obj_helper->set_isnc_append($arr_args);
-	        */
-
+	        // and now to the helpers
+            $ins_img_help = new \WPezClasses\Scaffolding\Helpers_Images();
+	        // remove the h and w when inseting an img
+	        $ins_img_help->remove_width_height_attributes();
+	        // adjust the jpeg quality
+	        $ins_img_help->jpeg_quality($obj_settings->jpeg_quality);
+	        // add / remove image size to the select when adding an image
+	        $ins_img_help->image_size_names_choose_append($arr_objs_ez);
+	        // $ins_img_help->image_size_names_choose_remove();
+	        //$ins_img_help->image_size_names_choose_replace($arr_objs_ez);
         }
-    }
 
+    }
 }
 new Images_Build();

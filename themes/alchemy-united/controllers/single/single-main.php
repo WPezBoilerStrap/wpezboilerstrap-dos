@@ -40,6 +40,16 @@ if ( ! class_exists('Single_Main')) {
 		}
 
 		/**
+		 * @return \stdClass
+		 */
+		protected function macros() {
+
+			$mac = new \stdClass();
+
+			return $mac;
+		}
+
+		/**
 		 * return obj
 		 */
 		protected function model() {

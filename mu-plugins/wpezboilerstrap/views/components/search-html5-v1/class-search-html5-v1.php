@@ -8,15 +8,17 @@ class Search_HTML5_V1 extends \WPezBoilerStrap\Toolbox\Parents\View {
 
 
 	function view( $lang, $mod, $parts, $vargs ) {
+		
+		$mac = $this->_mac;
 
 		$str_ret = 'Search HTML5 - TODO: testing';
 
-		$str_ret .= $this->element_open('form', $vargs->form_global_attrs );
+		$str_ret .= $mac::element_open('form', $vargs->form_global_attrs );
 		$str_ret .= '<label>';
 		$str_ret .= '<span class="' . $vargs->screen_reader_class . '">' . esc_attr($lang->screen_reader_text) . '</span>';
-		$str_ret .= $this->element_open('input', $vargs->input_search_global_attrs );
+		$str_ret .= $mac::element_open('input', $vargs->input_search_global_attrs );
 		$str_ret .= '</label>';
-		$str_ret .= $this->element_open('input', $vargs->input_submit_global_attrs );
+		$str_ret .= $mac::element_open('input', $vargs->input_submit_global_attrs );
 		$str_ret .= '</form>';
 
 		return $str_ret;
@@ -34,10 +36,10 @@ class Search_HTML5_V1 extends \WPezBoilerStrap\Toolbox\Parents\View {
 		return $lang;
 	}
 
+
 	protected function mod_defaults() {
 
 		$mod = new \stdClass();
-
 		$mod->seach_query = get_search_query();
 
 		return $mod;

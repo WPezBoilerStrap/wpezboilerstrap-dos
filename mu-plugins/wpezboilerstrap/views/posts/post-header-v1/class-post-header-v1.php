@@ -6,41 +6,42 @@ if ( ! class_exists('Post_Header_V1')) {
 	class Post_Header_V1 extends \WPezBoilerStrap\Toolbox\Parents\View {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
+			
+			$mac = $this->_mac;
 
 			$obj_wp_post = $mod->orig_obj;
-		//	$obj_ezx = $mod->ezx;
 			$obj_user = $mod->user;
 
 			$str_ret = '';
 
-			$str_ret .= $this->element_open($vargs->post_date_wrapper_tag, $vargs->post_date_wrapper_global_attrs);
-
+			$str_ret .= $mac::element_open($vargs->post_date_wrapper_tag, $vargs->post_date_wrapper_global_attrs);
 			// date
-			$str_ret .= $this->element_open($vargs->post_date_icon_tag, $vargs->post_date_icon_global_attrs);
-			$str_ret .= $this->element_close($vargs->post_date_icon_tag);
-
-			$str_ret .= $this->element_open($vargs->post_date_tag, $vargs->post_date_global_attrs);
-			$str_ret .= esc_attr(date($vargs->date_format, strtotime($obj_wp_post->post_date)));
-			$str_ret .= $this->element_close($vargs->post_date_tag);
-
-			$str_ret .= $this->element_close($vargs->post_date_wrapper_tag);
+			$str_ret .= $mac::icon_name(
+				$vargs->post_date_icon_tag,
+				$vargs->post_date_icon_global_attrs,
+				$vargs->post_date_tag,
+				$vargs->post_date_global_attrs,
+				date($vargs->date_format, strtotime($obj_wp_post->post_date))
+			);
+			$str_ret .= $mac::element_close($vargs->post_date_wrapper_tag);
 
 			// title
-			$str_ret .=  $this->element_open($vargs->title_tag, $vargs->title_tag_global_attrs);
+			$str_ret .=  $mac::element_open($vargs->title_tag, $vargs->title_tag_global_attrs);
 			$str_ret .= esc_attr( $obj_wp_post->post_title );
-			$str_ret .= $this->element_close($vargs->title_tag);
+			$str_ret .= $mac::element_close($vargs->title_tag);
 
 			// author - display_name = post author
-			$str_ret .= $this->element_open($vargs->display_name_wrapper_tag, $vargs->display_name_wrapper_global_attrs);
+			$str_ret .= $mac::element_open($vargs->display_name_wrapper_tag, $vargs->display_name_wrapper_global_attrs);
 
-			$str_ret .= $this->element_open($vargs->display_name_icon_tag, $vargs->display_name_icon_global_attrs);
-			$str_ret .= $this->element_close($vargs->display_name_icon_tag);
+			$str_ret .= $mac::icon_name(
+				$vargs->display_name_icon_tag,
+				$vargs->display_name_icon_global_attrs,
+				$vargs->display_name_tag,
+				$vargs->display_name_global_attrs,
+				$obj_user->display_name
+			);
 
-			$str_ret .= $this->element_open($vargs->display_name_tag, $vargs->display_name_global_attrs);
-			$str_ret .= esc_attr( $obj_user->display_name );
-			$str_ret .= $this->element_close($vargs->display_name_tag);
-
-			$str_ret .= $this->element_close($vargs->display_name_wrapper_tag);
+			$str_ret .= $mac::element_close($vargs->display_name_wrapper_tag);
 
 			// --
 			$str_ret .= $parts->one;
@@ -55,10 +56,11 @@ if ( ! class_exists('Post_Header_V1')) {
 
 		protected function lang_defaults() {
 
-			$obj = new \stdClass();
+			$lang = new \stdClass();
 
-			return $obj;
+			return $lang;
 		}
+		
 
 		protected function mod_defaults() {
 
@@ -78,7 +80,7 @@ if ( ! class_exists('Post_Header_V1')) {
 
 			$mod = new \stdClass();
 
-			$mod->wp_post = $post;
+			$mod->orig_obj = $post;
 
 			$mod->ezx = $ezx;
 
@@ -88,12 +90,12 @@ if ( ! class_exists('Post_Header_V1')) {
 
 		protected function parts_defaults() {
 
-			$obj = new \stdClass();
+			$parts = new \stdClass();
 
-			$obj->cats = '<p>PARTS->ONE</p>';
-			$obj->tags = '<p>PARTS->TWO</p>';
+			$parts->cats = '<p>PARTS->ONE</p>';
+			$parts->tags = '<p>PARTS->TWO</p>';
 
-			return $obj;
+			return $parts;
 		}
 
 		protected function vargs_defaults() {

@@ -62,6 +62,16 @@ if ( ! class_exists('Single_Term_Group')) {
 		}
 
 		/**
+		 * @return \stdClass
+		 */
+		protected function macros() {
+
+			$mac = new \stdClass();
+
+			return $mac;
+		}
+
+		/**
 		 * return obj
 		 */
 		protected function model() {
@@ -97,6 +107,7 @@ if ( ! class_exists('Single_Term_Group')) {
 			$part->slug  = 'single-term-post-tag';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Single_Term_Post_Tag';
+			$part->args  = '';
 			$part->method = 'get_view';
 
 			$str_term_tags = $this->ez_loader($part);
@@ -104,7 +115,7 @@ if ( ! class_exists('Single_Term_Group')) {
 			$parts = new \stdClass();
 
 			$parts->one = $str_term_cats;
-			$parts->two = $str_term_tags;
+			$parts->two = '';//$str_term_tags;
 
 			return $parts;
 		}

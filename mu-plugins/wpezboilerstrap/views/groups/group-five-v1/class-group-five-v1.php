@@ -24,30 +24,31 @@ if ( ! class_exists('Group_Five_V1') ) {
 		}
 
 		protected function lang_defaults() {
-			// TODO: Implement lang_defaults() method.
+
+			return new \stdClass();
 		}
 
 		protected function mod_defaults() {
-			// TODO: Implement mod_defaults() method.
+
+			return new \stdClass();
 		}
 
 		protected function parts_defaults() {
 
-			$obj = new \stdClass();
+			$parts = new \stdClass();
 
-			$obj->one = 'PARTS->ONE';
-			$obj->two = 'PARTS->TWO';
-			$obj->three = 'PARTS->THREE';
-			$obj->four = 'PARTS->FOUR';
-			$obj->five = 'PARTS->FIVE';
+			$parts->one = 'PARTS->ONE';
+			$parts->two = 'PARTS->TWO';
+			$parts->three = 'PARTS->THREE';
+			$parts->four = 'PARTS->FOUR';
+			$parts->five = 'PARTS->FIVE';
 
-			return $obj;
+			return $parts;
 		}
 
 		protected function vargs_defaults() {
 
-			$vargs = new \stdClass();
-			return $vargs;
+			return new \stdClass();
 		}
 
 	}

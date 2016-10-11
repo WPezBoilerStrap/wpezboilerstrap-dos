@@ -7,9 +7,10 @@ if ( ! class_exists('Index_BS3_V1') ) {
 
 		function view( $lang, $mod, $parts, $vargs ) {
 
+			$mac = $this->_mac;
 			?>
 			<!DOCTYPE html>
-			<html <?php echo $vargs->lang_attrs; ?> <?php echo $this->global_attrs($vargs->html_global_attrs) ?>>
+			<html <?php echo $vargs->lang_attrs; ?> <?php echo $mac::global_attrs($vargs->html_global_attrs) ?>>
 			<head>
 				<meta charset="<?php echo esc_attr( $vargs->charset ) ?>">
 				<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,6 +53,7 @@ if ( ! class_exists('Index_BS3_V1') ) {
 			return new \stdClass();
 		}
 
+
 		protected function mod_defaults() {
 			return new \stdClass();
 		}
@@ -60,8 +62,8 @@ if ( ! class_exists('Index_BS3_V1') ) {
 
 			$parts = new \stdClass();
 
-			$parts->pre_head_close = 'PARTS->PRE_HEAD_CLOSE'; // e.g. add google analytics snippet
-			$parts->body = 'PARTS->BODY';
+			$parts->pre_head_close = ''; // e.g. add google analytics snippet
+			$parts->body = '';
 
 			return $parts;
 		}
@@ -72,7 +74,7 @@ if ( ! class_exists('Index_BS3_V1') ) {
 
 			$vargs->lang_attrs = get_language_attributes();
 			$vargs->html_global_attrs = array(
-				'class' => 'no-js XXX'
+				'class' => 'no-js'
 			);
 			$vargs->charset = get_bloginfo( 'charset' );
 			$vargs->viewport_content = 'width=device-width, initial-scale=1.0';

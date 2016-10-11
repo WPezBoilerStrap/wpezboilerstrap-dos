@@ -48,9 +48,9 @@ if ( ! class_exists('TODO')) {
 				//'class' => 'my semantic class test'
 			);
 
-			$obj_enc->wrapper_active = false;
-			$obj_enc->wrapper_tag = 'div';
-			$obj_enc->wrapper_global_attrs = array(
+			$obj_enc->view_wrapper_active = false;
+			$obj_enc->view_wrapper_tag = 'div';
+			$obj_enc->view_wrapper_global_attrs = array(
 				// 'class' => 'HEADER-CLASS'
 			);
 

@@ -23,7 +23,7 @@ if ( ! class_exists('Tabs_Menu_Categories')) {
 			$obj = new \stdClass();
 
 			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Components\Icon_Label_Links_V1';
+			$obj->class = '\\WPezBoilerStrap\Views\Components\Icon_Name_Links_V1';
 			$obj->args = $this->get_view_args();
 			// $obj->args->use = 'defaults';
 			$obj->method = 'render';
@@ -39,7 +39,7 @@ if ( ! class_exists('Tabs_Menu_Categories')) {
 
 			$lang = new \stdClass();
 
-			$lang->label = 'Categories'; // e.g. Tags, Catgories, etc.
+			$lang->name = 'Categories'; // e.g. Tags, Catgories, etc.
 
 			return $lang;
 		}
@@ -51,13 +51,15 @@ if ( ! class_exists('Tabs_Menu_Categories')) {
 
 			$mod = new \stdClass();
 
-			$tools_menu = new \WPezBoilerStrap\Models\Navs\Nav_Menu_V1();
+			$tools_menu = new \WPezBoilerStrap\Models\Menus\Menu_V1();
 			// get the menu by name
 			$arr_main = $tools_menu->nav_menu_location_items('menu_categories');
+
 			//clone it
 			$tools_clone = new \WPezBoilerStrap\Toolbox\Tools\Cloning();
 			$arr_objs = $tools_clone->ez_clone_menu_items($arr_main);
 
+			$mod->name = $this->language()->name;
 			$mod->array_objects = $arr_objs ;
 
 			return $mod;

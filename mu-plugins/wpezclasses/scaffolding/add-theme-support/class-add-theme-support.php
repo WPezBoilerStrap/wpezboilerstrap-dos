@@ -15,18 +15,6 @@
  * @license TODO
  */
 
-/**
- * == Change Log ==
- *
- * -- 13 November 2014
- *     -- Ready!
- */
-
-/**
- * - TODO -
- *
- * -- deeper validation
- */
 
 namespace WPezClasses\Scaffolding;
 
@@ -36,20 +24,15 @@ if ( !defined( 'ABSPATH' ) ) {
     die();
 }
 
-if ( !class_exists( 'Class_WPezClasses_Scaffolding_Add_Theme_Support' ) ) {
-    class Class_WPezClasses_Scaffolding_Add_Theme_Support
-    {
+if ( !class_exists( 'Add_Theme_Support' ) ) {
+    class Add_Theme_Support {
 
-        public function __construct()
-        {
-
-        }
+        public function __construct(){}
 
         /**
          * @return stdClass
          */
-        protected function basics()
-        {
+        protected function file_constants(){
             $obj = new \stdClass();
 
             $obj->url = plugin_dir_url( __FILE__ );
@@ -61,21 +44,35 @@ if ( !class_exists( 'Class_WPezClasses_Scaffolding_Add_Theme_Support' ) ) {
             return $obj;
         }
 
+        protected function ats_defaults(){
+
+        	$obj = new \stdClass();
+
+	        $obj->active = true;
+	        $obj->feature = '';
+	        $obj->args_type = '';
+	        $obj->args = array();
+
+	        return $obj;
+        }
+
         /**
          *
          */
-        public function loader( $arr_args = '' )
-        {
+        public function ez_loader( $arr_args = '' ){
+
 
             if ( is_array($arr_args) && ! empty($arr_args) ) {
 
-                foreach ( $arr_args as $str_key => $obj ) {
+                foreach ( $arr_args as $str_key => $obj_orig ){
 
-                    if ( $obj->active === true && isset($obj->feature) ) {
+                	$obj = (object) array_merge((array) $this->ats_defaults(), (array) $obj_orig );
 
-                        if ( isset($obj->args_type) && $obj->args_type != 'none' ) {
+                    if ( $obj->active === true && ! empty($obj->feature) ){
 
-                            if ( isset($obj->args_type) && $obj->args_type == 'active_bool' ) {
+                        if ( ! empty($obj->args_type) && $obj->args_type != 'none' ) {
+
+                            if ( $obj->args_type == 'active_bool' ) {
                                 $arr_args_true = array();
                                 foreach ( $obj->args as $str_arg_key => $bool_value ) {
                                     if ( $bool_value === true ) {
@@ -100,11 +97,12 @@ if ( !class_exists( 'Class_WPezClasses_Scaffolding_Add_Theme_Support' ) ) {
                                 add_theme_support( $obj->feature, $obj->args );
 
                             }
-                        }
-                        else {
+                        } else {
 
                             add_theme_support( $obj->feature );
                         }
+                       // var_dump($obj);
+	                  //  print_r($arr_args_true);
                     }
                 }
             }

@@ -3,8 +3,8 @@
 
 namespace WPezTheme\Scaffolding;
 
-if ( !class_exists( 'Sidebars' ) ) {
-    class Sidebars
+if ( !class_exists( 'Sidebars_Args' ) ) {
+    class Sidebars_Args
     {
 
         public function __construct()
@@ -21,7 +21,7 @@ if ( !class_exists( 'Sidebars' ) ) {
             return array();
         }
 
-        protected function defaults( $str_key = 'd1' )
+        protected function master( $str_key = 'd1' )
         {
 
             $str_default_key = 'd1';
@@ -48,6 +48,22 @@ if ( !class_exists( 'Sidebars' ) ) {
 
             $arr['d2'] = $obj;
 
+	        $obj = new \stdClass();
+	        $obj->before_widget = '<li id="%1$s" class="widget %2$s">';
+	        $obj->after_widget  = '</li>';
+	        $obj->before_title  = '<h2 class="widgettitle">';
+	        $obj->after_title   = '</h2>';
+
+	        $arr['wp'] = $obj;
+
+	        $obj = new \stdClass();
+	        $obj->before_widget = '';
+	        $obj->after_widget  = '';
+	        $obj->before_title  = '';
+	        $obj->after_title   = '';
+
+	        $arr['b'] = $obj;
+
 
             if ( isset($arr[ $str_key]) ){
                 return $arr[ $str_key ];
@@ -73,32 +89,37 @@ if ( !class_exists( 'Sidebars' ) ) {
             $arr = array();
 
             //
-            $obj = new \stdClass();
-            $obj->active = true;
-            $obj->name = 'Sidebar A';
-            $obj->id_unique_sidebar = 'sidebar-a';
-            $obj->description = 'This is a description';
-            $obj->class_admin = 'span4';
+	        $obj_rs = new \stdClass();
 
+	        $obj_rs->name = 'Sidebar A';
+	        $obj_rs->id = 'unique-sidebar-id-a';
+	        $obj_rs->description = 'This is a description';
+	        $obj_rs->class = 'some-class';
+	        $obj_rs->before_widgetx = '<li id="%1$s" class="widget %2$s">';
+	        $obj_rs->after_widgetx  = '</li>';
+	        $obj_rs->before_titlex  = '<h2 class="widgettitle">';
+	        $obj_rs->after_titlex   = '</h2>';
+
+	        $obj = new \stdClass();
+
+	        $obj->active = true;
+	        $obj->register_sidebar = $obj_rs;
+	        // if you have standard before_ and after_ you can specify it here
+	        $obj->defaults = $this->master('b');
+	        // or you can be detailed
             $obj->before_widget_tag = 'div';
-            $obj->before_widget_id = 'sidebar-a';
-            $obj->before_widget_class = 'widget-class';
-            $obj->defaults = $this->defaults();
-            $arr['sidebar_a'] = $obj;
+	        $obj->before_widget_global_args = array(
+		        'id' => '%1$s',
+		        'class' => 'widget %2$s'
+	        );
+	        $obj->before_title_tag = 'h1';
+	        $obj->before_title_global_args = array(
+		        'id' => 'ga-title-id',
+		        'class' => 'ga-title-class'
+	        );
 
-            //
-            $obj = new \stdClass();
-            $obj->active = true;
-            $obj->name = 'Sidebar B';
-            $obj->id_unique_sidebar = 'sidebar-b';
-            $obj->description = 'This is a description';
-            $obj->class_admin = 'span4';
+	         $arr['sidebar_a'] = $obj;
 
-            $obj->before_widget_tag = 'div';
-            $obj->before_widget_id = 'sidebar-b';
-            $obj->before_widget_class = 'widget-class';
-            $obj->defaults = $this->defaults();
-            $arr['sidebar_b'] = $obj;
 
             return $arr;
 

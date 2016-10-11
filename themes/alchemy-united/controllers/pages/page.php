@@ -29,34 +29,35 @@ if ( ! class_exists('Page')) {
 			return $str_ret;
 		}
 
-		/*
-		 * return obj
+		/**
+		 * @return \stdClass
 		 */
 		protected function language() {
 
-			$obj = new \stdClass();
+			$lang = new \stdClass();
 
-			return $obj;
+			return $lang;
 		}
 
-		/*
-		 * return obj
+
+		/**
+		 * @return \stdClass
 		 */
 		protected function model() {
 
 			global $post;
 
-			$obj = new \stdClass();
+			$mod = new \stdClass();
 
-			$obj->post_title = $post->post_title;
+			$mod->post_title = $post->post_title;
 
 			$content = $post->post_content;
 			$content = apply_filters( 'the_content', $content );
 			$content = str_replace( ']]>', ']]&gt;', $content );
 
-			$obj->post_content = $content;
+			$mod->post_content = $content;
 
-			return $obj;
+			return $mod;
 		}
 
 		/*
@@ -64,9 +65,9 @@ if ( ! class_exists('Page')) {
 		 */
 		protected function partials() {
 
-			$obj = new \stdClass();
+			$parts = new \stdClass();
 
-			return $obj;
+			return $parts;
 		}
 
 
@@ -75,9 +76,9 @@ if ( ! class_exists('Page')) {
 		 */
 		protected function router() {
 
-			$obj = new \stdClass();
+			$route = new \stdClass();
 
-			return $obj;
+			return $route;
 		}
 
 

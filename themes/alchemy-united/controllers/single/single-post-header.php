@@ -42,6 +42,16 @@ if ( ! class_exists('Single_Post_Header')) {
 		/**
 		 * return obj
 		 */
+		protected function macros() {
+
+			$mac = new \stdClass();
+
+			return $mac;
+		}
+
+		/**
+		 * return obj
+		 */
 		protected function model() {
 
 			global $post;
