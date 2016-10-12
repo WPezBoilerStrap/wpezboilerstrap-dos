@@ -1,7 +1,7 @@
 # WPezBoilerStrap: Dos - v0.0.0.1 
 #### A modern WordPress theme architecture, with a MVC state of mind, and empowered by WPezClasses.
 
-Note: Yes, this README needs to fleshed out, properly structured, etc.
+Note: This README needs to fleshed out, properly structured, etc.
 
 ## Important
 ### This demo is to showcase the WPezBoilerStrap architecture, as well as WPezClasses.
@@ -89,7 +89,7 @@ It's really that simple. The biggest problem is getting past your more tradition
 
 ## Getting Started
 
-This repo is the wp-content folder of a standard WP install. 
+This repo is the wp-content folder of a standard WP install. This is temporary and strictly for the sake of making the demo easy to setup and explore. 
 
 **functions.php** - This will take you on a path that explores the Scaffolding. The Scaffolding is standard WP theme "stuff" as as image sizes, styles, scripts, etc. Note the structure, and embrace the modularity and reusability. 
   
