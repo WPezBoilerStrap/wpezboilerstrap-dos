@@ -276,7 +276,7 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 	        // http://www.plus2net.com/php_tutorial/php_date_format.php
 	        $vargs->date_format = 'd M Y';
 
-	        $vargs->post_date_wrapper_tag = 'p';
+	        $vargs->post_date_wrapper_tag = 'div';
 	        $vargs->post_date_wrapper_global_attrs = array();
 	        $vargs->post_date_icon_tag = 'i';
 	        $vargs->post_date_icon_global_attrs = array(
@@ -296,7 +296,9 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 	        $vargs->wrapper_tag = 'p'; // e.g. 'p';
 	        $vargs->wrapper_global_attrs = array(
 		    //    'id' => 'VARGS-WRAPPER_GLOBAL_ATTRS-ID',
-		        'class' => 'text-left'
+		        'class' => 'text-left',
+		    //    'itemscope' => '',
+		    //    'itemtype' => 'http://schema.org/Movie'
 	        );
 
 

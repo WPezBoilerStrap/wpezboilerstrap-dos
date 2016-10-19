@@ -30,30 +30,6 @@ if ( ! class_exists('View_Macros') ) {
 			return $str_ret;
 		}
 
-		/*
-			// date
-			$str_ret .= $this->element_open($vargs->post_date_icon_tag, $vargs->post_date_icon_global_attrs);
-			$str_ret .= $this->element_close($vargs->post_date_icon_tag);
-
-			$str_ret .= $this->element_open($vargs->post_date_tag, $vargs->post_date_global_attrs);
-			$str_ret .= esc_attr(date($vargs->date_format, strtotime($obj_wp_post->post_date)));
-			$str_ret .= $this->element_close($vargs->post_date_tag)
-		 */
-
-
-		static function test( $x = ''){
-
-			echo '<h1>TEST ' . $x . '</h1>';
-
-
-		}
-
-		static function test2( $x = ''){
-
-			echo '<h1>TEST2 ' . $x . '</h1>';
-
-			self::test('111');
-		}
 
 		/**
 		 * @param string $obj_vargs
@@ -128,6 +104,8 @@ if ( ! class_exists('View_Macros') ) {
 					//TODO - add test for supported attrs
 					if ( ! empty( $esc_key ) && ! empty( $esc_val ) ) {
 						$arr_temp[] = $esc_key . '="' . $esc_val . '"';
+					} elseif ( $esc_key = 'itemscope' ){
+						$arr_temp[] = 'itemscope';
 					}
 				}
 				$str_ret = implode( " ", $arr_temp );

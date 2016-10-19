@@ -166,6 +166,8 @@ if ( ! class_exists( 'Static_Helpers' ) ) {
 					//TODO - add test for supported attrs
 					if ( ! empty( $esc_key ) && ! empty( $esc_val ) ) {
 						$arr_temp[] = $esc_key . '="' . $esc_val . '"';
+					} elseif ( $esc_key = 'itemscope' ){
+						$arr_temp[] = 'itemscope';
 					}
 				}
 				$str_ret = implode( " ", $arr_temp );
