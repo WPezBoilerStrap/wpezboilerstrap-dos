@@ -1,8 +1,11 @@
 # WPezBoilerStrap: Dos - v0.0.0.1 
 #### A modern WordPress theme architecture, with a MVC state of mind, and empowered by WPezClasses.
 
+
+
 Note: This README needs to fleshed out, properly structured, etc.
 
+---
 ## Important
 ### This demo is to showcase the WPezBoilerStrap architecture, as well as WPezClasses.
 ### The presumtion is, you'll be looking at code in your IDE or editor and not getting destracted by the neglectful afterthought of this particular design. 
@@ -11,7 +14,7 @@ This sample theme use Bootstrap 3.x, but the architecture is frontend (framework
 
 You'll probably have to add some pages, add some posts, setup some menus, etc. 
 
-
+--
 ## Disclaimer
 
 This approach is not for everyone, nor is it intended to be. That's okay.
@@ -26,7 +29,7 @@ This approach is not for everyone, nor is it intended to be. That's okay.
     * you've ever fell into a codex time suck and swore up a storm like you're the Wolf of Wall Street.
     * you're an agency/studio/solo dev building and maintaining at least 3 to 6 custom/semi-custom client themes per year.
 
-
+---
 ## Need to Knows
 In no particular order.
 
@@ -34,12 +37,12 @@ In no particular order.
 - Yes, JavaScript and the WP REST API is the future. But perhaps not for everyone, at least not yet. 
 - You'll see plenty of influences, inspirations and ideas borrowed from elsewhere.  
  
- 
+---
 ## "Mission Statement"
 
 A 20% improvement in 80% of a given project is significant. That "saving" can be used to focus on the truly custom work. 
 
-
+---
 ## Goals / Objectives
 In no particular order.
 
@@ -60,7 +63,7 @@ In other words, an effort this audacious is based on priorities, acceptable comp
 
 In short, it's not perfect - just perfect enough. 
 
-
+---
 ## Overview
 Super fast and at 50,000 ft.
 
@@ -86,7 +89,7 @@ Bascially...
  
 It's really that simple. The biggest problem is getting past your more traditional WP (bad) habits.
 
-
+---
 ## Getting Started
 
 This repo is the wp-content folder of a standard WP install. This is temporary and strictly for the sake of making the demo easy to setup and explore. 
@@ -97,13 +100,23 @@ This repo is the wp-content folder of a standard WP install. This is temporary a
 
 **mu-plugins** - Here you'll find the WPezClass and WPezBoilerStrap libraries, as well as the autoloader that manages them.
 
-
+---
 ## FAQ
 
-1) Why a Language class/object and not l10n localization?
+**1) Why a Language class/object and not l10n localization?**
 Three reasons: Flexibility, control, as well as the fact that simply translating a word/phrase from one language to another could lead to a less than appropriate UX. 
 
+**2) What happened to page.php, single.php, etc.?**
+They've been dismissed :) WPezBoilerStrap isn't a traditional whole-pages-at-a-time model. Instead, it's a series of nested views where you have complete control of what happens where and when. For example, you might have two different 404 "pages." One for loggin in users and another for those who are not. True, such things are possible via traditional WP, but it's not as clean and DRY.
 
+**3) Can I use WPezBoilerStrap without WPezClasses, or the other way around?**
+Yes. Do wotchagottado. But it's not the ideal scenario. 
+ 
+**4) Can I use the WPezBoilerStrap architecture to develop themes for ThemeForest, the WP.org theme repo, and the like?**
+At this time, no. In theory it's (probably) possible to jam everything under the hood of a single theme, but that kinda defeats the ideals.
+
+
+---
 ## TODO
 
 In no particular order.
