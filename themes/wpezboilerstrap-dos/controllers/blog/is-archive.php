@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Is_Archive')) {
-	class Is_Archive extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Is_Archive extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -36,7 +36,7 @@ if ( ! class_exists('Is_Archive')) {
 			// the gtp slug (optional)
 			//$gv->slug = '';
 			// the class in that tp
-			$gv->class = '\\WPezBoilerStrap\Views\Components\Icon_Name_Description_V1';
+			$gv->class = '\\WPez\WPezBoilerStrap\Views\Components\Icon_Name_Description_V1';
 			// the args we're "injecting" into the class
 			$gv->args = $this->get_view_args();
 			// IF we want to use the view's default args (optional)

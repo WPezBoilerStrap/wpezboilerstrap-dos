@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Blog_Group')) {
-	class Blog_Group extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Blog_Group extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -22,7 +22,7 @@ if ( ! class_exists('Blog_Group')) {
 			$obj_gv = new \stdClass();
 
 			$obj_gv->active = true;
-			$obj_gv->class = '\\WPezBoilerStrap\Views\Groups\Group_Four_V1';
+			$obj_gv->class = '\\WPez\WPezBoilerStrap\Views\Groups\Group_Four_V1';
 			$obj_gv->args = $this->get_view_args();
 			$obj_gv->method = 'render';
 

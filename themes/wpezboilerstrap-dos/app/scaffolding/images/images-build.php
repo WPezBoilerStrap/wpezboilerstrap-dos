@@ -35,18 +35,18 @@ if ( ! class_exists( 'Images_Build' ) ) {
             }
 
 	        // - let's use a longer more complete list of ratios;
-            $obj_ratios = new \WPezClasses\Reference\Aspect_Ratios();
+            $obj_ratios = new \WPez\WPezClasses\Reference\Aspect_Ratios();
             $arr_ratios = $obj_ratios->ez_get();
 
 	        // - add image size
-	        $ins_ais = new \WPezClasses\Scaffolding\Add_Image_Size();
+	        $ins_ais = new \WPez\WPezClasses\Scaffolding\Add_Image_Size();
 	        // set the new ratious
 	        $ins_ais->set('ratios', $arr_ratios);
 	        // load'em up!
 	        $ins_ais->ez_loader($arr_objs_ez);
 
 	        // and now to the helpers
-            $ins_img_help = new \WPezClasses\Scaffolding\Helpers_Images();
+            $ins_img_help = new \WPez\WPezClasses\Scaffolding\Helpers_Images();
 	        // remove the h and w when inseting an img
 	        $ins_img_help->remove_width_height_attributes();
 	        // adjust the jpeg quality

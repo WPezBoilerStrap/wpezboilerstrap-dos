@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Header_Menu')) {
-	class Header_Menu extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Header_Menu extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -21,7 +21,7 @@ if ( ! class_exists('Header_Menu')) {
 			$obj = new \stdClass();
 
 			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Menus\Menu_BS3_V1';
+			$obj->class = '\\WPez\WPezBoilerStrap\Views\Menus\Menu_BS3_V1';
 			$obj->args = $this->get_view_args();
 			$obj->method= 'render';
 

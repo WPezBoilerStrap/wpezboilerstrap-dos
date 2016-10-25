@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Page')) {
-	class Page extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Page extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -20,7 +20,7 @@ if ( ! class_exists('Page')) {
 			$obj = new \stdClass();
 
 			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Posts\Post_Page_V1';
+			$obj->class = '\\WPez\WPezBoilerStrap\Views\Posts\Post_Page_V1';
 			$obj->args = $this->get_view_args();
 			$obj->method = 'render';
 

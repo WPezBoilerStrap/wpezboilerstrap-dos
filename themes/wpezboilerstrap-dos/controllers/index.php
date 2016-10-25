@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists( 'Index')) {
-	class Index extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Index extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -20,7 +20,7 @@ if ( ! class_exists( 'Index')) {
 			$gv = new \stdClass();
 
 			$gv->active = true;
-			$gv->class = '\\WPezBoilerStrap\Views\Indexes\Index_BS3_V1';
+			$gv->class = '\\WPez\WPezBoilerStrap\Views\Indexes\Index_BS3_V1';
 			$gv->args = $this->get_view_args();
 			$gv->method = 'render';
 

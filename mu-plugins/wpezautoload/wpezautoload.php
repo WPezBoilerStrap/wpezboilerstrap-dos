@@ -45,7 +45,6 @@ if ( ! class_exists( 'WPezAutoload' ) ) {
 	class WPezAutoload
 	{
 
-		private $_arr_dirs;
 		private $_version;
 		private $_url;
 		private $_path;
@@ -54,13 +53,7 @@ if ( ! class_exists( 'WPezAutoload' ) ) {
 		private $_file;
 
 
-		public function __construct( $arr_args = array())
-		{
-
-			$this->_arr_dirs = $this->wpez();
-			if ( is_array($arr_args) ){
-				$this->_arr_dirs = array_merge($this->wpez(), $arr_args );
-			}
+		public function __construct( $arr_args = array()) {
 
 			$this->setup();
 
@@ -72,15 +65,9 @@ if ( ! class_exists( 'WPezAutoload' ) ) {
 
 			spl_autoload_register( array($this, 'wpezautoload') );
 
-			if ( class_exists( 'WPezClasses\WPezCore\Static_Helpers' ) && ! class_exists( 'WPezCore' ) ) {
-				class_alias( 'WPezClasses\WPezCore\Static_Helpers', 'WPezCore' );
+			if ( class_exists( 'WPez\WPezClasses\WPezCore\Static_Helpers' ) && ! class_exists( 'WPezCore' ) ) {
+				class_alias( 'WPez\WPezClasses\WPezCore\Static_Helpers', 'WPezCore' );
 			}
-		}
-
-		protected function wpez(){
-
-			$arr = array('WPezClasses' , 'WPezBoilerStrap');
-			return $arr;
 		}
 
 		/**
@@ -106,15 +93,9 @@ if ( ! class_exists( 'WPezAutoload' ) ) {
 		private function wpezautoload( $str_class )
 		{
 
-			//$o = $str_class;
-		//	echo '<br><br>------------------------------------<br>' . $str_class;
-
 			$bool_flag = false;
-			foreach ( $this->_arr_dirs as $str_dir ){
-				if ( strrpos( $str_class, $str_dir, -strlen( $str_class ) ) !== false ){
+			if ( strrpos( $str_class, 'WPez', -strlen( $str_class ) ) !== false ){
 					$bool_flag = true;
-					break;
-				}
 			}
 
 			if ( $bool_flag ){
@@ -128,21 +109,9 @@ if ( ! class_exists( 'WPezAutoload' ) ) {
 
 					if ( ! file_exists( $str_file ) ) {
 
-						// TODO: log?
 						return false;
 					}
 					require($str_file);
-
-/*
-				 	echo '<br> -- ' .  $str_file . ' -- require = success --<br>';
-					if ( class_exists($o)) {
-						echo ' TRUE >> ' . $o;
-					} else{
-						echo ' FALSE >> ' . $o;
-					}
-*/
-
-
 				}
 			}
 		}

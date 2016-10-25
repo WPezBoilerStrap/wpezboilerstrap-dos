@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Language_AU_En_V1')){
-    class Language_AU_En_V1 extends \WPezBoilerStrap\Toolbox\Parents\Language {
+    class Language_AU_En_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\Language {
 
     	private $_brand = 'WPezBoilerStrap';
 

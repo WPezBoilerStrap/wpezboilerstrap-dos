@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Main')) {
-	class Main extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Main extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -21,7 +21,7 @@ if ( ! class_exists('Main')) {
 			$obj = new \stdClass();
 
 			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Groups\Group_One_V1';
+			$obj->class = '\\WPez\WPezBoilerStrap\Views\Groups\Group_One_V1';
 			$obj->args = $this->get_view_args();
 			$obj->method = 'render';
 

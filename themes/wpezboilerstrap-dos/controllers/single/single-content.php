@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Single_Content')) {
-	class Single_Content extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Single_Content extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -20,7 +20,7 @@ if ( ! class_exists('Single_Content')) {
 			$obj = new \stdClass();
 
 			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Posts\Post_Content_V1';
+			$obj->class = '\\WPez\WPezBoilerStrap\Views\Posts\Post_Content_V1';
 			$obj->args = $this->get_view_args();
 			$obj->method = 'render';
 

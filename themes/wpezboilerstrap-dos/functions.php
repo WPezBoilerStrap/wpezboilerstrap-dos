@@ -19,7 +19,7 @@ if ( ! class_exists('Functions')){
             add_filter( 'the_content', array($this, 'the_content_filter') );
 
 	        // TODO move to a project-centric plugin, here for demo purposes only
-	        $hc = new \WPezClasses\Theme\Head_Cleanup();
+	        $hc = new \WPez\WPezClasses\Theme\Head_Cleanup();
 	        $hc->ez_loader();
         }
 

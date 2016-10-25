@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Search_HTML5')) {
-	class Search_HTML5 extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Search_HTML5 extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -22,7 +22,7 @@ if ( ! class_exists('Search_HTML5')) {
 			$obj_gv = new \stdClass();
 
 			$obj_gv->active = true;
-			$obj_gv->class = '\\WPezBoilerStrap\Views\Components\Search_HTML5_V1';
+			$obj_gv->class = '\\WPez\WPezBoilerStrap\Views\Components\Search_HTML5_V1';
 			$obj_gv->args = $this->get_view_args();
 			$obj_gv->args->use = 'defaults';
 			$obj_gv->method = 'render';

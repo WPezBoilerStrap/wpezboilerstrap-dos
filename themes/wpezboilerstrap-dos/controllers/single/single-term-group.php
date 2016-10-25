@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Single_Term_Group')) {
-	class Single_Term_Group extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Single_Term_Group extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -37,7 +37,7 @@ if ( ! class_exists('Single_Term_Group')) {
 			// the gtp slug (optional)
 			//$gv->slug = '';
 			// the class in that tp
-			$gv->class = '\\WPezBoilerStrap\Views\Groups\Group_Two_V1';
+			$gv->class = '\\WPez\WPezBoilerStrap\Views\Groups\Group_Two_V1';
 			// the args we're "injecting" into the class
 			$gv->args = $this->get_view_args();
 			// $gv->args->use = 'defaults';

@@ -6,7 +6,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('WPezConfig') ){
-    class WPezConfig extends \WPezBoilerStrap\Toolbox\Parents\WPezConfig{
+    class WPezConfig extends \WPez\WPezBoilerStrap\Toolbox\Parents\WPezConfig{
 
     	private static $_lang;
 	    private static $_opts;

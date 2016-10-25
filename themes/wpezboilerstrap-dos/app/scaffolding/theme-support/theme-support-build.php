@@ -19,7 +19,7 @@ if ( ! class_exists( 'Theme_Support_Build' ) ) {
             $arr_args = $ins_ts->get();
 
 
-            $obj_ats = new \WPezClasses\Scaffolding\Add_Theme_Support();
+            $obj_ats = new \WPez\WPezClasses\Scaffolding\Add_Theme_Support();
 
             // do it!
             $x = $obj_ats->ez_loader( $arr_args );

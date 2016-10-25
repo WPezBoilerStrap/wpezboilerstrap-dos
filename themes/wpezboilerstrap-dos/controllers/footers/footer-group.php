@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Footer_Group')) {
-	class Footer_Group extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Footer_Group extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -38,7 +38,7 @@ if ( ! class_exists('Footer_Group')) {
 			// the gtp slug (optional)
 			//$gv->slug = 'footer';
 			// the class in that tp
-			$gv->class = '\\WPezBoilerStrap\Views\Groups\Group_Two_V1';
+			$gv->class = '\\WPez\WPezBoilerStrap\Views\Groups\Group_Two_V1';
 			// the args we're "injecting" into the class
 			$gv->args = $this->get_view_args();
 			//$gv->args->use = 'defaults';

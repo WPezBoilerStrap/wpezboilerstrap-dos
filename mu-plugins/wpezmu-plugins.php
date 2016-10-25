@@ -64,20 +64,6 @@ if ( ! class_exists('WPezMU_Plugins')) {
 		            'notes'			=> '** IMPORTANT ** This plugin must load first.',
 	            ),
 
-
-
-                'wpez-classes-autoload'				=> array(
-                    'active'		=> false,
-                    'require_order'	=> '2',
-                    'exclude_from'	=> array(), // by blog_id
-                    'name'			=> 'WPezClasses (Autoload)',
-                    'version'		=> '0.5.0',
-                    'link'			=> NULL,
-                    'require_once'	=> '/../wpezclasses-autoload/wpezclasses-autoload.php',
-                    'description'	=> 'WP ezClasses - An OOP based framework for WP developers.',
-                    'notes'			=> '** IMPORTANT ** This plugin must load first.',
-                )
-
             );
 
             return $arr_return;

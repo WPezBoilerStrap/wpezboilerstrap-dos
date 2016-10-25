@@ -19,7 +19,7 @@ if ( !class_exists( 'Menus_Build' ) ) {
             $ins_menus = new Menus_Args();
             $arr_args = $ins_menus->get();
             
-            $ins_rnm = new \WPezClasses\Scaffolding\Register_Nav_Menu();
+            $ins_rnm = new \WPez\WPezClasses\Scaffolding\Register_Nav_Menu();
 
             $x = $ins_rnm->ez_loader( $arr_args );
 

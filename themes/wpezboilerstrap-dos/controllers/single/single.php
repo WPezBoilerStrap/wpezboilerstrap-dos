@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Single')) {
-	class Single extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Single extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -20,7 +20,7 @@ if ( ! class_exists('Single')) {
 			$gv = new \stdClass();
 
 			$gv->active = true;
-			$gv->class = '\\WPezBoilerStrap\Views\Groups\Group_Three_V1';
+			$gv->class = '\\WPez\WPezBoilerStrap\Views\Groups\Group_Three_V1';
 			$gv->args = $this->get_view_args();
 			$gv->method = 'render';
 

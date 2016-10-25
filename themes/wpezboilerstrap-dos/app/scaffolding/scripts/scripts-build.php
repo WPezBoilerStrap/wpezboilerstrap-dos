@@ -18,7 +18,7 @@ if ( !class_exists( 'Scripts_Build' ) ) {
             $ins_s = new Scripts_Args();
             $arr_args = $ins_s->get();
 
-            $ins_wpe = new \WPezClasses\WPezCore\WP_Enqueue();
+            $ins_wpe = new \WPez\WPezClasses\WPezCore\WP_Enqueue();
 
 	        $ins_wpe->ez_loader($arr_args);
 

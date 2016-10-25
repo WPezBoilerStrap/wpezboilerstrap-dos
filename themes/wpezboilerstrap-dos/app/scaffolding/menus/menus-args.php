@@ -41,7 +41,7 @@ if ( !class_exists( 'Menus_Args' ) ) {
 
             $theme_location = 'menu_main';
 	        $theme_description = 'Menu: Main';  // key => description is used for register_nav_menus()
-            $walker = new \WPezClasses\Menus\Walker_BS3_V1();
+            $walker = new \WPez\WPezClasses\Menus\Walker_BS3_V1();
 
 	        // --
 	        $obj = new \stdClass();
@@ -80,7 +80,7 @@ if ( !class_exists( 'Menus_Args' ) ) {
 
 	        $theme_location = 'menu_categories';
 	        $theme_description = 'Menu: Categories';
-	        $walker = new \WPezClasses\Menus\Walker_Simple_List_V1();
+	        $walker = new \WPez\WPezClasses\Menus\Walker_Simple_List_V1();
 
 	        // --
 	        $obj = new \stdClass();
@@ -118,7 +118,7 @@ if ( !class_exists( 'Menus_Args' ) ) {
 
 		    $theme_location = 'menu_tags';
 		    $theme_description = 'Menu: Tags';
-		    $walker = new \WPezClasses\Menus\Walker_Simple_List_V1();
+		    $walker = new \WPez\WPezClasses\Menus\Walker_Simple_List_V1();
 
 		    // --
 		    $obj = new \stdClass();
@@ -156,7 +156,7 @@ if ( !class_exists( 'Menus_Args' ) ) {
 
 		    $theme_location = 'menu_social_share';
 		    $theme_description = 'Menu: Social Share';
-		    $walker = new \WPezClasses\Menus\Walker_Social_Share_V1();
+		    $walker = new \WPez\WPezClasses\Menus\Walker_Social_Share_V1();
 
 		    // --
 		    $obj = new \stdClass();

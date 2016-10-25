@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Is_404')) {
-	class Is_404 extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Is_404 extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 

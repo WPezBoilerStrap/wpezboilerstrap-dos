@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Footer_Bottom')) {
-	class Footer_Bottom extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Footer_Bottom extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -22,7 +22,7 @@ if ( ! class_exists('Footer_Bottom')) {
 			$gv = new \stdClass();
 
 			$gv->active = true;
-			$gv->class = '\\WPezBoilerStrap\Views\Footers\Footer_V1';
+			$gv->class = '\\WPez\WPezBoilerStrap\Views\Footers\Footer_V1';
 			$gv->args = $this->get_view_args();
 			$gv->method = 'render';
 

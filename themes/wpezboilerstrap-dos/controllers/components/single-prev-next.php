@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Single_Prev_Next')) {
-	class Single_Prev_Next extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Single_Prev_Next extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -20,7 +20,7 @@ if ( ! class_exists('Single_Prev_Next')) {
 			$obj = new \stdClass();
 
 			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Components\Prev_Next_Min_V1';
+			$obj->class = '\\WPez\WPezBoilerStrap\Views\Components\Prev_Next_Min_V1';
 			$obj->args = $this->get_view_args();
 		//	$obj->args->use = 'defaults';
 			$obj->method = 'render';
@@ -55,7 +55,7 @@ if ( ! class_exists('Single_Prev_Next')) {
 		 */
 		protected function model() {
 
-			$obj_adj_v1 = new \WPezBoilerStrap\Models\Components\Adjacent_Post_V1();
+			$obj_adj_v1 = new \WPez\WPezBoilerStrap\Models\Components\Adjacent_Post_V1();
 			//	$ga = $single->get_adjacent();
 			$mod = $obj_adj_v1->get_adjacent_posts();
 

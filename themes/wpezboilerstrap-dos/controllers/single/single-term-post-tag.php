@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists( 'Single_Term_Post_Tag' ) ) {
-	class Single_Term_Post_Tag extends \WPezBoilerStrap\Toolbox\Parents\Controller {
+	class Single_Term_Post_Tag extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller {
 
 		protected $_wpezconfig;
 
@@ -22,7 +22,7 @@ if ( ! class_exists( 'Single_Term_Post_Tag' ) ) {
 			$obj = new \stdClass();
 
 			$obj->active = true;
-			$obj->class = '\\WPezBoilerStrap\Views\Components\Icon_Name_Links_V1';
+			$obj->class = '\\WPez\WPezBoilerStrap\Views\Components\Icon_Name_Links_V1';
 			$obj->args = $this->get_view_args();
 			$obj->method = 'render';
 
@@ -63,8 +63,7 @@ if ( ! class_exists( 'Single_Term_Post_Tag' ) ) {
 			$mod = new \stdClass();
 
 			$arr_objs = get_the_terms($post->ID, 'post_tag');
-
-			$tools_clone = new \WPezBoilerStrap\Toolbox\Tools\Cloning();
+			$tools_clone = new \WPez\WPezBoilerStrap\Toolbox\Tools\Cloning();
 			$arr_objs = $tools_clone->ez_clone_get_the_terms($arr_objs);
 
 			$mod->name = $this->language()->name;

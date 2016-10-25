@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Viewargs_AU_BS3_V1')){
-    class Viewargs_AU_BS3_V1 extends \WPezBoilerStrap\Toolbox\Parents\Viewargs{
+    class Viewargs_AU_BS3_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\Viewargs{
 
     	public function ez__construct() {}
 

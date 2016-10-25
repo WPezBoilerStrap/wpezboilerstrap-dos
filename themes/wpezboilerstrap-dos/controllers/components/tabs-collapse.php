@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Tabs_Collapse')) {
-	class Tabs_Collapse extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Tabs_Collapse extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -22,7 +22,7 @@ if ( ! class_exists('Tabs_Collapse')) {
 			$gv = new \stdClass();
 
 			$gv->active = true;
-			$gv->class = '\\WPezBoilerStrap\Views\Components\Tabs_Collapse_BS3_V1';
+			$gv->class = '\\WPez\WPezBoilerStrap\Views\Components\Tabs_Collapse_BS3_V1';
 			$gv->args = $this->get_view_args();
 			//$gv->args->use = "defaults";
 			$gv->method = 'render';

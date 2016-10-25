@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Single_Post_Header')) {
-	class Single_Post_Header extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Single_Post_Header extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -20,7 +20,7 @@ if ( ! class_exists('Single_Post_Header')) {
 			$gv = new \stdClass();
 
 			$gv->active = true;
-			$gv->class = '\\WPezBoilerStrap\Views\Posts\Post_Header_V1';
+			$gv->class = '\\WPez\WPezBoilerStrap\Views\Posts\Post_Header_V1';
 			$gv->args = $this->get_view_args();
 			$gv->method = 'render';
 
@@ -56,11 +56,11 @@ if ( ! class_exists('Single_Post_Header')) {
 
 			global $post;
 
-			$new_cloning = new \WPezBoilerStrap\Toolbox\Tools\Cloning();
+			$new_cloning = new \WPez\WPezBoilerStrap\Toolbox\Tools\Cloning();
 
 			$mod = $new_cloning->ez_clone($post);
 
-			$obj_user = new \WPezBoilerStrap\Models\Users\User_V1();
+			$obj_user = new \WPez\WPezBoilerStrap\Models\Users\User_V1();
 			$mod->user = $obj_user->user_min($mod->post_author);
 
 			return $mod;

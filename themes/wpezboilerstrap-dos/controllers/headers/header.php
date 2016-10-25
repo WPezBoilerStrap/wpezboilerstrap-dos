@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Header')) {
-	class Header extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Header extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -21,7 +21,7 @@ if ( ! class_exists('Header')) {
 			$gv = new \stdClass();
 
 			$gv->active = true;
-			$gv->class = '\\WPezBoilerStrap\Views\Groups\Group_One_V1';
+			$gv->class = '\\WPez\WPezBoilerStrap\Views\Groups\Group_One_V1';
 			$gv->args = $this->get_view_args();
 			$gv->method = 'render';
 

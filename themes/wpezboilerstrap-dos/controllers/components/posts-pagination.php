@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Posts_Pagination')) {
-	class Posts_Pagination extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Posts_Pagination extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -22,7 +22,7 @@ if ( ! class_exists('Posts_Pagination')) {
 			$gv = new \stdClass();
 
 			$gv->active = true;
-			$gv->class = '\\WPezBoilerStrap\Views\Components\Pagination_V1';
+			$gv->class = '\\WPez\WPezBoilerStrap\Views\Components\Pagination_V1';
 			$gv->args = $this->get_view_args();
 		//	$obj_gv->args->use = 'defaults';
 			$gv->method = 'render';
@@ -63,7 +63,7 @@ if ( ! class_exists('Posts_Pagination')) {
 			$mod = new \stdClass();
 
 
-			$loop = new \WPezBoilerStrap\Models\Components\Paginate_Links_V1();
+			$loop = new \WPez\WPezBoilerStrap\Models\Components\Paginate_Links_V1();
 			$arr_pages = $loop->get_pagination();
 			$mod->pages = $arr_pages;
 

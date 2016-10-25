@@ -16,7 +16,7 @@ if ( !class_exists( 'Styles_Build' ) ) {
 		    $ins_s    = new Styles_Args();
 		    $arr_args = $ins_s->get();
 
-		    $ins_wpe = new \WPezClasses\WPezCore\WP_Enqueue();
+		    $ins_wpe = new \WPez\WPezClasses\WPezCore\WP_Enqueue();
 
 		    $ins_wpe->ez_loader( $arr_args );
 

@@ -18,7 +18,7 @@ if ( !class_exists( 'Sidebars_Build' ) ) {
             $ins_sba = new Sidebars_Args();
             $arr_args = $ins_sba->get();
 
-            $obj_rsb = new \WPezClasses\Scaffolding\Register_Sidebar();
+            $obj_rsb = new \WPez\WPezClasses\Scaffolding\Register_Sidebar();
 
            $x = $obj_rsb->ez_loader( $arr_args );
 

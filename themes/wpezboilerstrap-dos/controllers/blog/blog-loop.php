@@ -3,7 +3,7 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Blog_Loop')) {
-	class Blog_Loop extends \WPezBoilerStrap\Toolbox\Parents\Controller
+	class Blog_Loop extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 		protected $_wpezconfig;
 
@@ -17,14 +17,14 @@ if ( ! class_exists('Blog_Loop')) {
 		 */
 		public function get_view(){
 
-			$mac = '\WPezBoilerStrap\Toolbox\Tools\View_Macros';
+			$mac = '\WPez\WPezBoilerStrap\Toolbox\Tools\View_Macros';
 
 			$str_ret = '';
 
 			$gv = new \stdClass();
 
 			$gv->active = true;
-			$gv->class = '\\WPezBoilerStrap\Views\Posts\Post_List_Layout_V1';
+			$gv->class = '\\WPez\WPezBoilerStrap\Views\Posts\Post_List_Layout_V1';
 			$gv->args = $this->get_view_args();
 			// $gv->args->use = "defaults";
 			$gv->method = false;  // false means we get an instance of the class back
@@ -71,9 +71,9 @@ if ( ! class_exists('Blog_Loop')) {
 
 			$mod = new \stdClass();
 
-			$tools_cloning = new \WPezBoilerStrap\Toolbox\Tools\Cloning();
-			$model_users = new \WPezBoilerStrap\Models\Users\User_V1();
-			$model_single = new \WPezBoilerStrap\Models\Posts\Single_V1();
+			$tools_cloning = new \WPez\WPezBoilerStrap\Toolbox\Tools\Cloning();
+			$model_users = new \WPez\WPezBoilerStrap\Models\Users\User_V1();
+			$model_single = new \WPez\WPezBoilerStrap\Models\Posts\Single_V1();
 
 			$arr_taxs = array(
 				'category' => true,
