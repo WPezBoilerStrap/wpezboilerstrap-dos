@@ -22,7 +22,7 @@ if ( ! class_exists( 'Single_Term_Category' ) ) {
 			$obj = new \stdClass();
 
 			$obj->active = true;
-			$obj->class = '\\WPez\WPezBoilerStrap\Views\Components\Icon_Name_Links_V1';
+			$obj->class = '\\WPez\WPezBoilerStrap\Views\Components\Icon_Text_Links_V1';
 			$obj->args = $this->get_view_args();
 			// $obj->args->use = 'defaults';
 			$obj->method = 'render';
@@ -39,20 +39,11 @@ if ( ! class_exists( 'Single_Term_Category' ) ) {
 
 			$lang = new \stdClass();
 
-			$lang->name = 'Categories: '; // e.g. Tags, Catgories, etc.
+			$lang->text = 'Categories: '; // e.g. Tags, Catgories, etc.
 
 			return $lang;
 		}
 
-		/**
-		 * @return \stdClass
-		 */
-		protected function macros() {
-
-			$mac = new \stdClass();
-
-			return $mac;
-		}
 
 		/**
 		 * return obj
@@ -68,7 +59,6 @@ if ( ! class_exists( 'Single_Term_Category' ) ) {
 			$tools_clone = new \WPez\WPezBoilerStrap\Toolbox\Tools\Cloning();
 			$arr_objs = $tools_clone->ez_clone_get_the_terms($arr_objs);
 
-			$mod->name = $this->language()->name;
 			$mod->array_objects = $arr_objs ;
 
 			return $mod;

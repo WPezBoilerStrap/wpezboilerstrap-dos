@@ -2,8 +2,8 @@
 
 namespace WPez\WPezBoilerStrap\Views\Components;
 
-if ( ! class_exists('Icon_Name_Links_V1')) {
-	class Icon_Name_Links_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
+if ( ! class_exists('Icon_Text_Links_V1')) {
+	class Icon_Text_Links_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
 		protected function view( $lang, $mod, $parts, $vargs ) {
 
@@ -18,12 +18,12 @@ if ( ! class_exists('Icon_Name_Links_V1')) {
 			$str_ret .= $mac::element_open($vargs->icon_label_wrapper_tag, $vargs->icon_label_wrapper_global_attrs);
 
 			// TODO - check if class + method exist?
-			$str_ret .= $mac::icon_name(
+			$str_ret .= $mac::icon_text(
 				$vargs->icon_tag,
 				$vargs->icon_global_attrs,
-				$vargs->name_tag,
-				$vargs->name_global_attrs,
-				$mod->name
+				$vargs->text_tag,
+				$vargs->text_global_attrs,
+				$lang->text
 			);
 
 			$str_ret .= $mac::element_close($vargs->icon_label_wrapper_tag);

@@ -32,10 +32,16 @@ if ( ! class_exists('Pagination_V1')) {
 				if ( empty( $str_url )){
 					$str_url = '#';
 				}
-				$str_temp .= '<a href="' . $str_url . '"' . '>';
 
 				$str_anchor = esc_attr($obj_page->anchor);
+				$aria_label = ' aria-label="' . esc_attr($vargs->aria_label_page) . ' ' . $str_anchor . '" ';
+
 				if ( $obj_page->type == 'prev' ){
+
+					$aria_label = '';
+					if ( is_string($vargs->aria_label_prev)){
+						$aria_label = ' aria_label = "' . esc_attr($vargs->aria_label_prev) . '"';
+					}
 
 					$str_anchor = $mac::element_open($vargs->icon_tag, $vargs->icon_prev_global_attrs);
 					$str_anchor .= $mac::element_close($vargs->icon_tag);
@@ -43,11 +49,19 @@ if ( ! class_exists('Pagination_V1')) {
 
 				} elseif ( $obj_page->type == 'next' ){
 
+					$aria_label = '';
+					if ( is_string($vargs->aria_label_next)){
+						$aria_label = ' aria_label = "' . esc_attr($vargs->aria_label_next) . '"';
+					}
+
 					$str_anchor = esc_attr($lang->next);
 					$str_anchor .= $mac::element_open($vargs->icon_tag, $vargs->icon_next_global_attrs);
 					$str_anchor .= $mac::element_close($vargs->icon_tag);
 
 				}
+
+				$str_temp .= '<a href="' . $str_url . '"' . $aria_label . '>';
+
 
 				$str_temp .= $str_anchor;
 
@@ -111,14 +125,36 @@ if ( ! class_exists('Pagination_V1')) {
 
 		protected function vargs_defaults() {
 
+			$obj_enc = new \stdClass();
+
+			$obj_enc->active = true;            // an enclosure master switch
+
+			$obj_enc->semantic_active = true;
+			$obj_enc->semantic_tag = 'nav';
+			$obj_enc->semantic_global_attrs = array(
+				'class' => 'container'
+			);
+
+			$obj_enc->view_wrapper_active = true;
+			$obj_enc->view_wrapper_tag = 'div';
+			$obj_enc->view_wrapper_global_attrs = array(
+				'class' => 'row text-center'
+			);
+
 			$vargs = new \stdClass();
+			$vargs->enclose = $obj_enc;
 
 			$vargs->wrapper_tag = 'ul';
 			$vargs->wrapper_global_attrs = array(
-				'class' => 'pagination  pagination-lg'
+				'class' => 'pagination',
+				'aria-label' => 'Pagination',
 			);
 			$vargs->page_tag = 'li';
 			$vargs->page_class_current = 'active';
+
+			$vargs->aria_label_prev = "Previous";
+			$vargs->aria_label_page = "Page";
+			$vargs->aria_label_next= "Next";
 
 			$vargs->icon_tag = 'i';
 			$vargs->icon_prev_global_attrs = array(

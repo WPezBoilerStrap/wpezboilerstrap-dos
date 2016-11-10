@@ -23,7 +23,8 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 
 			if ( ! empty( $obj_prev->url ) && ! empty( $obj_prev->title ) ) {
 
-				$str_ret .= '<a href="' . esc_url( $obj_prev->url ) . ' ">';
+				$aria_label = ' aria-label="' . esc_attr($vargs->aria_label_prev) . '" ';
+				$str_ret .= '<a href="' . esc_url( $obj_prev->url ) . '"' . $aria_label . '>';
 
 				/*
 				 * This isn't as tricky as it looks :)
@@ -51,7 +52,8 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 			$str_ret .= $mac::element_open($vargs->page_tag, $vargs->page_next_global_attrs);
 			if ( ! empty( $obj_next->url ) && ! empty( $obj_next->title ) ) {
 
-				$str_ret .= '<a href="' . esc_url( $obj_next->url ) . ' ">';
+				$aria_label = ' aria-label="' . esc_attr($vargs->aria_label_next) . '" ';
+				$str_ret .= '<a href="' . esc_url( $obj_next->url ) . '"' . $aria_label . '>';
 
 				$str_title = esc_attr( $obj_next->title );
 				if ( ! empty($lang->next_title) && $lang->next_title !== false ){
@@ -118,7 +120,8 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 
 			$vargs->wrapper_tag = 'ul';
 			$vargs->wrapper_global_attrs = array(
-				'class' => 'pager'
+				'class' => 'pager',
+				'aria-label' => 'Page navigation',
 			);
 
 			$vargs->page_tag = 'li';
@@ -129,6 +132,9 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 			$vargs->page_next_global_attrs = array(
 				'class' => 'next'
 			);
+
+			$vargs->aria_label_prev = "Previous";
+			$vargs->aria_label_next= "Next";
 
 			//if you don't want to use the font based icons make icon_tag = false
 			$vargs->icon_tag = 'i';

@@ -311,8 +311,8 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 	        $vargs->icon_global_attrs = array(
 		        'class' => 'fa fa-flag fa-fw' // e.g., some FA class
 	        );
-	        $vargs->name_tag = 'span';
-	        $vargs->name_global_attrs = array(
+	        $vargs->text_tag = 'span';
+	        $vargs->text_global_attrs = array(
 		        'class' => 'test' // e.g., some FA class
 	        );
 	        $vargs->link_class = false; // apply to every link
@@ -342,8 +342,8 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 		    $vargs->icon_global_attrs = array(
 			    'class' => 'fa fa-tags fa-fw' // e.g., some FA class
 		    );
-		    $vargs->name_tag = 'span';
-		    $vargs->name_global_attrs = array(
+		    $vargs->text_tag = 'span';
+		    $vargs->text_global_attrs = array(
 			    'class' => false // e.g., some FA class
 		    );
 		    $vargs->link_class = false; // apply to every link
@@ -708,7 +708,8 @@ if ( ! class_exists('Viewargs_AU_BS3_V1')){
 
 		    $vargs->wrapper_tag = 'ul';
 		    $vargs->wrapper_global_attrs = array(
-			    'class' => 'pagination'
+			    'class' => 'pagination',
+			    'aria-label' => 'Page navigation',
 		    );
 		    $vargs->page_tag = 'li';
 		    $vargs->page_class_current = 'active';

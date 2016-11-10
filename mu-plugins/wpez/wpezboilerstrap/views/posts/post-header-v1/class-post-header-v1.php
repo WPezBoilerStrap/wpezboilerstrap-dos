@@ -16,7 +16,7 @@ if ( ! class_exists('Post_Header_V1')) {
 
 			$str_ret .= $mac::element_open($vargs->post_date_wrapper_tag, $vargs->post_date_wrapper_global_attrs);
 			// date
-			$str_ret .= $mac::icon_name(
+			$str_ret .= $mac::icon_text(
 				$vargs->post_date_icon_tag,
 				$vargs->post_date_icon_global_attrs,
 				$vargs->post_date_tag,
@@ -33,7 +33,7 @@ if ( ! class_exists('Post_Header_V1')) {
 			// author - display_name = post author
 			$str_ret .= $mac::element_open($vargs->display_name_wrapper_tag, $vargs->display_name_wrapper_global_attrs);
 
-			$str_ret .= $mac::icon_name(
+			$str_ret .= $mac::icon_text(
 				$vargs->display_name_icon_tag,
 				$vargs->display_name_icon_global_attrs,
 				$vargs->display_name_tag,

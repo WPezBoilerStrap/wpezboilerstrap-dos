@@ -68,6 +68,7 @@ if ( ! class_exists('Cloning') ) {
 			}
 
 			$obj_new->ID        = $obj_new->orig_obj->ID;
+			$obj_new->id        = $obj_new->orig_obj->ID;
 			$obj_new->wp_class = $obj_new->get_class;
 			$obj_new->wp_type = $obj_new->orig_obj->post_type;
 
@@ -89,10 +90,21 @@ if ( ! class_exists('Cloning') ) {
 			}
 
 			$obj_new->ID        = $obj_new->orig_obj->term_id;
+			$obj_new->id        = $obj_new->orig_obj->term_id;
 			$obj_new->wp_class = $obj_new->get_class;
 			$obj_new->wp_type = 'wp_term';
 
 			$obj_new->url    = get_term_link( $obj_new->orig_obj->term_id, $obj_new->orig_obj->taxonomy);
+
+			// we're gonna use the url base "slug" for the rel= value
+			$str_rel = '';
+			$arr_url = explode('/', $obj_new->url);
+			$int_count = count($arr_url);
+			if ( $int_count > 3 ){
+				$term_base = count($arr_url) - 3;
+				$str_rel = $arr_url[$term_base];
+			}
+
 			$obj_new->anchor_text = $obj_new->orig_obj->name;
 			$obj_new->title = $obj_new->orig_obj->name;
 			$attr_title  = $obj_new->orig_obj->name;
@@ -100,7 +112,8 @@ if ( ! class_exists('Cloning') ) {
 				$attr_title = $obj_new->orig_obj->name . ' - ' . $obj_new->orig_obj->description;
 			}
 			$obj_new->global_attrs = array(
-				'title' => $attr_title
+				'title' => $attr_title,
+				'rel' => $str_rel
 			);
 
 			return $obj_new;

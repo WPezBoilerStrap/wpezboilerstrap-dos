@@ -17,6 +17,33 @@ if ( ! class_exists('Blog_Loop')) {
 		 */
 		public function get_view(){
 
+			$str_ret = '';
+
+			$obj_gv = new \stdClass();
+
+			$obj_gv->active = true;
+			$obj_gv->class = '\\WPez\WPezBoilerStrap\Views\Posts\Post_Minimal_V1';
+		//	$obj_gv->class = '\\WPez\WPezBoilerStrap\Views\Groups\Group_Four_V1';
+			$obj_gv->args = $this->get_view_args();
+			//$obj_gv->method = 'render';
+			$obj_gv->method = false;
+
+			$obj_view =$this->ez_loader($obj_gv);
+
+			$str_ret = '';
+			$arr_posts = $obj_gv->args->mod->posts;
+
+			foreach ($arr_posts as $key => $obj){
+
+				$obj_view->set_mod($obj);
+				$str_ret .= $obj_view->render();
+
+			}
+
+			return $str_ret;
+
+			/**
+
 			$mac = '\WPez\WPezBoilerStrap\Toolbox\Tools\View_Macros';
 
 			$str_ret = '';
@@ -24,7 +51,9 @@ if ( ! class_exists('Blog_Loop')) {
 			$gv = new \stdClass();
 
 			$gv->active = true;
-			$gv->class = '\\WPez\WPezBoilerStrap\Views\Posts\Post_List_Layout_V1';
+		//	$gv->class = '\\WPez\WPezBoilerStrap\Views\Posts\Post_List_Layout_V1';
+			$gv->class = '\\WPez\WPezBoilerStrap\Views\Posts\Post_Minimal_V1';
+
 			$gv->args = $this->get_view_args();
 			// $gv->args->use = "defaults";
 			$gv->method = false;  // false means we get an instance of the class back
@@ -46,6 +75,7 @@ if ( ! class_exists('Blog_Loop')) {
 			$str_ret =  $obj_enc->semantic_open . $obj_enc->view_wrapper_open . $str_ret . $obj_enc->view_wrapper_close . $obj_enc->semantic_close;
 
 			return $str_ret;
+			 * **/
 		}
 
 		/**
@@ -56,10 +86,6 @@ if ( ! class_exists('Blog_Loop')) {
 			$obj = new \stdClass();
 
 			return $obj;
-		}
-
-		protected function macros() {
-			return new \stdClass();
 		}
 
 		/**
@@ -142,7 +168,8 @@ if ( ! class_exists('Blog_Loop')) {
 			$obj_enc->semantic_active = true;   // default is true
 			$obj_enc->semantic_tag = 'article';
 			$obj_enc->semantic_global_attrs = array(
-				//'class' => 'container'
+				'itemscope' =>'',
+				'itemtype' => "http://schema.org/BlogPosting"
 			);
 
 			$obj_enc->view_wrapper_active = true;   // default is true
@@ -152,9 +179,9 @@ if ( ! class_exists('Blog_Loop')) {
 			);
 
 			$vargs = new \stdClass();
-			$vargs->enclose = $obj_enc;
+			$vargs->enclXose = $obj_enc;
 
-			$vargs->date_format = 'Y';
+			$vargs->date_format = 'F d, Y';
 
 			return $vargs;
 		}

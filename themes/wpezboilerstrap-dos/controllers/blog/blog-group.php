@@ -98,9 +98,9 @@ if ( ! class_exists('Blog_Group')) {
 
 			$part->active = true;
 			$part->slug_path = $this->gtp_path(__DIR__);
-			$part->slug  = 'blog-loop';
+			$part->slug  = 'blog-loop-group';
 			$part->name  = '';
-			$part->class = '\\WPezTheme\Blog_Loop';
+			$part->class = '\\WPezTheme\Blog_Loop_Group';
 			$part->args  = '';
 			$part->method = 'get_view';
 

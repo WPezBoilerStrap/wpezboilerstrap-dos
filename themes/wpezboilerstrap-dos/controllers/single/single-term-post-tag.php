@@ -22,7 +22,7 @@ if ( ! class_exists( 'Single_Term_Post_Tag' ) ) {
 			$obj = new \stdClass();
 
 			$obj->active = true;
-			$obj->class = '\\WPez\WPezBoilerStrap\Views\Components\Icon_Name_Links_V1';
+			$obj->class = '\\WPez\WPezBoilerStrap\Views\Components\Icon_Text_Links_V1';
 			$obj->args = $this->get_view_args();
 			$obj->method = 'render';
 
@@ -38,7 +38,7 @@ if ( ! class_exists( 'Single_Term_Post_Tag' ) ) {
 
 			$lang = new \stdClass();
 
-			$lang->name = 'Tags: '; // e.g. Tags, Catgories, etc.
+			$lang->text = 'Tags: '; // e.g. Tags, Catgories, etc.
 
 			return $lang;
 		}
@@ -66,7 +66,6 @@ if ( ! class_exists( 'Single_Term_Post_Tag' ) ) {
 			$tools_clone = new \WPez\WPezBoilerStrap\Toolbox\Tools\Cloning();
 			$arr_objs = $tools_clone->ez_clone_get_the_terms($arr_objs);
 
-			$mod->name = $this->language()->name;
 			$mod->array_objects = $arr_objs ;
 
 			return $mod;

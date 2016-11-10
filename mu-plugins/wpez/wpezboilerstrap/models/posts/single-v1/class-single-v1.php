@@ -5,12 +5,16 @@ namespace WPez\WPezBoilerStrap\Models\Posts;
 // Post_Next_Prev_V1
 class Single_V1 {
 
-	public function get_these_terms( $mix_post_id = '', $arr_taxs = array() ) {
+	public function get_these_terms( $mix_post_id = '', $arr_taxs = '' ) {
 
 		$tools_clone = new \WPez\WPezBoilerStrap\Toolbox\Tools\Cloning();
 
 		if ( ! is_array( $arr_taxs ) ) {
-			return 'TODO';
+			// default to cat and tag
+			$arr_taxs =  array(
+				'category' => true,
+				'post_tag' => true
+			);
 		}
 		$obj_ret = new \stdClass();
 		$arr     = array();

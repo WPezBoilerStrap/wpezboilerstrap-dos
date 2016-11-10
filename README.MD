@@ -32,6 +32,18 @@ This approach is not for everyone, nor is it intended to be. That's okay.
     * you're an agency/studio/solo dev building and maintaining at least 3 to 6 custom/semi-custom client themes per year.
 
 ---
+
+## Benefits
+In no particular order.
+
+1) Increased productivity. Less really is more. 
+1) More knowns. Less unknowns. 
+2) It scales - both as a team-centric tool, as well as a technology.
+4) Control, and the level of detail there of.
+5) Freedom, to think outside the traditional WP box.
+6) Reuseability, modularity and exchangeability. 
+
+---
 ## Need to Knows
 In no particular order.
 
@@ -65,7 +77,9 @@ In other words, an effort this audacious is based on priorities, acceptable comp
 
 In short, it's not perfect - just perfect enough to accomplish the mission.
 
+
 ---
+
 ## Overview
 Super fast and at 50,000 ft.
 
