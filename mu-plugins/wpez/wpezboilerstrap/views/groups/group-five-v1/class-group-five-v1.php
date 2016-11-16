@@ -5,7 +5,7 @@ namespace WPez\WPezBoilerStrap\Views\Groups;
 if ( ! class_exists('Group_Five_V1') ) {
 	class Group_Five_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
-		public function view( $lang, $mod, $parts, $vargs ) {
+		public function view( $mod, $parts, $vargs ) {
 
 			$str_ret = '';
 

@@ -7,7 +7,7 @@ namespace WPez\WPezBoilerStrap\Views\Components;
 class Search_HTML5_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
 
-	function view( $lang, $mod, $parts, $vargs ) {
+	function view( $mod, $parts, $vargs ) {
 		
 		$mac = $this->_mac;
 
@@ -15,7 +15,7 @@ class Search_HTML5_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
 		$str_ret .= $mac::element_open('form', $vargs->form_global_attrs );
 		$str_ret .= '<label>';
-		$str_ret .= '<span class="' . $vargs->screen_reader_class . '">' . esc_attr($lang->screen_reader_text) . '</span>';
+		$str_ret .= '<span class="' . $vargs->screen_reader_class . '">' . esc_attr($vargs->screen_reader_text) . '</span>';
 		$str_ret .= $mac::element_open('input', $vargs->input_search_global_attrs );
 		$str_ret .= '</label>';
 		$str_ret .= $mac::element_open('input', $vargs->input_submit_global_attrs );
@@ -55,10 +55,12 @@ class Search_HTML5_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 	// REF - https://developer.wordpress.org/reference/hooks/get_search_form/
 	protected function vargs_defaults() {
 
-		$lang = $this->lang_defaults();
+		$lang = $this->_lang;
 		$mod = $this->mod_defaults();
 
 		$vargs = new \stdClass();
+
+		$vargs->screen_reader_text = $lang->screen_reader_text;
 
 		// IMPORTANT - at a minimum, these are required. keys, as well as - for the most part - values
 		$vargs->form_global_attrs = array(

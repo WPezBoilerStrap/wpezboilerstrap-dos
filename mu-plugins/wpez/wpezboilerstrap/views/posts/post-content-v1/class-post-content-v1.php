@@ -5,7 +5,7 @@ namespace WPez\WPezBoilerStrap\Views\Posts;
 if ( ! class_exists('Post_Content_V1')) {
 	class Post_Content_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
-		protected function view( $lang, $mod, $parts, $vargs ) {
+		protected function view( $mod, $parts, $vargs ) {
 
 			$str_ret = '';
 

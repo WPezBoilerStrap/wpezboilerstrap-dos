@@ -5,29 +5,20 @@ namespace WPez\WPezBoilerStrap\Views\Footers;
 if ( ! class_exists('Footer_V1') ) {
 	class Footer_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
-		protected function view( $lang, $mod, $parts, $vargs ) {
+		protected function view( $mod, $parts, $vargs ) {
 
 			$mac = $this->_mac;
 
-			// ---
-
-			$x = $this->vargs_defaults();
-
-		//	$y = $mac::enclose($x);
-
-		//	var_dump($y);
-
-			// --
 
 			$str_ret = '';
 
 			$str_ret .= $mac::element_open($vargs->left_tag, $vargs->left_global_attrs );
 
-			$str_ret .= '<p>';
+			$str_ret .= '<span class="ez-footer-copy-right-one">';
 
-			$str_ret .= esc_attr($vargs->copyright_symbol) . esc_attr($lang->copyright_time) . esc_attr($lang->copyright_name);
+			$str_ret .= esc_attr($vargs->copyright_symbol) . esc_attr($vargs->copyright_time) . esc_attr($vargs->copyright_name);
 
-			$str_ret .= '</p>';
+			$str_ret .= '</span>';
 
 			$str_ret .= $mac::element_close($vargs->left_tag);
 
@@ -40,17 +31,21 @@ if ( ! class_exists('Footer_V1') ) {
 
 			$str_ret .= $mac::element_open($vargs->right_tag, $vargs->right_global_attrs );
 
-			$str_ret .= '<p>';
+			$str_ret .= '<span class="ez-footer-copy-right-two">';
+
+			$str_ret .= esc_attr($vargs->copyright_symbol) . esc_attr($vargs->copyright_time) . esc_attr($vargs->copyright_name);
+
+			$str_ret .= '</span>';
+
+			$str_ret .= '<span class="ez-footer-back-to-top">';
 
 			$str_ret .= '<a href="' . esc_attr($vargs->href_back_to_top) .'">';
 
-			$str_ret .= esc_attr($lang->back_to_top);
+			$str_ret .= esc_attr($vargs->back_to_top);
 
 			$str_ret .= '</a>';
 
-			$str_ret .= '</p>';
-
-
+			$str_ret .= '</span>';
 
 			$str_ret .= $mac::element_close($vargs->right_tag);
 
@@ -64,7 +59,6 @@ if ( ! class_exists('Footer_V1') ) {
 
 			$lang->copyright_time = date("Y") . ' ';
 			$lang->copyright_name = 'Brand Name';
-
 			$lang->back_to_top = 'Back to Top';
 
 			return $lang;
@@ -88,6 +82,8 @@ if ( ! class_exists('Footer_V1') ) {
 
 		protected function vargs_defaults() {
 
+			$lang = $this->_lang;
+
 			$obj_enc = new \stdClass();
 
 			$obj_enc->active = true;            // an enclosure master switch - default is true
@@ -107,6 +103,10 @@ if ( ! class_exists('Footer_V1') ) {
 
 			$vargs = new \stdClass();
 			$vargs->enclose = $obj_enc;
+
+			$vargs->copyright_time = $lang->copyright_time;
+			$vargs->copyright_name = $lang->copyright_name;
+			$vargs->back_to_top = $lang->back_to_top;
 
 			$vargs->left_tag = 'div';
 			$vargs->left_global_attrs = array(

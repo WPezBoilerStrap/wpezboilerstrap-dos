@@ -1,4 +1,4 @@
-# WPezBoilerStrap: Dos - v0.0.0.2 
+# WPezBoilerStrap: Dos - v0.0.0.3 
 #### A modern WordPress theme architecture, with a MVC state of mind, and empowered by WPezClasses.
 
 
@@ -120,7 +120,11 @@ This repo is the wp-content folder of a standard WP install. This is temporary a
 ## FAQ
 
 **1) Why a Language class/object and not l10n localization?**
-Three reasons: Flexibility, control, as well as the fact that simply translating a word/phrase from one language to another could lead to a less than appropriate UX. 
+Three reasons: Flexibility, control, as well as the fact that simply translating a word/phrase from one language to another could lead to a less than appropriate UX.
+ 
+  Furthermore, the Language file gets (array) merge'd with the view's args (aka vargs). That is, language-centric properties are treated as arguments injected into the view, just like the CSS properties, and not something else. Language remains part of your normal workflow, and not some special, odd, case.
+  
+  Also, this approach allows the Language file to be manipulated programmatically. That is, the view doesn't care how you do it, as long as the view gets what it wants, when it wants. 
 
 **2) What happened to page.php, single.php, etc.?**
 They've been dismissed :) WPezBoilerStrap isn't a traditional whole-pages-at-a-time model. Instead, it's a series of nested views where you have complete control of what happens where and when. For example, you might have two different 404 "pages." One for loggin in users and another for those who are not. True, such things are possible via traditional WP, but it's not as clean and DRY.

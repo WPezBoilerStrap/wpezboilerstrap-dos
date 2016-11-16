@@ -30,7 +30,7 @@ if ( ! class_exists( 'View' ) ) {
 
 		private function args_prep($obj_args = false ){
 
-			$this->_land  = new \stdClass();
+			$this->_lang  = new \stdClass();
 			$this->_mod   = new \stdClass();
 			$this->_parts = new \stdClass();
 			$this->_vargs = new \stdClass();
@@ -41,7 +41,7 @@ if ( ! class_exists( 'View' ) ) {
 
 				$this->set_args_merge( $obj_args );
 
-			} elseif ( is_object( $obj_args ) && isset ( $obj_args->use ) && $obj_args->use == 'defaults' ) {
+			} elseif ( is_object( $obj_args ) && isset( $obj_args->use ) && $obj_args->use == 'defaults' ) {
 
 				$this->_lang  = $this->lang_defaults();
 				$this->_mod   = $this->mod_defaults();
@@ -85,8 +85,10 @@ if ( ! class_exists( 'View' ) ) {
 			if ( isset( $obj_args->parts ) && is_object( $obj_args->parts ) ) {
 				$this->_parts = (object) array_merge( (array) $this->_parts, (array) $obj_args->parts );
 			}
+
+			// we "layer" the lang into the vargs.
 			if ( isset( $obj_args->vargs ) && is_object( $obj_args->vargs ) ) {
-				$this->_vargs = (object) array_merge( (array) $this->_vargs, (array) $obj_args->vargs );
+				$this->_vargs = (object) array_merge( (array) $this->_vargs, (array) $this->_lang, (array) $obj_args->vargs );
 			}
 		}
 
@@ -147,7 +149,9 @@ if ( ! class_exists( 'View' ) ) {
 			$mac = $this->_mac;
 			$obj_enc = $mac::enclose($this->_vargs, $this->_bool_enclose);
 
-			$str_ret = $this->view( $this->_lang, $this->_mod, $this->_parts, $this->_vargs );
+			//$obj_vargs = (object)array_merge( (array)$this->_lang , (array)$this->_vargs );
+
+			$str_ret = $this->view( $this->_mod, $this->_parts, $this->_vargs );
 
 			return $obj_enc->semantic_open . $obj_enc->view_wrapper_open . $str_ret . $obj_enc->view_wrapper_close . $obj_enc->semantic_close;
 		}
@@ -158,7 +162,9 @@ if ( ! class_exists( 'View' ) ) {
 		 */
 		public function render_no_enclose() {
 
-			$str_ret = $this->view( $this->_lang, $this->_mod, $this->_parts, $this->_vargs );
+			$obj_vargs = (object)array_merge( (array)$this->_lang , (array)$this->_vargs );
+
+			$str_ret = $this->view( $this->_mod, $this->_parts,  $obj_vargs );
 
 			return $str_ret;
 
@@ -176,7 +182,7 @@ if ( ! class_exists( 'View' ) ) {
 		 *
 		 * @return string
 		 */
-		abstract protected function view( $lang, $mod, $parts, $vargs );
+		abstract protected function view( $mod, $parts, $vargs );
 
 		abstract protected function lang_defaults();
 

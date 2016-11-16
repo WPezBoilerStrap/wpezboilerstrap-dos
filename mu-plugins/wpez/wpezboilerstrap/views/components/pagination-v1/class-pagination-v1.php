@@ -5,7 +5,7 @@ namespace WPez\WPezBoilerStrap\Views\Components;
 if ( ! class_exists('Pagination_V1')) {
 	class Pagination_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
-		protected function view( $lang, $mod, $parts, $vargs ) {
+		protected function view( $mod, $parts, $vargs ) {
 			
 			$mac = $this->_mac;
 
@@ -45,7 +45,7 @@ if ( ! class_exists('Pagination_V1')) {
 
 					$str_anchor = $mac::element_open($vargs->icon_tag, $vargs->icon_prev_global_attrs);
 					$str_anchor .= $mac::element_close($vargs->icon_tag);
-					$str_anchor .= esc_attr($lang->prev);
+					$str_anchor .= esc_attr($vargs->prev);
 
 				} elseif ( $obj_page->type == 'next' ){
 
@@ -54,7 +54,7 @@ if ( ! class_exists('Pagination_V1')) {
 						$aria_label = ' aria_label = "' . esc_attr($vargs->aria_label_next) . '"';
 					}
 
-					$str_anchor = esc_attr($lang->next);
+					$str_anchor = esc_attr($vargs->next);
 					$str_anchor .= $mac::element_open($vargs->icon_tag, $vargs->icon_next_global_attrs);
 					$str_anchor .= $mac::element_close($vargs->icon_tag);
 
@@ -85,6 +85,10 @@ if ( ! class_exists('Pagination_V1')) {
 
 			$lang->prev = 'Prev';
 			$lang->next = 'Next ';
+
+			$lang->aria_label_prev = "Previous";
+			$lang->aria_label_page = "Page";
+			$lang->aria_label_next = "Next";
 
 			return $lang;
 		}
@@ -125,6 +129,8 @@ if ( ! class_exists('Pagination_V1')) {
 
 		protected function vargs_defaults() {
 
+			$lang = $this->_lang;
+
 			$obj_enc = new \stdClass();
 
 			$obj_enc->active = true;            // an enclosure master switch
@@ -152,19 +158,22 @@ if ( ! class_exists('Pagination_V1')) {
 			$vargs->page_tag = 'li';
 			$vargs->page_class_current = 'active';
 
-			$vargs->aria_label_prev = "Previous";
-			$vargs->aria_label_page = "Page";
-			$vargs->aria_label_next= "Next";
+			$vargs->aria_label_prev = $lang->aria_label_prev;
+			$vargs->aria_label_page = $lang->aria_label_page;
+			$vargs->aria_label_next = $lang->aria_label_next;
 
 			$vargs->icon_tag = 'i';
 			$vargs->icon_prev_global_attrs = array(
 				'class' => 'glyphicon glyphicon-chevron-left',
 				'aria-hidden' => "true"
 			);
+			$vargs->prev = $lang->prev;
+
 			$vargs->icon_next_global_attrs = array(
 				'class' => 'glyphicon glyphicon-chevron-right',
 				'aria-hidden' => "true"
 			);
+			$vargs->next = $lang->next;
 
 			return $vargs;
 		}

@@ -2,26 +2,24 @@
 
 namespace WPez\WPezBoilerStrap\Views\Components;
 
-if ( ! class_exists( 'Icon_Name_Description_V1' ) ) {
-	class Icon_Name_Description_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
+if ( ! class_exists( 'Icon_Text_Description_V1' ) ) {
+	class Icon_Text_Description_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
 
-		protected function view( $lang, $mod, $parts, $vargs ) {
+		protected function view( $mod, $parts, $vargs ) {
 
 			$mac = $this->_mac;
 
 			$str_ret = '';
 			$str_ret .= $mac::element_open( $vargs->wrapper_tag, $vargs->wrapper_global_attrs );
 
-			// TODO - check if class + method exist?
-			$str_ret .= $mac::icon_name(
+			$str_ret .= $mac::icon_text(
 				$vargs->icon_tag,
 				$vargs->icon_global_attrs,
-				$vargs->name_tag,
-				$vargs->name_global_attrs,
-				$mod->name
+				$vargs->text_tag,
+				$vargs->text_global_attrs,
+				$vargs->text
 			);
-
 
 			if ( $vargs->description_active !== false && ( ! empty( $mod->description ) === true || ( empty( $mod->description ) === true && $vargs->description_empty === true ) ) ) {
 				$str_ret .= $mac::element_open( $vargs->description_tag, $vargs->description_global_attrs );
@@ -47,7 +45,6 @@ if ( ! class_exists( 'Icon_Name_Description_V1' ) ) {
 
 			$mod = new \stdClass();
 
-			$mod->name        = 'Mod: Name';
 			$mod->description = 'Mod-Description';
 
 			return $mod;
@@ -86,12 +83,11 @@ if ( ! class_exists( 'Icon_Name_Description_V1' ) ) {
 			$vargs->wrapper_global_attrs = array();
 
 			$vargs->icon_tag          = 'i';
-			$vargs->icon_global_attrs = array(
-				'class' => 'some-icon-class'
-			);
+			$vargs->icon_global_attrs = array();
 
-			$vargs->name_tag          = 'h1';
-			$vargs->name_global_attrs = array();
+			$vargs->text = '';
+			$vargs->text_tag          = 'h1';
+			$vargs->text_global_attrs = array();
 
 			// master on/off for the description
 			$vargs->description_active = true;

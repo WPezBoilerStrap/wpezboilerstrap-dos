@@ -169,15 +169,15 @@ if ( ! class_exists( 'Helpers_Images' ) ) {
 		/**
 		 * Append new image sizes (using the ez image obj) to the select while inserting an image.
 		 *
-		 * @param string $arr_obj_ez
+		 * @param string $arr_objs_ez
 		 * @param int $int_priority - this should come before the add's priority
 		 */
-		public function image_size_names_choose_append( $arr_obj_ez = '', $int_priority = 20 ) {
+		public function image_size_names_choose_append( $arr_objs_ez = '', $int_priority = 20 ) {
 
-			if ( is_array( $arr_obj_ez ) && ! empty( $arr_obj_ez ) ) {
+			if ( is_array( $arr_objs_ez ) && ! empty( $arr_objs_ez ) ) {
 
 				$this->_str_isnc_type = 'append';
-				$this->_arr_isnc      = $arr_obj_ez;
+				$this->_arr_isnc      = $arr_objs_ez;
 				add_filter( 'image_size_names_choose', array(
 					$this,
 					'filter_image_size_names_choose_append'
@@ -188,15 +188,15 @@ if ( ! class_exists( 'Helpers_Images' ) ) {
 		/**
 		 * Empty all current and then append new image sizes (using the ez image obj) to the select while inserting an image.
 		 *
-		 * @param string $arr_obj_ez
+		 * @param string $arr_objs_ez
 		 * @param int $int_priority - this should come before the add's priority
 		 */
-		public function image_size_names_choose_replace( $arr_obj_ez = '', $int_priority = 20 ) {
+		public function image_size_names_choose_replace( $arr_objs_ez = '', $int_priority = 20 ) {
 
-			if ( is_array( $arr_obj_ez ) && ! empty( $arr_obj_ez ) ) {
+			if ( is_array( $arr_objs_ez ) && ! empty( $arr_objs_ez ) ) {
 
 				$this->_str_isnc_type = 'replace';
-				$this->_arr_isnc      = $arr_obj_ez;
+				$this->_arr_isnc      = $arr_objs_ez;
 				add_filter( 'image_size_names_choose', array(
 					$this,
 					'filter_image_size_names_choose_append'
@@ -214,8 +214,8 @@ if ( ! class_exists( 'Helpers_Images' ) ) {
 
 			$arr_sizes = array();
 			foreach ( $this->_arr_isnc as $key_name => $obj_ez ) {
-				if ( $obj_ez->names_choose->active === true ) {
-					$arr_sizes[ $obj_ez->wp->name ] = $obj_ez->names_choose->select;
+				if ( isset($obj_ez->names_choose->active) && $obj_ez->names_choose->active === true ) {
+					$arr_sizes[ $obj_ez->add_image_size->name ] = $obj_ez->names_choose->select;
 				}
 			}
 			// if it's append then merge with current wp sizes

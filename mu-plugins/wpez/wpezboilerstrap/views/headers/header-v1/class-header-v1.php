@@ -5,7 +5,7 @@ namespace WPez\WPezBoilerStrap\Views\Headers;
 if ( ! class_exists('Header_V1') ) {
 	class Header_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
-		function view( $lang, $mod, $parts, $vargs ) {
+		function view( $mod, $parts, $vargs ) {
 
 			// TODO? - this is really just a group
 			$str_ret = '';

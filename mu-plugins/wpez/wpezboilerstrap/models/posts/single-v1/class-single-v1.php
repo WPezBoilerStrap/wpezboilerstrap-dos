@@ -75,29 +75,28 @@ class Single_V1 {
 	public function image_min( $mix_img_id = '', $mix_size = 'thumbnail' ) {
 
 		$obj_ret         = new \stdClass();
-		$obj_ret->exists = false;
 		if ( empty ( $mix_img_id ) ) {
 			return $obj_ret;
 		}
 
 		$int_img_id = (int) $mix_img_id;
 		$obj_ret    = $this->attachment_image_src( $int_img_id, $mix_size );
-
+		$obj_ret->type = 'image_min';
 		return $obj_ret;
 	}
 
 	public function image_max( $mix_img_id = '', $mix_size = 'thumbnail' ) {
 
 		$obj_ret         = new \stdClass();
-		$obj_ret->exists = false;
 		if ( empty ( $mix_img_id ) ) {
 			return $obj_ret;
 		}
 
 		$obj_ret = $this->image_min( $mix_img_id, $mix_size );
-		if ( ! $obj_ret->exists ) {
+		if ( empty($obj_ret) ) {
 			return $obj_ret;
 		}
+		$obj_ret->type = 'image_max';
 		$obj_ret->basename = wp_basename( $obj_ret->url );
 		$obj_ret->folder   = str_replace( wp_basename( $obj_ret->url ), '', $obj_ret->url );
 
@@ -113,16 +112,15 @@ class Single_V1 {
 	public function image_all( $mix_img_id = '', $mix_size = 'thumbnail' ) {
 
 		$obj_ret         = new \stdClass();
-		$obj_ret->exists = false;
 		if ( empty ( $mix_img_id ) ) {
 			return $obj_ret;
 		}
 
 		$obj_ret = $this->image_max( $mix_img_id, $mix_size );
-		if ( ! $obj_ret->exists ) {
+		if ( empty($obj_ret) ) {
 			return $obj_ret;
 		}
-
+		$obj_ret->type = 'image_all';
 		$arr_img_meta = get_post_meta( $obj_ret->ID );
 		if ( isset( $arr_img_meta['_wp_attachment_image_alt'][0] ) ) {
 			$obj_ret->alt = $arr_img_meta['_wp_attachment_image_alt'][0];
@@ -148,7 +146,6 @@ class Single_V1 {
 	public function attachment_image_src( $mix_img_id = '', $mix_size = 'thumbnail' ) {
 
 		$obj_ret         = new \stdClass();
-		$obj_ret->exists = false;
 		if ( empty ( $mix_img_id ) ) {
 			return $obj_ret;
 		}
@@ -156,7 +153,6 @@ class Single_V1 {
 		$mix_img    = wp_get_attachment_image_src( $int_img_id, $mix_size );
 		if ( is_array( $mix_img ) ) {
 
-			$obj_ret->exists = true;
 			$obj_ret->ID     = $int_img_id;
 
 			$obj_ret->url             = $mix_img[0];

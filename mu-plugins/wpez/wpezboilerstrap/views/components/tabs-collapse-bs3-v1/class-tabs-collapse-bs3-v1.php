@@ -6,7 +6,7 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 	class Tabs_Collapse_BS3_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
-		protected function view( $lang, $mod, $parts, $vargs ) {
+		protected function view( $mod, $parts, $vargs ) {
 			
 			$mac = $this->_mac;
 
@@ -152,6 +152,11 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 			$lang = new \stdClass();
 
+			$lang->tab_share = 'Share';
+			$lang->tab_categories = 'Categories';
+			$lang->tab_tags = 'Tags';
+			$lang->tab_search = 'Search';
+
 			return $lang;
 		}
 		
@@ -206,6 +211,8 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 			);
 
 			*/
+
+			$lang = $this->_lang;
 			$vargs = new \stdClass();
 
 			// $vargs->enclose = $obj_enc;
@@ -276,7 +283,7 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 			$tab->tab_global_attrs = array(
 				'class' => " TODO-OBJ"
 			);
-			$tab->tab_name = 'Share';   // TODO language?
+			$tab->tab_name = $lang->tab_share;
 			$tab->tab_link_href = 'au-share';
 			$tab->tab_icon_global_attrs = array(
 				"class" => 'fa fa-share-alt fa-fw'
@@ -300,7 +307,7 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 			// CATEGORIES
 			$tab = new \stdClass();
-			$tab->tab_name = 'Categories';
+			$tab->tab_name = $lang->tab_categories;
 			$tab->tab_link_href = 'au-categories';
 			$tab->tab_icon_global_attrs = array(
 				"class" => 'fa fa-flag fa-fw'
@@ -318,7 +325,7 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 			// TAGS
 			$tab = new \stdClass();
-			$tab->tab_name = "Tags";
+			$tab->tab_name = $lang->tab_tags;
 			$tab->tab_link_href = 'au-tags';
 			$tab->tab_icon_global_attrs = array(
 				"class" => 'fa fa-tags fa-fw'
@@ -336,7 +343,7 @@ if ( ! class_exists( 'Tabs_Collapse_BS3_V1' ) ) {
 
 			// SEARCH
 			$tab = new \stdClass();
-			$tab->tab_name = "Search";
+			$tab->tab_name = $lang->tab_search;
 			$tab->tab_link_href = 'au-search';
 			$tab->tab_icon_global_attrs = array(
 				"class" => 'fa fa-search fa-fw'

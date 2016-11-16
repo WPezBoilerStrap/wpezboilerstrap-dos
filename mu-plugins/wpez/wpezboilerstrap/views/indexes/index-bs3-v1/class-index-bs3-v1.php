@@ -5,7 +5,7 @@ namespace WPez\WPezBoilerStrap\Views\Indexes;
 if ( ! class_exists('Index_BS3_V1') ) {
 	class Index_BS3_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
-		function view( $lang, $mod, $parts, $vargs ) {
+		function view( $mod, $parts, $vargs ) {
 
 			$mac = $this->_mac;
 			?>

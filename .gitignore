@@ -24,6 +24,8 @@ ics-importer-cache
 **/.idea/tasks.xml
 
 themes/achilles-queens/*
+themes/achilles-queens/
+themes/achilles-queens
 wp-config.php
 wp-config-sample.php
 wp-content/w3tc*

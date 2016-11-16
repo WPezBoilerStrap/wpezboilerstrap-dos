@@ -5,7 +5,7 @@ namespace WPez\WPezBoilerStrap\Views\Menus;
 if ( ! class_exists('Menu_BS3_V1') ) {
 	class Menu_BS3_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
-		function view( $lang, $mod, $parts, $vargs ) {
+		function view( $mod, $parts, $vargs ) {
 			
 			$mac = $this->_mac;
 
@@ -22,7 +22,7 @@ if ( ! class_exists('Menu_BS3_V1') ) {
 			$str_ret .= '<span class="icon-bar"></span>';
 			$str_ret .= '</button>';
 
-			$str_ret .= '<a class="' . esc_attr( $vargs->brand_class ) . '" href="' . esc_url( $mod->brand_url ) . '" title="' . esc_html( $lang->brand_title ) . '">' . esc_html( $lang->brand_name ) . '</a>';
+			$str_ret .= '<a class="' . esc_attr( $vargs->brand_class ) . '" href="' . esc_url( $mod->brand_url ) . '" title="' . esc_html( $vargs->brand_title ) . '">' . esc_html( $vargs->brand_name ) . '</a>';
 
 			$str_ret .= '</div>';
 
@@ -63,6 +63,8 @@ if ( ! class_exists('Menu_BS3_V1') ) {
 
 		protected function vargs_defaults() {
 
+			$lang = $this->_lang;
+
 			$obj_enc = new \stdClass();
 
 			$obj_enc->active = true;            // an enclosure master switch - default is true
@@ -81,6 +83,9 @@ if ( ! class_exists('Menu_BS3_V1') ) {
 
 			$vargs = new \stdClass();
 			$vargs->enclose = $obj_enc;
+
+			$vargs->brand_title = $lang->brand_title;
+			$vargs->brand_name = $lang->brand_name;
 
 			$vargs->wrapper_global_attrs = array(
 				'id' => 'nav-main',

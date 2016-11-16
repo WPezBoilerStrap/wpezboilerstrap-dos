@@ -5,7 +5,7 @@ namespace WPez\WPezBoilerStrap\Views\Components;
 if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 	class Prev_Next_Min_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
-		protected function view( $lang, $mod, $parts, $vargs ) {
+		protected function view( $mod, $parts, $vargs ) {
 			
 			$mac = $this->_mac;
 
@@ -40,8 +40,8 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 
 				$str_title = esc_attr( $obj_prev->title );
 				// or use your own title. for example, perpahs a simple "Prav" and "Next" will do?
-				if ( ! empty($lang->prev_title) && $lang->prev_title !== false ){
-					$str_title = esc_attr($lang->prev_title);
+				if ( ! empty($vargs->prev) && $vargs->prev !== false ){
+					$str_title = esc_attr($vargs->prev);
 				}
 				$str_ret .= $str_title;
 				$str_ret .= '</a>';
@@ -56,8 +56,8 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 				$str_ret .= '<a href="' . esc_url( $obj_next->url ) . '"' . $aria_label . '>';
 
 				$str_title = esc_attr( $obj_next->title );
-				if ( ! empty($lang->next_title) && $lang->next_title !== false ){
-					$str_title = esc_attr($lang->next_title);
+				if ( ! empty($vargs->next) && $vargs->next !== false ){
+					$str_title = esc_attr($vargs->next);
 				}
 				$str_ret .= $str_title;
 
@@ -78,8 +78,11 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 			$lang = new \stdClass();
 
 			// one use these if you want to override the wp_post titles.
-			//$lang->prev_title      = 'Lang - Override Prev Title';
-			//$lang->next_title      = 'Lang - Override Next Title';
+			$lang->prev      = false; // 'Lang - Override Prev Title';
+			$lang->next     = false; // 'Lang - Override Next Title';
+
+			$lang->aria_label_prev = "Previous";
+			$lang->aria_label_next = "Next";
 
 			return $lang;
 		}
@@ -116,6 +119,8 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 
 		protected function vargs_defaults() {
 
+			$lang = $this->_lang;
+
 			$vargs = new \stdClass();
 
 			$vargs->wrapper_tag = 'ul';
@@ -133,8 +138,12 @@ if ( ! class_exists( 'Prev_Next_Min_V1' ) ) {
 				'class' => 'next'
 			);
 
-			$vargs->aria_label_prev = "Previous";
-			$vargs->aria_label_next= "Next";
+			$vargs->prev = $lang->prev;
+			$vargs->next = $lang->next;
+
+			$vargs->aria_label_prev = $lang->aria_label_prev;
+			$vargs->aria_label_next = $lang->aria_label_next;
+
 
 			//if you don't want to use the font based icons make icon_tag = false
 			$vargs->icon_tag = 'i';

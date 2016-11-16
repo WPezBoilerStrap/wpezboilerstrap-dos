@@ -5,7 +5,7 @@ namespace TODO;
 if ( ! class_exists('TODO')) {
 	class TODO extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
-		protected function view( $lang, $mod, $parts, $vargs ) {
+		protected function view( $mod, $parts, $vargs ) {
 
 			$str_ret = '';
 
@@ -36,6 +36,8 @@ if ( ! class_exists('TODO')) {
 		}
 
 		protected function vargs_defaults() {
+
+			$lang = $this->_lang;
 
 			$obj_enc = new \stdClass();
 

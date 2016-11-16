@@ -5,7 +5,7 @@ namespace WPez\WPezBoilerStrap\Views\Components;
 if ( ! class_exists('Icon_Text_Links_V1')) {
 	class Icon_Text_Links_V1 extends \WPez\WPezBoilerStrap\Toolbox\Parents\View {
 
-		protected function view( $lang, $mod, $parts, $vargs ) {
+		protected function view( $mod, $parts, $vargs ) {
 
 			$mac = $this->_mac;
 
@@ -23,7 +23,7 @@ if ( ! class_exists('Icon_Text_Links_V1')) {
 				$vargs->icon_global_attrs,
 				$vargs->text_tag,
 				$vargs->text_global_attrs,
-				$lang->text
+				$vargs->text
 			);
 
 			$str_ret .= $mac::element_close($vargs->icon_label_wrapper_tag);
@@ -61,7 +61,7 @@ if ( ! class_exists('Icon_Text_Links_V1')) {
 
 			$lang = new \stdClass();
 
-			$lang->label = ' LANG-LABEL '; // e.g. Tags, Catgories, etc.
+			$lang->text = ' LANG-TEXT '; // e.g. Tags, Catgories, etc.
 
 			return $lang;
 		}
@@ -111,6 +111,8 @@ if ( ! class_exists('Icon_Text_Links_V1')) {
 
 		protected function vargs_defaults() {
 
+			$lang = $this->_lang;
+
 			$vargs = new \stdClass();
 
 			$vargs->wrapper_tag = 'VARGS-WRAPPER_TAG'; // e.g. 'p';
@@ -128,10 +130,11 @@ if ( ! class_exists('Icon_Text_Links_V1')) {
 			$vargs->icon_global_attrs = array(
 				'class' => 'VARGS-ICON_SPAN_CLASS fa fa-tags' // e.g., some FA class
 			);
-			$vargs->label_tag = 'span';
-			$vargs->label_global_attrs = array(
+			$vargs->text_tag = 'span';
+			$vargs->text_global_attrs = array(
 				'class' => 'VARGS-LABEL_SPAN_CLASS' // e.g., some FA class
 			);
+			$vargs->text = $lang->text;
 
 			$vargs->link_class = 'VARGS-LINK_CLASS'; // apply to every link, there is also a mod->link_class
 			$vargs->link_rel = 'VARGS-LINK_REL';
