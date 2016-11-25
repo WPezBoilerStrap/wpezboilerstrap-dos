@@ -55,7 +55,7 @@ if ( ! class_exists('Post_EZ_Blog_Single_V1')) {
 
 			if ( ! empty($str_content)) {
 
-				$str_ret .= $mac::ez_post_post_content_v1( $mod, $vargs );
+				$str_ret .= $str_content;
 
 				$str_ret .= $str_edit;
 			}

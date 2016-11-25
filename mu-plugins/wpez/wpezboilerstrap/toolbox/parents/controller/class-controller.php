@@ -11,7 +11,45 @@ if ( ! defined('ABSPATH') ) {
 if ( ! class_exists('Controller') ) {
 	abstract class Controller {
 
-		public function __construct() {
+		protected $_gargs;
+		protected $_lang = false;
+		protected $_opts = false;
+		protected $_route = false;
+		protected $_vargs = false;
+
+
+		public function __construct( $arr_gargs = array() ) {
+
+			$this->_gargs = $arr_gargs;
+
+			$this->unpack_config($this->_gargs);
+		}
+
+		protected function unpack_config($arr_gargs){
+
+			if ( isset($arr_gargs['config']) && is_array($arr_gargs['config']) ) {
+				
+				$arr_config = $arr_gargs['config'];
+
+				if ( isset( $arr_config['lang'] ) ) {
+					$this->_lang = $arr_config['lang'];
+				}
+
+				if ( isset( $arr_config['opts'] ) ) {
+					$this->_opts = $arr_config['opts'];
+				}
+
+				if ( isset( $arr_config['route'] ) ) {
+					$this->_route = $arr_config['route'];
+				}
+
+				if ( isset( $arr_config['vargs'] ) ) {
+					$this->_vargs = $arr_config['vargs'];
+				}
+				return true;
+			}
+
+			return false;
 
 		}
 
@@ -28,7 +66,8 @@ if ( ! class_exists('Controller') ) {
 		}
 
 		/**
-		 * If a template part is calling other template parts this return the gtp friend path. When called $str_magic_dir is __DIR__
+		 * If a template part is calling other template parts in the same dir/folder this method
+		 * returns the gtp friendly path. When called $str_magic_dir is __DIR__
 		 *
 		 * @param $str_magic_dir
 		 *
@@ -51,7 +90,7 @@ if ( ! class_exists('Controller') ) {
 
 		}
 
-		protected function ez_loader_defaults(){
+		protected function ez_gtp_loader_defaults(){
 
 			$obj = new \stdClass();
 
@@ -71,7 +110,7 @@ if ( ! class_exists('Controller') ) {
 		 *
 		 * @return bool|string
 		 */
-		protected function ez_loader($obj_args_orig = ''){
+		protected function ez_gtp_loader($obj_args_orig = ''){
 
 			// active
 			// slug_path
@@ -83,7 +122,7 @@ if ( ! class_exists('Controller') ) {
 
 			if ( is_object($obj_args_orig) ){
 
-				$obj_args = (object) array_merge( (array)$this->ez_loader_defaults(), (array) $obj_args_orig);
+				$obj_args = (object) array_merge( (array)$this->ez_gtp_loader_defaults(), (array) $obj_args_orig);
 
 				if ( ! isset($obj_args->active) || $obj_args->active !== false ){
 

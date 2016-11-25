@@ -5,12 +5,7 @@ namespace WPezTheme;
 if ( ! class_exists('Blog_Group')) {
 	class Blog_Group extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
 
-		public function __construct() {
-
-			// $this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * return string
@@ -26,7 +21,7 @@ if ( ! class_exists('Blog_Group')) {
 			$obj_gv->args = $this->get_view_args();
 			$obj_gv->method = 'render';
 
-			$str_ret = $this->ez_loader($obj_gv);
+			$str_ret = $this->ez_gtp_loader($obj_gv);
 
 			return $str_ret;
 		}
@@ -75,10 +70,10 @@ if ( ! class_exists('Blog_Group')) {
 			$part->slug  = 'tabs-collapse';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Tabs_Collapse';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_accord = $this->ez_loader($part);
+			$str_accord = $this->ez_gtp_loader($part);
 
 			// -
 			$part        = new \stdClass();
@@ -88,10 +83,10 @@ if ( ! class_exists('Blog_Group')) {
 			$part->slug  = 'is-archive';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Is_Archive';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_is_arch = $this->ez_loader($part);
+			$str_is_arch = $this->ez_gtp_loader($part);
 
 			// -
 			$part        = new \stdClass();
@@ -101,10 +96,10 @@ if ( ! class_exists('Blog_Group')) {
 			$part->slug  = 'blog-loop-group';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Blog_Loop_Group';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_sing_wrap = $this->ez_loader($part);
+			$str_sing_wrap = $this->ez_gtp_loader($part);
 
 			// -
 			$part        = new \stdClass();
@@ -114,10 +109,10 @@ if ( ! class_exists('Blog_Group')) {
 			$part->slug  = 'posts-pagination';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Posts_Pagination';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_posts_pg = $this->ez_loader($part);
+			$str_posts_pg = $this->ez_gtp_loader($part);
 
 			$parts = new \stdClass();
 			$parts->one = $str_accord;

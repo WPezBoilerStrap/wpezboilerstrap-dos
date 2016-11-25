@@ -5,12 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists( 'Index')) {
 	class Index extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
-
 
 		/**
 		 * @return mixed
@@ -24,7 +18,7 @@ if ( ! class_exists( 'Index')) {
 			$gv->args = $this->get_view_args();
 			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($gv);
+			$str_ret = $this->ez_gtp_loader($gv);
 
 			return $str_ret;
 		}
@@ -61,13 +55,13 @@ if ( ! class_exists( 'Index')) {
 			$parts->pre_head_close = ''; // e.g. add google analytics snippet
 
 			$part->active = true;
-			$part->slug  = 'controllers\index-body';
+			$part->slug  = 'controllers/index-body';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Index_Body';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_body = $this->ez_loader($part);
+			$str_body = $this->ez_gtp_loader($part);
 			$parts->body = $str_body;
 
 
@@ -92,9 +86,9 @@ if ( ! class_exists( 'Index')) {
 
 			$str_method = 'index';
 
-			$obj_vargs= $this->_wpezconfig->ez_get('viewargs', $str_method);
+			$vargs = $this->_vargs->get($str_method);
 
-			return $obj_vargs;
+			return $vargs;
 		}
 
 	}

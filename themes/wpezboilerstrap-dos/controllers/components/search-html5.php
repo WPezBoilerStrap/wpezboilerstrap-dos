@@ -5,12 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Search_HTML5')) {
 	class Search_HTML5 extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			// $this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * return string
@@ -27,7 +21,7 @@ if ( ! class_exists('Search_HTML5')) {
 			$obj_gv->args->use = 'defaults';
 			$obj_gv->method = 'render';
 
-			$str_ret = $this->ez_loader($obj_gv);
+			$str_ret = $this->ez_gtp_loader($obj_gv);
 
 			return $str_ret;
 		}

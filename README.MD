@@ -1,4 +1,4 @@
-# WPezBoilerStrap: Dos - v0.0.0.3 
+# WPezBoilerStrap: Dos - v0.0.0.4 
 #### A modern WordPress theme architecture, with a MVC state of mind, and empowered by WPezClasses.
 
 

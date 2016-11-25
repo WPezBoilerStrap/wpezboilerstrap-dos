@@ -5,12 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Tabs_Collapse')) {
 	class Tabs_Collapse extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * return string
@@ -27,7 +21,7 @@ if ( ! class_exists('Tabs_Collapse')) {
 			//$gv->args->use = "defaults";
 			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($gv);
+			$str_ret = $this->ez_gtp_loader($gv);
 
 			return $str_ret;
 		}
@@ -83,10 +77,10 @@ if ( ! class_exists('Tabs_Collapse')) {
 			$part->slug  = 'tabs-menu-categories';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Tabs_Menu_Categories';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_cats = $this->ez_loader($part);
+			$str_cats = $this->ez_gtp_loader($part);
 
 			$part        = new \stdClass();
 
@@ -95,10 +89,10 @@ if ( ! class_exists('Tabs_Collapse')) {
 			$part->slug  = 'tabs-menu-tags';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Tabs_Menu_Tags';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_tags = $this->ez_loader($part);
+			$str_tags = $this->ez_gtp_loader($part);
 
 
 			$part        = new \stdClass();
@@ -108,10 +102,10 @@ if ( ! class_exists('Tabs_Collapse')) {
 			$part->slug  = 'search-html5';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Search_HTML5';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_search = $this->ez_loader($part);
+			$str_search = $this->ez_gtp_loader($part);
 
 			$parts = new \stdClass();
 
@@ -139,9 +133,9 @@ if ( ! class_exists('Tabs_Collapse')) {
 		 */
 		protected function viewargs() {
 
-			$str_meth = 'tabs_collapse';
+			$str_method = 'tabs_collapse';
 
-			$obj_vargs = $this->_wpezconfig->ez_get('viewargs', $str_meth);
+			$obj_vargs = $this->_vargs->get($str_method);
 
 			return $obj_vargs;
 		}

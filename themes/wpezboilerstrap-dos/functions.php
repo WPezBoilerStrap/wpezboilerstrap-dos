@@ -11,19 +11,17 @@ if ( ! class_exists('Functions')){
     class Functions{
 
         function __construct(){
+	        
+	        get_template_part('app/scaffolding/scaffolding');
+	        new Scaffolding\Scaffolding();
 
-	        get_template_part('app\config\class-wpezconfig');
-
-	        $this->build_loader();
+	       // $this->build_loader();
 
             add_filter( 'the_content', array($this, 'the_content_filter') );
 
-	        // TODO move to a project-centric plugin, here for demo purposes only
-	        $hc = new \WPez\WPezClasses\Theme\Head_Cleanup();
-	        $hc->ez_loader();
         }
 
-        protected function build_loader(){
+        protected function Xbuild_loader(){
 
 	        $obj = WPezConfig::ez_new();
 

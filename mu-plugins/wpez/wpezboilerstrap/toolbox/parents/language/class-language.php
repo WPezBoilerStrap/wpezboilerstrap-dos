@@ -13,13 +13,13 @@ if ( ! defined('ABSPATH') ) {
 }
 
 if ( ! class_exists('Language') ) {
-	abstract class Language extends Singleton {
+	abstract class Language {
 
 		protected $_args;
 
-		 public function ez__construct($mix_args = '' ){
-		 	$this->_args = $mix_args;
-		 }
+		public function __construct($mix_args = '' ){
+			$this->_args = $mix_args;
+		}
 
 		public function get( $str_meth = '', $str_arg = '' ) {
 
@@ -27,7 +27,7 @@ if ( ! class_exists('Language') ) {
 				return $this->$str_meth($str_arg);
 			}
 
-			return new \stdClass();
+			return false;
 		}
 	}
 }

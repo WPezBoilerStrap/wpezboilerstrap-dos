@@ -13,11 +13,11 @@ if ( ! defined('ABSPATH') ) {
 }
 
 if ( ! class_exists('Viewargs') ) {
-	abstract class Viewargs extends Singleton {
+	abstract class Viewargs{ //} extends Singleton {
 
 		protected $_args;
 
-		public function ez__construct($mix_args = '' ){
+		public function __construct($mix_args = '' ){
 			$this->_args = $mix_args;
 		}
 
@@ -28,7 +28,7 @@ if ( ! class_exists('Viewargs') ) {
 				return $this->$str_meth($str_arg);
 			}
 
-			return new \stdClass();
+			return false;
 		}
 	}
 }

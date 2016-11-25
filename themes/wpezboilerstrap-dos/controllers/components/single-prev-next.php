@@ -5,12 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Single_Prev_Next')) {
 	class Single_Prev_Next extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * return string
@@ -25,7 +19,7 @@ if ( ! class_exists('Single_Prev_Next')) {
 		//	$obj->args->use = 'defaults';
 			$obj->method = 'render';
 
-			$str_ret = $this->ez_loader($obj);
+			$str_ret = $this->ez_gtp_loader($obj);
 
 			return $str_ret;
 		}
@@ -93,7 +87,7 @@ if ( ! class_exists('Single_Prev_Next')) {
 
 			$str_method = 'single_prev_next';
 
-			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method, 'TODO');
+			$vargs = $this->_vargs->get($str_method);
 
 			return $vargs;
 

@@ -5,12 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Header_Menu')) {
 	class Header_Menu extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * @return bool|string
@@ -25,7 +19,7 @@ if ( ! class_exists('Header_Menu')) {
 			$obj->args = $this->get_view_args();
 			$obj->method= 'render';
 
-			$str_ret = $this->ez_loader($obj);
+			$str_ret = $this->ez_gtp_loader($obj);
 
 			return $str_ret;
 		}
@@ -36,8 +30,7 @@ if ( ! class_exists('Header_Menu')) {
 		protected function language() {
 
 			$str_method = 'header_nav';
-
-			$obj_lang = $this->_wpezconfig->ez_get('language', $str_method);
+			$obj_lang = $this->_lang->get($str_method);
 
 			return $obj_lang;
 		}
@@ -88,7 +81,7 @@ if ( ! class_exists('Header_Menu')) {
 
 			$str_method = 'header_nav_bs3';
 
-			$obj_vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+			$obj_vargs = $this->_vargs->get($str_method);
 
 			return $obj_vargs;
 

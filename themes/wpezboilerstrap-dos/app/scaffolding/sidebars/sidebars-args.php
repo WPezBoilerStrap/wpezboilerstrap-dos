@@ -95,10 +95,6 @@ if ( !class_exists( 'Sidebars_Args' ) ) {
 	        $obj_rs->id = 'unique-sidebar-id-a';
 	        $obj_rs->description = 'This is a description';
 	        $obj_rs->class = 'some-class';
-	        $obj_rs->before_widgetx = '<li id="%1$s" class="widget %2$s">';
-	        $obj_rs->after_widgetx  = '</li>';
-	        $obj_rs->before_titlex  = '<h2 class="widgettitle">';
-	        $obj_rs->after_titlex   = '</h2>';
 
 	        $obj = new \stdClass();
 

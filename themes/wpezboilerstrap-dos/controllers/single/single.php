@@ -5,12 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Single')) {
 	class Single extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			// $this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * return string
@@ -24,7 +18,7 @@ if ( ! class_exists('Single')) {
 			$gv->args = $this->get_view_args();
 			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($gv);
+			$str_ret = $this->ez_gtp_loader($gv);
 
 			return $str_ret;
 		}
@@ -72,10 +66,10 @@ if ( ! class_exists('Single')) {
 			$part->slug  = 'tabs-collapse';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Tabs_Collapse';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_accord = $this->ez_loader($part);
+			$str_accord = $this->ez_gtp_loader($part);
 
 
 			$gtp_path = $this->gtp_path(__DIR__);
@@ -87,10 +81,10 @@ if ( ! class_exists('Single')) {
 			$part->slug  =  'single-main';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Single_Main';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_sing_wrap = $this->ez_loader($part);
+			$str_sing_wrap = $this->ez_gtp_loader($part);
 
 			// -
 			$part        = new \stdClass();
@@ -100,10 +94,10 @@ if ( ! class_exists('Single')) {
 			$part->slug  = 'single-prev-next';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Single_Prev_Next';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_sing_np = $this->ez_loader($part);
+			$str_sing_np = $this->ez_gtp_loader($part);
 
 			// -
 			$parts = new \stdClass();

@@ -5,12 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Blog_Loop')) {
 	class Blog_Loop extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			// $this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * return string
@@ -22,13 +16,13 @@ if ( ! class_exists('Blog_Loop')) {
 			$obj_gv = new \stdClass();
 
 			$obj_gv->active = true;
-			$obj_gv->class = '\\WPez\WPezBoilerStrap\Views\Posts\Post_Minimal_V1';
+			$obj_gv->class = '\\WPez\WPezBoilerStrap\Views\Posts\Post_List_Layout_V1';
 		//	$obj_gv->class = '\\WPez\WPezBoilerStrap\Views\Groups\Group_Four_V1';
 			$obj_gv->args = $this->get_view_args();
 			//$obj_gv->method = 'render';
 			$obj_gv->method = false;
 
-			$obj_view =$this->ez_loader($obj_gv);
+			$obj_view = $this->ez_gtp_loader($obj_gv);
 
 			$str_ret = '';
 			$arr_posts = $obj_gv->args->mod->posts;
@@ -41,41 +35,6 @@ if ( ! class_exists('Blog_Loop')) {
 			}
 
 			return $str_ret;
-
-			/**
-
-			$mac = '\WPez\WPezBoilerStrap\Toolbox\Tools\View_Macros';
-
-			$str_ret = '';
-
-			$gv = new \stdClass();
-
-			$gv->active = true;
-		//	$gv->class = '\\WPez\WPezBoilerStrap\Views\Posts\Post_List_Layout_V1';
-			$gv->class = '\\WPez\WPezBoilerStrap\Views\Posts\Post_Minimal_V1';
-
-			$gv->args = $this->get_view_args();
-			// $gv->args->use = "defaults";
-			$gv->method = false;  // false means we get an instance of the class back
-
-			$obj_view = $this->ez_loader($gv);
-
-			$str_ret = '';
-			$arr_posts = $gv->args->mod->posts;
-
-			foreach ($arr_posts as $key => $obj){
-
-				$obj_view->set_mod($obj);
-				$str_ret .= $obj_view->render_no_enclose();
-
-			}
-
-			$obj_enc = $mac::enclose($gv->args->vargs);
-
-			$str_ret =  $obj_enc->semantic_open . $obj_enc->view_wrapper_open . $str_ret . $obj_enc->view_wrapper_close . $obj_enc->semantic_close;
-
-			return $str_ret;
-			 * **/
 		}
 
 		/**
@@ -185,8 +144,6 @@ if ( ! class_exists('Blog_Loop')) {
 
 			return $vargs;
 		}
-
-
 
 	}
 }

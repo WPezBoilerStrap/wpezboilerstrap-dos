@@ -6,13 +6,6 @@ if ( ! class_exists('Tabs_Menu_Categories')) {
 	class Tabs_Menu_Categories extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
 
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
-
 		/**
 		 * return string
 		 */
@@ -28,7 +21,7 @@ if ( ! class_exists('Tabs_Menu_Categories')) {
 			// $obj->args->use = 'defaults';
 			$obj->method = 'render';
 
-			$str_ret = $this->ez_loader($obj);
+			$str_ret = $this->ez_gtp_loader($obj);
 			return $str_ret;
 		}
 
@@ -94,9 +87,9 @@ if ( ! class_exists('Tabs_Menu_Categories')) {
 
 			$str_method = 'tabs_menu_categories';
 
-			$obj_vargs = $this->_wpezconfig->get('viewargs');
+			$vargs = $this->_vargs->get($str_method);
 
-			return $obj_vargs->get($str_method);
+			return $vargs;
 		}
 
 

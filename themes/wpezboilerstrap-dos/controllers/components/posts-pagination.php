@@ -5,12 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Posts_Pagination')) {
 	class Posts_Pagination extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * return string
@@ -27,7 +21,7 @@ if ( ! class_exists('Posts_Pagination')) {
 		//	$obj_gv->args->use = 'defaults';
 			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($gv);
+			$str_ret = $this->ez_gtp_loader($gv);
 
 			return $str_ret;
 		}
@@ -99,7 +93,7 @@ if ( ! class_exists('Posts_Pagination')) {
 
 			$str_method = 'posts_pagination';
 
-			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+			$vargs = $this->_vargs->get($str_method);
 			return $vargs;
 		}
 

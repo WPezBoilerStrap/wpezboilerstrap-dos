@@ -5,23 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Footer_Group')) {
 	class Footer_Group extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
-
-		/**
-		 * - The Parent Controller has these standard "helper' methods:
-		 *
-		 * - get_path($str) - (where $str = __DIR__) will return the gtp friendly path of the current
-		 *  file. useful when loading pathials that are in the same folder
-		 *
-		 * - ez_loader$obj) - for loading controllers and views.
-		 *
-		 * - ez_clone($obj) - will clone a (WP) object and "reset" so its ez compatible.
-		 */
 
 		/**
 		 * return string
@@ -46,7 +29,7 @@ if ( ! class_exists('Footer_Group')) {
 			// note: if method is empty of false, ex_loader will return the init'ed obj of the class
 			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($gv);
+			$str_ret = $this->ez_gtp_loader($gv);
 
 
 			return $str_ret;
@@ -61,7 +44,7 @@ if ( ! class_exists('Footer_Group')) {
 
 			$str_method = 'TODO';
 
-			$lang = $this->_wpezconfig->ez_get('language', $str_method);
+			$lang = $this->_lang->get($str_method);
 			return $lang;
 		}
 
@@ -99,10 +82,10 @@ if ( ! class_exists('Footer_Group')) {
 			$part->slug  = 'footer';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Footer';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_foot = $this->ez_loader($part);
+			$str_foot = $this->ez_gtp_loader($part);
 
 			// -
 			$part        = new \stdClass();
@@ -112,10 +95,10 @@ if ( ! class_exists('Footer_Group')) {
 			$part->slug  = 'footer-bottom';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Footer_Bottom';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_foot_bott = $this->ez_loader($part);
+			$str_foot_bott = $this->ez_gtp_loader($part);
 
 			$parts = new \stdClass();
 
@@ -145,7 +128,7 @@ if ( ! class_exists('Footer_Group')) {
 			$vargs = new \stdClass();
 
 			$str_method = 'footer_wrapper';
-			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+			$vargs = $this->_vargs->get($str_method);
 			return $vargs;
 		}
 	}

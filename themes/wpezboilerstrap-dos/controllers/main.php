@@ -7,12 +7,6 @@ if ( ! class_exists('Main')) {
 	{
 		protected $_wpezconfig;
 
-		public function __construct() {
-
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
-
-
 		/**
 		 * @return bool|string
 		 */
@@ -25,7 +19,7 @@ if ( ! class_exists('Main')) {
 			$obj->args = $this->get_view_args();
 			$obj->method = 'render';
 
-			$str_ret = $this->ez_loader($obj);
+			$str_ret = $this->ez_gtp_loader($obj);
 
 			return $str_ret;
 		}
@@ -70,10 +64,8 @@ if ( ! class_exists('Main')) {
 				$part->slug  = 'page';
 				$part->name  = '';
 				$part->class = '\\WPezTheme\Page';
-				$part->args  = '';
+				$part->args  = $this->_gargs;
 				$part->method = 'get_view';
-
-				$parts->one = $this->ez_loader($part);
 
 			} elseif ( is_single() ) {
 
@@ -84,10 +76,8 @@ if ( ! class_exists('Main')) {
 				$part->slug  = 'single';
 				$part->name  = '';
 				$part->class = '\\WPezTheme\Single';
-				$part->args  = '';
+				$part->args  = $this->_gargs;
 				$part->method = 'get_view';
-
-				$parts->one = $this->ez_loader($part);
 
 			} elseif ( is_404() ){
 
@@ -98,10 +88,8 @@ if ( ! class_exists('Main')) {
 				$part->slug  = 'is-404';
 				$part->name  = '';
 				$part->class = '\\WPezTheme\Is_404';
-				$part->args  = '';
+				$part->args  = $this->_gargs;
 				$part->method = 'get_view';
-
-				$parts->one = $this->ez_loader($part);
 
 			} else {
 
@@ -112,12 +100,12 @@ if ( ! class_exists('Main')) {
 				$part->slug  = 'blog-group';
 				$part->name  = '';
 				$part->class = '\\WPezTheme\Blog_Group';
-				$part->args  = '';
+				$part->args  = $this->_gargs;
 				$part->method = 'get_view';
 
-				$parts->one = $this->ez_loader($part);
-
 			}
+
+			$parts->one = $this->ez_gtp_loader($part);
 			return $parts;
 		}
 
@@ -141,7 +129,7 @@ if ( ! class_exists('Main')) {
 			$vargs = new \stdClass();
 
 			$str_method = 'main';
-			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+			$vargs = $this->_vargs->get($str_method);
 
 			return $vargs;
 		}

@@ -13,14 +13,13 @@ if ( ! defined('ABSPATH') ) {
 }
 
 if ( ! class_exists('Options') ) {
-	abstract class Options extends Singleton {
+	abstract class Options {
 
 		protected $_args;
 
-		public function ez__construct($mix_args = ''){
+		public function __construct($mix_args = '' ){
 			$this->_args = $mix_args;
 		}
-
 
 		public function get( $str_meth = '', $str_arg = '' ) {
 
@@ -28,7 +27,7 @@ if ( ! class_exists('Options') ) {
 				return $this->$str_meth($str_arg, $str_arg);
 			}
 
-			return new \stdClass();
+			return false;
 		}
 
 		abstract protected function globals();

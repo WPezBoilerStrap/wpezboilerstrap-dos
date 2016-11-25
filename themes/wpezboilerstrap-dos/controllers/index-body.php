@@ -5,13 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists( 'Index_Body')) {
 	class Index_Body extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-			$this->_wpezconfig = WPezConfig::ez_new();
-
-		}
-
 
 		/**
 		 * @return mixed
@@ -25,7 +18,7 @@ if ( ! class_exists( 'Index_Body')) {
 			$gv->args = $this->get_view_args();
 			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($gv);
+			$str_ret = $this->ez_gtp_loader($gv);
 
 			return $str_ret;
 
@@ -63,10 +56,10 @@ if ( ! class_exists( 'Index_Body')) {
 			$part->slug  = 'header';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Header';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_header = $this->ez_loader($part);
+			$str_header = $this->ez_gtp_loader($part);
 
 			//
 			$part        = new \stdClass();
@@ -76,10 +69,10 @@ if ( ! class_exists( 'Index_Body')) {
 			$part->slug  = 'main';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\main';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_main = $this->ez_loader($part);
+			$str_main = $this->ez_gtp_loader($part);
 
 			//
 			$part        = new \stdClass();
@@ -89,10 +82,10 @@ if ( ! class_exists( 'Index_Body')) {
 			$part->slug  = 'footer-group';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Footer_Group';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_footer  = $this->ez_loader($part);
+			$str_footer  = $this->ez_gtp_loader($part);
 
 			//
 			$parts = new \stdClass();
@@ -119,10 +112,8 @@ if ( ! class_exists( 'Index_Body')) {
 		 */
 		protected function viewargs() {
 
-			$vargs = new \stdClass();
-
 			$str_method = 'index_body';
-			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+			$vargs = $this->_vargs->get($str_method);
 
 			return $vargs;
 		}

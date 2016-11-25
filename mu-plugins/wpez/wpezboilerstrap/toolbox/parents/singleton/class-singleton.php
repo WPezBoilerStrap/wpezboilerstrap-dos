@@ -18,7 +18,7 @@ if ( ! class_exists('Singleton') ){
 		// this is where we store the instances
 		private static $arr_instances = array();
 
-		protected function __construct() {}
+		protected function __construct(){}
 
 		public static function ez_new($mix_args = NULL) {
 
@@ -31,6 +31,7 @@ if ( ! class_exists('Singleton') ){
 				self::$arr_instances[$str_key] = new $str_gcc();
 				// note: the mix_args passed in are passed again
 				self::$arr_instances[$str_key]->ez__construct($mix_args);
+
 			}
 			return self::$arr_instances[$str_key];
 		}

@@ -13,14 +13,13 @@ if ( ! defined('ABSPATH') ) {
 }
 
 if ( ! class_exists('Router') ) {
-	abstract class Router extends Singleton {
+	abstract class Router {
 
 		protected $_args;
 
-		public function ez__construct($mix_args = '' ){
+		public function __construct($mix_args = '' ){
 			$this->_args = $mix_args;
 		}
-
 
 		public function get( $str_meth = 'route', $str_arg = '' ) {
 
@@ -28,15 +27,16 @@ if ( ! class_exists('Router') ) {
 				return $this->$str_meth($str_arg);
 			}
 
-			return '';
+			return false;
 		}
-
-		abstract protected function environment();
-
-		abstract protected function user();
 
 		abstract protected function branch();
 
+		abstract protected function environment();
+
 		abstract protected function route();
+
+		abstract protected function user();
+
 	}
 }

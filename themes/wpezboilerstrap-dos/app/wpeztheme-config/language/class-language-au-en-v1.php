@@ -7,9 +7,6 @@ if ( ! class_exists('Language_AU_En_V1')){
 
     	private $_brand = 'WPezBoilerStrap';
 
-	    public function ez__construct() {
-		    // TODO: Implement ez__construct() method.
-	    }
 
 	    public function index() {
 

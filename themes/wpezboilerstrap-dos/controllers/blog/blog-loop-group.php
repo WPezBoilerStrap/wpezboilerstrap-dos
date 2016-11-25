@@ -5,12 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Blog_Loop_Group')) {
 	class Blog_Loop_Group extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			// $this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * return string
@@ -26,7 +20,7 @@ if ( ! class_exists('Blog_Loop_Group')) {
 			$obj_gv->args = $this->get_view_args();
 			$obj_gv->method = 'render';
 
-			$str_ret = $this->ez_loader($obj_gv);
+			$str_ret = $this->ez_gtp_loader($obj_gv);
 
 			return $str_ret;
 		}
@@ -62,10 +56,10 @@ if ( ! class_exists('Blog_Loop_Group')) {
 			$part->slug_path = 'controllers\blog';
 			$part->slug  = 'blog-loop';
 			$part->class = '\\WPezTheme\Blog_Loop';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_blog_loop = $this->ez_loader($part);
+			$str_blog_loop = $this->ez_gtp_loader($part);
 
 			$parts = new \stdClass();
 			$parts->one = $str_blog_loop;

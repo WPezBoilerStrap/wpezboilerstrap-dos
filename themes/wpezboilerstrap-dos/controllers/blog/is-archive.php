@@ -5,12 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Is_Archive')) {
 	class Is_Archive extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * - The Parent Controller has these standard "helper' methods:
@@ -45,7 +39,7 @@ if ( ! class_exists('Is_Archive')) {
 			// note: if method is empty of false, ex_loader will return the init'ed obj of the class
 			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($gv);
+			$str_ret = $this->ez_gtp_loader($gv);
 
 
 			return $str_ret;
@@ -133,7 +127,7 @@ if ( ! class_exists('Is_Archive')) {
 			// $vargs = new \stdClass();
 
 			$str_method = 'is_archive';
-			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+			$vargs = $this->_vargs->get($str_method);
 
 			$vargs->icon_tag = 'i';
 			$vargs->icon_global_attrs = array();
@@ -164,8 +158,6 @@ if ( ! class_exists('Is_Archive')) {
 				$vargs->icon_tag = false;
 
 			}
-
-
 
 			return $vargs;
 		}

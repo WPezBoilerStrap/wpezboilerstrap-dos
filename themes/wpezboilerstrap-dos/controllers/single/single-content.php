@@ -3,14 +3,8 @@
 namespace WPezTheme;
 
 if ( ! class_exists('Single_Content')) {
-	class Single_Content extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
-	{
-		protected $_wpezconfig;
+	class Single_Content extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller {
 
-		public function __construct() {
-
-			// $this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * return string
@@ -24,7 +18,7 @@ if ( ! class_exists('Single_Content')) {
 			$obj->args = $this->get_view_args();
 			$obj->method = 'render';
 
-			$str_ret = $this->ez_loader($obj);
+			$str_ret = $this->ez_gtp_loader($obj);
 
 			return $str_ret;
 		}

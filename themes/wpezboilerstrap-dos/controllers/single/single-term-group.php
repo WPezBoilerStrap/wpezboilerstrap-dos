@@ -5,23 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Single_Term_Group')) {
 	class Single_Term_Group extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
-
-		/**
-		 * - The Parent Controller has these standard "helper' methods:
-		 *
-		 * - get_path($str) - (where $str = __DIR__) will return the gtp friendly path of the current
-		 *  file. useful when loading pathials that are in the same folder
-		 *
-		 * - ez_loader$obj) - for loading controllers and views.
-		 *
-		 * - ez_clone($obj) - will clone a (WP) object and "reset" so its ez compatible.
-		 */
 
 		/**
 		 * return string
@@ -43,7 +26,7 @@ if ( ! class_exists('Single_Term_Group')) {
 			// $gv->args->use = 'defaults';
 			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($gv);
+			$str_ret = $this->ez_gtp_loader($gv);
 
 			return $str_ret;
 		}
@@ -57,7 +40,7 @@ if ( ! class_exists('Single_Term_Group')) {
 
 			$str_method = 'TODO';
 
-			$lang = $this->_wpezconfig->ez_get('language', $str_method);
+			$lang = $this->_lang->get($str_method);
 			return $lang;
 		}
 
@@ -95,10 +78,10 @@ if ( ! class_exists('Single_Term_Group')) {
 			$part->slug  = 'single-term-category';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Single_Term_Category';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_term_cats = $this->ez_loader($part);
+			$str_term_cats = $this->ez_gtp_loader($part);
 
 			$part        = new \stdClass();
 
@@ -107,10 +90,10 @@ if ( ! class_exists('Single_Term_Group')) {
 			$part->slug  = 'single-term-post-tag';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Single_Term_Post_Tag';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_term_tags = $this->ez_loader($part);
+			$str_term_tags = $this->ez_gtp_loader($part);
 
 			$parts = new \stdClass();
 

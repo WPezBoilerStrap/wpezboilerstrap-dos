@@ -5,13 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists( 'Single_Term_Post_Tag' ) ) {
 	class Single_Term_Post_Tag extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller {
 
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
-
 		/**
 		 * return string
 		 */
@@ -26,7 +19,7 @@ if ( ! class_exists( 'Single_Term_Post_Tag' ) ) {
 			$obj->args = $this->get_view_args();
 			$obj->method = 'render';
 
-			$str_ret = $this->ez_loader($obj);
+			$str_ret = $this->ez_gtp_loader($obj);
 
 			return $str_ret;
 		}
@@ -100,9 +93,9 @@ if ( ! class_exists( 'Single_Term_Post_Tag' ) ) {
 
 			$str_method = 'single_term_post_tag';
 
-			$obj_vargs = $this->_wpezconfig->get('viewargs');
+			$vargs = $this->_vargs->get($str_method);
 
-			return $obj_vargs->get($str_method);
+			return $vargs;
 		}
 
 

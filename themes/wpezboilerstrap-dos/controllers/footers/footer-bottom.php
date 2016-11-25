@@ -5,12 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Footer_Bottom')) {
 	class Footer_Bottom extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * @return bool|string
@@ -26,7 +20,7 @@ if ( ! class_exists('Footer_Bottom')) {
 			$gv->args = $this->get_view_args();
 			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($gv);
+			$str_ret = $this->ez_gtp_loader($gv);
 
 			return $str_ret;
 		}
@@ -37,7 +31,7 @@ if ( ! class_exists('Footer_Bottom')) {
 		protected function language() {
 
 			$str_method = 'footer_bottom';
-			$lang = $this->_wpezconfig->ez_get('language', $str_method);
+			$lang = $this->_lang->get($str_method);
 			return $lang;
 		}
 
@@ -81,7 +75,7 @@ if ( ! class_exists('Footer_Bottom')) {
 			$vargs = new \stdClass();
 
 			$str_method = 'footer_bottom';
-			$vargs= $this->_wpezconfig->ez_get('viewargs', $str_method);
+			$vargs = $this->_vargs->get($str_method);
 			return $vargs;
 		}
 

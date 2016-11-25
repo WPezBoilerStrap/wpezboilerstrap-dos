@@ -46,9 +46,20 @@ if ( ! class_exists('Cloning') ) {
 			$obj_new->orig_obj = clone $obj;
 
 			// is there anything additional we want to do with this type of obj?
+			/*
 			$str_method = 'ez_clone_' . $str_class_lower;
 			if ( $bool_ezx !== false && method_exists( $this, $str_method ) ) {
 				$obj_new = $this->$str_method( $obj_new );
+			}
+			*/
+			switch ($str_class_lower){
+
+				case 'wp_term':
+					$obj_new = $this->ez_clone_wp_term($obj_new);
+					break;
+				default:
+					// more or less wp_post (at this point)
+					$obj_new = $this->ez_clone_wp_post($obj_new);
 			}
 			return $obj_new;
 		}
@@ -76,8 +87,15 @@ if ( ! class_exists('Cloning') ) {
 			// standard added properties are based on post_type
 			$str_post_type_lower = strtolower( $obj_new->orig_obj->post_type );
 			$str_method          = 'ez_clone_wp_post_' . $str_post_type_lower;
-			if ( method_exists( $this, $str_method ) ) {
-				$obj_new = $this->$str_method( $obj_new );
+
+			switch ($str_post_type_lower){
+
+				case 'wp_term':
+					$obj_new = $this->ez_clone_wp_post_nav_menu_item($obj_new);
+					break;
+				default:
+					//
+					$obj_new = $this->ez_clone_wp_post_post($obj_new);
 			}
 
 			return $obj_new;
@@ -130,6 +148,11 @@ if ( ! class_exists('Cloning') ) {
 			$obj_new->url = get_permalink( $obj_new->orig_obj->ID );
 			$obj_new->anchor_text   = $obj_new->orig_obj->post_title;
 			$obj_new->title   = $obj_new->orig_obj->post_title;
+
+			$str_the_content = $obj_new->orig_obj->post_content;
+			$str_the_content = apply_filters( 'the_content', $str_the_content );
+			$str_the_content = str_replace( ']]>', ']]&gt;', $str_the_content );
+			$obj_new->get_the_content = $str_the_content;
 
 			// img
 			$temp = new \stdClass();

@@ -5,12 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Single_Main')) {
 	class Single_Main extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct() {
-
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * return string
@@ -24,7 +18,7 @@ if ( ! class_exists('Single_Main')) {
 			$gv->args = $this->get_view_args();
 			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($gv);
+			$str_ret = $this->ez_gtp_loader($gv);
 
 			return $str_ret;
 		}
@@ -74,10 +68,10 @@ if ( ! class_exists('Single_Main')) {
 			$part->slug  = 'single-post-header';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Single_Post_Header';
-			$part->args  = $this->model();
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_sing_ph = $this->ez_loader($part);
+			$str_sing_ph = $this->ez_gtp_loader($part);
 
 			// -
 			$part        = new \stdClass();
@@ -87,10 +81,10 @@ if ( ! class_exists('Single_Main')) {
 			$part->slug  = 'single-content';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Single_Content';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_sing_con = $this->ez_loader($part);
+			$str_sing_con = $this->ez_gtp_loader($part);
 
 			$parts = new \stdClass();
 
@@ -117,10 +111,8 @@ if ( ! class_exists('Single_Main')) {
 		 */
 		protected function viewargs() {
 
-			$vargs = new \stdClass();
-
 			$str_method = 'single_main';
-			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+			$vargs = $this->_vargs->get($str_method);
 
 			return $vargs;
 		}

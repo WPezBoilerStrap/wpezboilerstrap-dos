@@ -5,12 +5,6 @@ namespace WPezTheme;
 if ( ! class_exists('Single_Post_Header')) {
 	class Single_Post_Header extends \WPez\WPezBoilerStrap\Toolbox\Parents\Controller
 	{
-		protected $_wpezconfig;
-
-		public function __construct($mix_args = '') {
-
-			$this->_wpezconfig = WPezConfig::ez_new();
-		}
 
 		/**
 		 * return string
@@ -24,7 +18,7 @@ if ( ! class_exists('Single_Post_Header')) {
 			$gv->args = $this->get_view_args();
 			$gv->method = 'render';
 
-			$str_ret = $this->ez_loader($gv);
+			$str_ret = $this->ez_gtp_loader($gv);
 
 			return $str_ret;
 		}
@@ -81,17 +75,17 @@ if ( ! class_exists('Single_Post_Header')) {
 			$part->slug  = 'single-term-group';
 			$part->name  = '';
 			$part->class = '\\WPezTheme\Single_Term_Group';
-			$part->args  = '';
+			$part->args  = $this->_gargs;
 			$part->method = 'get_view';
 
-			$str_term_wrap = $this->ez_loader($part);
+			$str_term_wrap = $this->ez_gtp_loader($part);
 
 			$part        = new \stdClass();
 
 			$part->active = false; // <<<
 			$part->slug_path = $gtp_path;
 			$part->slug  = 'single-term-post-tag';
-			$part->name  = '';
+			$part->name  = $this->_gargs;
 			$part->class = '\\WPezTheme\Single_Term_Post_tag';
 			$part->method = 'get_view';
 
@@ -121,10 +115,8 @@ if ( ! class_exists('Single_Post_Header')) {
 		 */
 		protected function viewargs() {
 
-			$vargs = new \stdClass();
-
 			$str_method = 'single_post_header';
-			$vargs = $this->_wpezconfig->ez_get('viewargs', $str_method);
+			$vargs = $this->_vargs->get($str_method);
 
 			return $vargs;
 		}

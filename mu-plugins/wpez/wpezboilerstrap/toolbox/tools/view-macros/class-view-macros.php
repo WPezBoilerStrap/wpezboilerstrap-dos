@@ -140,7 +140,7 @@ if ( ! class_exists( 'View_Macros' ) ) {
 
 				$str_link_open  = '';
 				$str_link_close = '';
-				if ( filter_var( $mod->url, FILTER_VALIDATE_URL ) && $vargs->url_active != false ) {
+				if ( isset($mod->url) && filter_var( $mod->url, FILTER_VALIDATE_URL ) && $vargs->url_active != false ) {
 
 					$str_link_open  = '<a href="' . esc_url( $mod->url ) . '" ' . self::global_attrs( $vargs->url_global_attrs ) . '>';
 					$str_link_close = '</a>';
@@ -164,7 +164,7 @@ if ( ! class_exists( 'View_Macros' ) ) {
 
 			$vargs->title_active = true;
 
-			$vargs->title_wrapper_tag          = 'span';
+			$vargs->title_wrapper_tag          = 'div';
 			$vargs->title_wrapper_global_attrs = array(
 				'class' => 'ez-post-title-wrapper'
 			);
@@ -239,13 +239,13 @@ if ( ! class_exists( 'View_Macros' ) ) {
 			$vargs->url_active       = true;
 			$vargs->url_global_attrs = array();
 
-			$vargs->date_icon_tag          = ''; // 'i'
+			$vargs->date_icon_tag          = false; // 'i'
 			$vargs->date_icon_global_attrs = array(); // 'class' => 'fa fa-calendar fa-fw'
 			$vargs->date_text_tag          = 'span';
 			$vargs->date_text_global_attrs = array(
 				'class' => 'ez-screen-reader-text'
 			);
-			$vargs->date_text              = 'Published';
+			$vargs->date_text              = 'Published: ';
 
 			$vargs->post_date_tag          = 'span';
 			$vargs->post_date_global_attrs = array();
@@ -321,7 +321,7 @@ if ( ! class_exists( 'View_Macros' ) ) {
 			$vargs->user_posts_url_active       = true;
 			$vargs->user_posts_url_global_attrs = array();
 
-			$vargs->author_icon_tag          = 'i';
+			$vargs->author_icon_tag          = false;
 			$vargs->author_icon_global_attrs = array(); // 'class' => 'fa fa-calendar fa-fw'
 
 			$vargs->author_text_tag          = 'span';
@@ -379,7 +379,7 @@ if ( ! class_exists( 'View_Macros' ) ) {
 				'itemprop' => 'articleSection'
 			);
 
-			$vargs->category_icon_tag          = 'i';
+			$vargs->category_icon_tag          = false;
 			$vargs->category_icon_global_attrs = array();
 			$vargs->category_text_tag          = 'span';
 			$vargs->category_text_global_attrs = array();
@@ -430,7 +430,7 @@ if ( ! class_exists( 'View_Macros' ) ) {
 				'itemprop' => 'keywords'
 			);
 
-			$vargs->post_tag_icon_tag          = 'i';
+			$vargs->post_tag_icon_tag          = false;
 			$vargs->post_tag_icon_global_attrs = array();
 
 			$vargs->post_tag_text_tag          = 'span';
@@ -494,7 +494,7 @@ if ( ! class_exists( 'View_Macros' ) ) {
 			$vargs->term_wrapper_tag          = 'span';
 			$vargs->term_wrapper_global_attrs = array();
 
-			$vargs->term_icon_tag          = 'i';
+			$vargs->term_icon_tag          = false;
 			$vargs->term_icon_global_attrs = array();
 			$vargs->term_text_tag          = 'span';
 			$vargs->term_text_global_attrs = array();
@@ -732,7 +732,7 @@ if ( ! class_exists( 'View_Macros' ) ) {
 					$str_ret .= self::element_open( $vargs->content_wrapper_tag, $vargs->content_wrapper_global_attrs );
 					$str_ret .= self::element_open( $vargs->content_tag, $vargs->content_global_attrs );
 
-					$str_ret .= wp_kses_post( $mod->orig_obj->post_content );
+					$str_ret .= wp_kses_post( $mod->get_the_content );
 
 					$str_ret .= self::element_close( $vargs->content_tag );
 					$str_ret .= self::element_close( $vargs->content_wrapper_tag );
